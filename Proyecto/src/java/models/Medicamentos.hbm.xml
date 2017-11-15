@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15/11/2017 02:18:11 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Medicamentos" table="medicamentos" catalog="bdveterinaria" optimistic-lock="version">
+        <id name="idMedicamento" type="java.lang.Integer">
+            <column name="idMedicamento" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="citas" class="models.Citas" fetch="select">
+            <column name="Citas_idCitas_Medicas" />
+        </many-to-one>
+        <many-to-one name="hospitalizacion" class="models.Hospitalizacion" fetch="select">
+            <column name="Hospitalizacion_idHospitalizacion" />
+        </many-to-one>
+        <many-to-one name="veterinario" class="models.Veterinario" fetch="select">
+            <column name="Veterinario_idVeterinario" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="40" not-null="true" />
+        </property>
+        <property name="laboratorio" type="string">
+            <column name="Laboratorio" length="45" not-null="true" />
+        </property>
+        <property name="lote" type="string">
+            <column name="Lote" length="45" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="Fecha" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
