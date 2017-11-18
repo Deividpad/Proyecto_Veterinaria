@@ -1,5 +1,5 @@
 package models;
-// Generated 17/11/2017 09:31:25 PM by Hibernate Tools 4.3.1
+// Generated 17/11/2017 10:10:41 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,6 +17,7 @@ public class Propietario  implements java.io.Serializable {
      private String apellidos;
      private String genero;
      private long telefono;
+     private String correo;
      private String direccion;
      private String ciudad;
      private String estado;
@@ -26,22 +27,24 @@ public class Propietario  implements java.io.Serializable {
     }
 
 	
-    public Propietario(long documento, String nombres, String apellidos, String genero, long telefono, String direccion, String ciudad, String estado) {
+    public Propietario(long documento, String nombres, String apellidos, String genero, long telefono, String correo, String direccion, String ciudad, String estado) {
         this.documento = documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.genero = genero;
         this.telefono = telefono;
+        this.correo = correo;
         this.direccion = direccion;
         this.ciudad = ciudad;
         this.estado = estado;
     }
-    public Propietario(long documento, String nombres, String apellidos, String genero, long telefono, String direccion, String ciudad, String estado, Set mascotas) {
+    public Propietario(long documento, String nombres, String apellidos, String genero, long telefono, String correo, String direccion, String ciudad, String estado, Set mascotas) {
        this.documento = documento;
        this.nombres = nombres;
        this.apellidos = apellidos;
        this.genero = genero;
        this.telefono = telefono;
+       this.correo = correo;
        this.direccion = direccion;
        this.ciudad = ciudad;
        this.estado = estado;
@@ -89,6 +92,13 @@ public class Propietario  implements java.io.Serializable {
     
     public void setTelefono(long telefono) {
         this.telefono = telefono;
+    }
+    public String getCorreo() {
+        return this.correo;
+    }
+    
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     public String getDireccion() {
         return this.direccion;
