@@ -62,12 +62,12 @@
                             <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                             <ul class="dropdown-menu user-dropdown">
 
-                                <li><a href="ClientesController?action=update&id=<span class="fa fa-user"></span> My Profile</a></li>                                                                                                        
+                                <li><a href="ClientesController?action=update&id=<span class=" class="fa fa-user"></span> My Profile</a></li>                                                                                                        
 
                                 <li role="separator" class="divider"></li>
                                 <li class="more">
                                     <ul>                                      
-                                        <li style="margin-left: 50px;"><a href="LoginController?action=exitclient"><span class="fa fa-power-off "></span></a></li>                                      
+                                        <li style="margin-left: 50px;"><a href="Inicio.jsp"><span class="fa fa-power-off "></span></a></li>                                      
                                     </ul>
                                 </li>
                             </ul>

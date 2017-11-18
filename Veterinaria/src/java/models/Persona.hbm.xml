@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/11/2017 10:10:42 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 18/11/2017 02:45:10 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="models.Persona" table="persona" catalog="bdveterinaria" optimistic-lock="version">
         <id name="idVeterinario" type="java.lang.Integer">
@@ -33,7 +33,7 @@
             <column name="Ciudad" length="45" not-null="true" />
         </property>
         <property name="perfil" type="string">
-            <column name="Perfil" length="45" not-null="true" />
+            <column name="Perfil" length="14" not-null="true" />
         </property>
         <property name="especialidad" type="string">
             <column name="Especialidad" length="45" />

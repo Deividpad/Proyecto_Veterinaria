@@ -1,5 +1,5 @@
 package models;
-// Generated 17/11/2017 10:10:41 PM by Hibernate Tools 4.3.1
+// Generated 18/11/2017 02:45:07 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -20,6 +20,7 @@ public class Propietario  implements java.io.Serializable {
      private String correo;
      private String direccion;
      private String ciudad;
+     private String contrasena;
      private String estado;
      private Set mascotas = new HashSet(0);
 
@@ -27,7 +28,7 @@ public class Propietario  implements java.io.Serializable {
     }
 
 	
-    public Propietario(long documento, String nombres, String apellidos, String genero, long telefono, String correo, String direccion, String ciudad, String estado) {
+    public Propietario(long documento, String nombres, String apellidos, String genero, long telefono, String correo, String direccion, String ciudad, String contrasena, String estado) {
         this.documento = documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -36,9 +37,10 @@ public class Propietario  implements java.io.Serializable {
         this.correo = correo;
         this.direccion = direccion;
         this.ciudad = ciudad;
+        this.contrasena = contrasena;
         this.estado = estado;
     }
-    public Propietario(long documento, String nombres, String apellidos, String genero, long telefono, String correo, String direccion, String ciudad, String estado, Set mascotas) {
+    public Propietario(long documento, String nombres, String apellidos, String genero, long telefono, String correo, String direccion, String ciudad, String contrasena, String estado, Set mascotas) {
        this.documento = documento;
        this.nombres = nombres;
        this.apellidos = apellidos;
@@ -47,6 +49,7 @@ public class Propietario  implements java.io.Serializable {
        this.correo = correo;
        this.direccion = direccion;
        this.ciudad = ciudad;
+       this.contrasena = contrasena;
        this.estado = estado;
        this.mascotas = mascotas;
     }
@@ -113,6 +116,13 @@ public class Propietario  implements java.io.Serializable {
     
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
+    }
+    public String getContrasena() {
+        return this.contrasena;
+    }
+    
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
     public String getEstado() {
         return this.estado;

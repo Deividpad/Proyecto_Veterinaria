@@ -109,7 +109,7 @@ public class LoginController extends HttpServlet {
         } else {
 
             try {
-                response.sendRedirect("LoginPropieatario.jsp?error=true");//Se pierde la información
+                response.sendRedirect("LoginPropietario.jsp?error=true");//Se pierde la información
             } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -43,11 +43,11 @@
 
                         <i class="icons icon-arrow-down"></i>
                         <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                            <input class="btn col-md-12" type="button" onclick="location.href = 'LoginEmpleado.jsp'" value="Empleado"/>                            
+                            <input class="btn col-md-12" type="button" onclick="location.href = 'LoginPersona.jsp'" value="Persona"/>                            
                             <span class="bar"></span>                            
                         </div>
                         <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                            <input class="btn col-md-12" type="button" onclick="location.href = 'LoginClientes.jsp'" value="Cliente"/>
+                            <input class="btn col-md-12" type="button" onclick="location.href = 'LoginPropietario.jsp'" value="Propietario"/>
                             <span class="bar"></span>                           
                         </div>
                         
