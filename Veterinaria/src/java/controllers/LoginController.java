@@ -5,12 +5,23 @@
  */
 package controllers;
 
+/*import Models.Carreras;
+import Modleo.NewHibernateUtil;
+import Modleo.Usuarios;*/
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.HibernateUtil;
+//import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -30,21 +41,113 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        session.invalidate();
+        if (action.equalsIgnoreCase("intoemple")) {
+            ingresarClientes(request, response);
+        } /*else if (action.equalsIgnoreCase("intoemple")) {
+            ingresarEmpleados(request, response);
+        } else if (action.equalsIgnoreCase("exitclient")) {
+            exitClient(request, response);
+        } else if (action.equalsIgnoreCase("exitemple")) {
+            exitEmpleados(request, response);
+        } */
+    }
+
+    private void ingresarClientes(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Query q = sesion.createQuery("FROM Persona WHERE correo =? AND contrasena =? ");
+        q.setString(0, request.getParameter("correo"));
+        String contrasenaencriptada = (request.getParameter("contrasena"));
+        //String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
+        q.setString(1, contrasenaencriptada);
+        ArrayList listaObjetos = (ArrayList) q.list();
+        //Verifica contraseña
+        if (listaObjetos.size() >= 1) {
+            out.print("Entro");
+            /*HttpSession session = request.getSession();
+            Clientes cliente = (Clientes) listaObjetos.get(0);
+            session.setAttribute("User", "Cliente");
+            String idcliente = cliente.getIdCliente().toString();
+            session.setAttribute("id", idcliente);
+            session.setAttribute("razon_social", cliente.getRazonSocial());*/
+            response.sendRedirect("CotizacionesController?action=admin");//Se pierde la información          
+            sesion.close();
+        } else {
+            out.print("No entro");
+            /*try {
+                response.sendRedirect("LoginClientes.jsp?error=true");//Se pierde la información
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /*private void ingresarEmpleados(HttpServletRequest request, HttpServletResponse response) {
+
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Query q = sesion.createQuery("FROM Empleados WHERE correo =? AND contrasena=? ");
+        q.setString(0, request.getParameter("correo"));
+        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
+        q.setString(1, contrasenaencriptada);
+
+        //Query q = sesion.createQuery("FROM Odontologos WHERE especialidad = 'General'"); Con el WHERE para condición        
+        ArrayList listaObjetos = (ArrayList) q.list();
+
+        if (listaObjetos.size() >= 1) {
+            HttpSession session = request.getSession();
+            Empleados empleado = (Empleados) listaObjetos.get(0);
+            session.setAttribute("User", "Empleado");
+            session.setAttribute("Rol", empleado.getPerfil());
+            session.setAttribute("Correo", empleado.getCorreo());
+            session.setAttribute("idempleado", empleado.getIdEmpleado());
+
+            try {
+                response.sendRedirect("CotizacionesController?action=admin");//Se pierde la información
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            sesion.close();
+        } else {
+
+            try {
+                response.sendRedirect("LoginEmpleado.jsp?error=true");//Se pierde la información
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
+    private void exitClient(HttpServletRequest request, HttpServletResponse response) {
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+        try {
+            response.sendRedirect("LoginClientes.jsp");//Se pierde la información
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void exitEmpleados(HttpServletRequest request, HttpServletResponse response) {
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        try {
+            response.sendRedirect("LoginEmpleado.jsp");//Se pierde la información
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }*/
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
