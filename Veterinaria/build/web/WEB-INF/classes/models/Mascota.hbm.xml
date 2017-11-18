@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/11/2017 09:31:28 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Mascota" table="mascota" catalog="bdveterinaria" optimistic-lock="version">
+        <id name="idMascotas" type="java.lang.Integer">
+            <column name="idMascotas" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="propietario" class="models.Propietario" fetch="select">
+            <column name="Propietario" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="60" not-null="true" />
+        </property>
+        <property name="foto" type="string">
+            <column name="Foto" length="200" not-null="true" />
+        </property>
+        <property name="peso" type="float">
+            <column name="Peso" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="talla" type="float">
+            <column name="Talla" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="especie" type="string">
+            <column name="Especie" length="7" not-null="true" />
+        </property>
+        <property name="raza" type="string">
+            <column name="Raza" length="45" not-null="true" />
+        </property>
+        <property name="sexo" type="string">
+            <column name="Sexo" length="7" not-null="true" />
+        </property>
+        <property name="fechaNacimiento" type="date">
+            <column name="FechaNacimiento" length="10" not-null="true" />
+        </property>
+        <property name="alimentacion" type="string">
+            <column name="Alimentacion" length="65535" not-null="true" />
+        </property>
+        <property name="medicamentos" type="string">
+            <column name="Medicamentos" length="45" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="Observaciones" length="65535" />
+        </property>
+        <property name="estado" type="string">
+            <column name="Estado" length="8" not-null="true" />
+        </property>
+        <set name="citases" table="citas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Mascota" not-null="true" />
+            </key>
+            <one-to-many class="models.Citas" />
+        </set>
+        <set name="hospitalizacions" table="hospitalizacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Mascota" not-null="true" />
+            </key>
+            <one-to-many class="models.Hospitalizacion" />
+        </set>
+    </class>
+</hibernate-mapping>
