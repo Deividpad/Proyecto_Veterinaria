@@ -21,10 +21,10 @@
         <link href="asset/css/style.css" rel="stylesheet">
         <!-- end: Css -->
 
-
         <link rel="stylesheet" href="asset/Mensajes/themes/alertify.default.css" />           
         <script type="text/javascript" src="asset/Mensajes/lib/alertify.js"></script>
         <link rel="stylesheet" href="asset/Mensajes/themes/alertify.core.css" />
+
         <!-- Modal 
         <link rel="stylesheet" type="text/css" href="bootstrap.css">
         <script src="jquery-3.1.1.min.js"></script>
@@ -56,7 +56,7 @@
 
 
                     <ul class="nav navbar-nav navbar-right user-nav">
-                        
+
                         <li class="dropdown avatar-dropdown">
 
                             <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>

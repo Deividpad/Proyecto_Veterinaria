@@ -44,18 +44,19 @@ public class LoginController extends HttpServlet {
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         session.invalidate();
-        if (action.equalsIgnoreCase("intoemple")) {
-            ingresarClientes(request, response);
-        } /*else if (action.equalsIgnoreCase("intoemple")) {
-            ingresarEmpleados(request, response);
-        } else if (action.equalsIgnoreCase("exitclient")) {
+        if (action.equalsIgnoreCase("intoerpsona")) {
+            ingresarPersona(request, response);
+        } else if (action.equalsIgnoreCase("intopropietario")) {
+            ingresarPropietario(request, response);
+        }
+        /*else if (action.equalsIgnoreCase("exitclient")) {
             exitClient(request, response);
         } else if (action.equalsIgnoreCase("exitemple")) {
             exitEmpleados(request, response);
         } */
     }
 
-    private void ingresarClientes(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void ingresarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Query q = sesion.createQuery("FROM Persona WHERE correo =? AND contrasena =? ");
@@ -66,63 +67,56 @@ public class LoginController extends HttpServlet {
         ArrayList listaObjetos = (ArrayList) q.list();
         //Verifica contraseña
         if (listaObjetos.size() >= 1) {
-            out.print("Entro");
+
             /*HttpSession session = request.getSession();
             Clientes cliente = (Clientes) listaObjetos.get(0);
             session.setAttribute("User", "Cliente");
             String idcliente = cliente.getIdCliente().toString();
             session.setAttribute("id", idcliente);
             session.setAttribute("razon_social", cliente.getRazonSocial());*/
-            response.sendRedirect("CotizacionesController?action=admin");//Se pierde la información          
+            response.sendRedirect("AdminClientes.jsp?error=ok");//Se pierde la información          
             sesion.close();
         } else {
-            out.print("No entro");
-            /*try {
-                response.sendRedirect("LoginClientes.jsp?error=true");//Se pierde la información
+
+            try {
+                response.sendRedirect("LoginPersona.jsp?error=true");//Se pierde la información
             } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
         }
     }
 
-    /*private void ingresarEmpleados(HttpServletRequest request, HttpServletResponse response) {
-
+    private void ingresarPropietario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Query q = sesion.createQuery("FROM Empleados WHERE correo =? AND contrasena=? ");
+        Query q = sesion.createQuery("FROM Propietario WHERE correo =? AND contrasena =? ");
         q.setString(0, request.getParameter("correo"));
-        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
+        String contrasenaencriptada = (request.getParameter("contrasena"));
+        //String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
         q.setString(1, contrasenaencriptada);
-
-        //Query q = sesion.createQuery("FROM Odontologos WHERE especialidad = 'General'"); Con el WHERE para condición        
         ArrayList listaObjetos = (ArrayList) q.list();
-
+        //Verifica contraseña
         if (listaObjetos.size() >= 1) {
-            HttpSession session = request.getSession();
-            Empleados empleado = (Empleados) listaObjetos.get(0);
-            session.setAttribute("User", "Empleado");
-            session.setAttribute("Rol", empleado.getPerfil());
-            session.setAttribute("Correo", empleado.getCorreo());
-            session.setAttribute("idempleado", empleado.getIdEmpleado());
 
-            try {
-                response.sendRedirect("CotizacionesController?action=admin");//Se pierde la información
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            /*HttpSession session = request.getSession();
+            Clientes cliente = (Clientes) listaObjetos.get(0);
+            session.setAttribute("User", "Cliente");
+            String idcliente = cliente.getIdCliente().toString();
+            session.setAttribute("id", idcliente);
+            session.setAttribute("razon_social", cliente.getRazonSocial());*/
+            response.sendRedirect("AdminClientes.jsp?error=ok");//Se pierde la información          
             sesion.close();
         } else {
 
             try {
-                response.sendRedirect("LoginEmpleado.jsp?error=true");//Se pierde la información
+                response.sendRedirect("LoginPropieatario.jsp?error=true");//Se pierde la información
             } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
-
     }
 
-    private void exitClient(HttpServletRequest request, HttpServletResponse response) {
+    /*private void exitClient(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
         session.invalidate();
@@ -146,7 +140,6 @@ public class LoginController extends HttpServlet {
         }
 
     }*/
-
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

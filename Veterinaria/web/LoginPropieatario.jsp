@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+
         <meta charset="utf-8">
         <meta name="description" content="Miminium Admin Template v.1">
         <meta name="author" content="Isna Nur Azis">
@@ -19,9 +20,6 @@
         <link href="asset/css/style.css" rel="stylesheet">
         <!-- end: Css -->
 
-
-
-
         <link rel="shortcut icon" href="asset/img/logomi.png">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -32,8 +30,9 @@
 
     <body id="mimin" class="dashboard form-signin-wrapper">
 
-        <div class="container"> 
-            <form class="form-signin" method="POST" action="LoginController?action=intoemple" >
+        <div class="container">
+
+            <form class="form-signin" method="POST" action="LoginController?action=intopropietario" >
                 <div class="panel periodic-login">
                     <span class="atomic-number">28</span>
                     <div class="panel-body text-center">
@@ -64,6 +63,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
 
         <!-- end: Content -->
@@ -74,7 +74,6 @@
 
         <script src="asset/js/plugins/moment.min.js"></script>
         <script src="asset/js/plugins/icheck.min.js"></script>
-        <script src="asset/js/plugins/jquery.validate.min.js"></script>
 
         <!-- custom -->
         <script src="asset/js/main.js"></script>
@@ -87,7 +86,7 @@
             });
         </script>
         <!-- end: Javascript -->
-        <link rel="stylesheet" href="asset/Mensajes/themes/alertify.default.css" />       
+             <link rel="stylesheet" href="asset/Mensajes/themes/alertify.default.css" />       
         
         <script type="text/javascript" src="asset/Mensajes/lib/alertify.js"></script>
         <link rel="stylesheet" href="asset/Mensajes/themes/alertify.core.css" />
