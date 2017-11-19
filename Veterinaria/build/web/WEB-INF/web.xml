@@ -4,9 +4,17 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controllers.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CitasController</servlet-name>
+        <servlet-class>controllers.CitasController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CitasController</servlet-name>
+        <url-pattern>/CitasController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

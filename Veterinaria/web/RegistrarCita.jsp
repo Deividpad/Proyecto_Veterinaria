@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.Citas"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="encabezado.jsp" />
 <jsp:include page="menu.jsp" />
 <!-- start: content -->
@@ -5,8 +8,7 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Crear Cita</h3>
-
+                <h3 class="animated fadeInLeft">Crear Cita</h3>                
             </div>
         </div>
     </div>
@@ -29,7 +31,7 @@
                 Theme Name:
 
                 <select>
-                    <option value='' selected>Default</option>
+                    <option value='' >Default</option>
                     <option value='cosmo'>Cosmo</option>
                     <option value='cyborg'>Cyborg</option>
                     <option value='darkly'>Darkly</option>
@@ -67,7 +69,7 @@
                     <option value='mint-choc'>Mint Choc</option>
                     <option value='overcast'>Overcast</option>
                     <option value='pepper-grinder'>Pepper Grinder</option>
-                    <option value='redmond'>Redmond</option>
+                    <option value='redmond' selected>Redmond</option>
                     <option value='smoothness'>Smoothness</option>
                     <option value='south-street'>South Street</option>
                     <option value='start'>Start</option>
@@ -80,8 +82,8 @@
                 </select>
             </div>
 
-            <span id='loading' style='display:none'>loading theme...</span>
-
+            <span id='loading' style='display:none'></span>
+            <button class="btn btn-primary" onclick="location.href = 'CitasController?action=admin'">Agregar Cita</button>
         </div>
 
 
@@ -90,6 +92,8 @@
     </div>
 
     <div id='calendar'></div>
+
+
 
 
 
@@ -107,6 +111,7 @@
 
 <script src="fullcalendar-3.7.0/lib/moment.min.js"></script>
 <script src='fullcalendar-3.7.0/lib/jquery.min.js'></script>
+<!--script src="asset/js/jquery.min.js"></script-->
 <script src="asset/js/jquery.ui.min.js"></script>
 <script src="asset/js/bootstrap.min.js"></script>
 
@@ -132,89 +137,44 @@
 
 <script>
 
-    $(document).ready(function () {
+                $(document).ready(function () {
 
-        initThemeChooser({
+                initThemeChooser({
 
-            init: function (themeSystem) {
+                init: function (themeSystem) {
                 $('#calendar').fullCalendar({
-                    themeSystem: themeSystem,
-                    header: {
+                themeSystem: themeSystem,
+                        header: {
                         left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay,listMonth'
-                    },
-                    defaultDate: '2017-11-12',
-                    weekNumbers: true,
-                    navLinks: true, // can click day/week names to navigate views
-                    editable: true,
-                    eventLimit: true, // allow "more" link when too many events
-                    events: [
-                        {
-                            title: 'All Day Event',
-                            start: '2017-11-01'
+                                center: 'title',
+                                right: 'month,agendaWeek,agendaDay,listMonth'
                         },
-                        {
-                            title: 'Long Event',
-                            start: '2017-11-07',
-                            end: '2017-11-10'
+                        defaultDate: new Date,
+                        weekNumbers: true,
+                        navLinks: true, // can click day/week names to navigate views
+                        editable: true,
+                        eventLimit: true, // allow "more" link when too many events
+                        events: [
+                <% ArrayList listar = (ArrayList) request.getAttribute("ArrayCitas");
+                for (Object Obj : listar) {
+                    Citas cita = (Citas) Obj;%>
+                                            {
+                        title: 'All Day Event',
+                                start: '<%= cita.getFechaEntrada() %>',
+                                end: '<%= cita.getFechaSalida() %>'
                         },
-                        {
-                            id: 999,
-                            title: 'Repeating Event',
-                            start: '2017-11-09T16:00:00'
-                        },
-                        {
-                            id: 999,
-                            title: 'Repeating Event',
-                            start: '2017-11-16T16:00:00'
-                        },
-                        {
-                            title: 'Conference',
-                            start: '2017-11-11',
-                            end: '2017-11-13'
-                        },
-                        {
-                            title: 'Meeting',
-                            start: '2017-11-12T10:30:00',
-                            end: '2017-11-12T12:30:00'
-                        },
-                        {
-                            title: 'Lunch',
-                            start: '2017-11-12T12:00:00'
-                        },
-                        {
-                            title: 'Meeting',
-                            start: '2017-11-12T14:30:00'
-                        },
-                        {
-                            title: 'Happy Hour',
-                            start: '2017-11-12T17:30:00'
-                        },
-                        {
-                            title: 'Dinner',
-                            start: '2017-11-12T20:00:00'
-                        },
-                        {
-                            title: 'Birthday Party',
-                            start: '2017-11-13T07:00:00'
-                        },
-                        {
-                            title: 'Click for Google',
-                            url: 'http://google.com/',
-                            start: '2017-11-28'
-                        }
-                    ]
+                        <% }%>
+                        
+                        
+                        ]
                 });
-            },
+                },
+                        change: function (themeSystem) {
+                        $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
+                        }
 
-            change: function (themeSystem) {
-                $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
-            }
-
-        });
-
-    });
+                });
+                });
 
 </script>
 <!-- end: Javascript 
