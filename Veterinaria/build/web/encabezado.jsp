@@ -17,10 +17,17 @@
         <link rel="stylesheet" type="text/css" href="asset/css/plugins/datatables.bootstrap.min.css"/>        
         <link rel="stylesheet" type="text/css" href="asset/css/plugins/simple-line-icons.css"/>
         <link rel="stylesheet" type="text/css" href="asset/css/plugins/animate.min.css"/>
-        <link rel="stylesheet" type="text/css" href="asset/css/plugins/fullcalendar.min.css"/>
+        <link href='fullcalendar-3.7.0/fullcalendar.min.css' rel='stylesheet' />
+        <link href='fullcalendar-3.7.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
         <link href="asset/css/style.css" rel="stylesheet">
         <!-- end: Css -->
 
+        <!--Jquery fullcalendar-->
+
+        
+
+
+        <!--Mensajes de alerta-->
         <link rel="stylesheet" href="asset/Mensajes/themes/alertify.default.css" />           
         <script type="text/javascript" src="asset/Mensajes/lib/alertify.js"></script>
         <link rel="stylesheet" href="asset/Mensajes/themes/alertify.core.css" />
@@ -37,6 +44,50 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+
+        <style>
+
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 14px;
+            }
+
+            #top,
+            #calendar.fc-unthemed {
+                font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+            }
+
+            #top {
+                background: #eee;
+                border-bottom: 1px solid #ddd;
+                padding: 0 10px;
+                line-height: 40px;
+                font-size: 12px;
+                color: #000;
+            }
+
+            #top .selector {
+                display: inline-block;
+                margin-right: 10px;
+            }
+
+            #top select {
+                font: inherit; /* mock what Boostrap does, don't compete  */
+            }
+
+            .left { float: left }
+            .right { float: right }
+            .clear { clear: both }
+
+            #calendar {
+                max-width: 900px;
+                margin: 40px auto;
+                padding: 0 10px;
+            }
+
+        </style>
     </head>
 
     <body id="mimin" class="dashboard">

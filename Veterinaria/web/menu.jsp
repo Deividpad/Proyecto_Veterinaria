@@ -40,11 +40,20 @@
                     <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                    <li><a href="">Registrar Veterinario</a></li>
+                    <li><a href="RegistrarCita.jsp">Crear cita</a></li>
                     <li><a href="">Administrar</a></li>
                 </ul>
             </li>
-                     
+            <li class="active ripple">
+                <a class="tree-toggle nav-header"><span class="fa-home fa"></span> Exit 
+                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                </a>
+                <ul class="nav nav-list tree">
+                    <li><a href="">Logout</a></li>
+                    <li><a href="">Logout</a></li>                    
+                </ul>
+            </li>
+
         </ul>
     </div>
 </div>
