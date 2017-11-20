@@ -27,7 +27,7 @@
                                 <form class="cmxform" id="signupForm" method="POST" action="CitasController?action=create">
                                     <div class="col-md-6">                                        
                                         <div class="form-group form-animate-text">
-                                            <input type="datetime" name="fechaentrada" class="form-text min-date" required>
+                                            <input type="time" name="fechaentrada" class="form-text min-date" required>
                                             <span class="bar"></span>
                                             <label><span class="fa fa-calendar"></span> Fecha Entrada</label>
                                         </div>                                        
@@ -43,7 +43,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <!--div class="form-group " style="margin-top:40px !important;">
+                                        <div class="form-group " style="margin-top:40px !important;">
                                             <label style="color: #090;">Total</label>
                                             <input id="scriptBox" type="text" disabled="disabled"/>
                                         </div> 
@@ -52,7 +52,7 @@
                                                 <option value="AK">Alaska</option>
                                                 <option value="HI">Hawaii</option>                      
                                             </select>                       
-                                        </div-->
+                                        </div>
 
                                         <div class="form-group form-animate-text">
                                             <input type="text" class="form-text min-date" name="fechasalida" required>
@@ -220,7 +220,7 @@
                                                                 right: 'month,agendaWeek,agendaDay,listMonth'
                                                             },
                                                             defaultDate: new Date,
-                                                            weekNumbers: true,
+                                                            weekNumbers: false,
                                                             navLinks: true, // can click day/week names to navigate views
                                                             editable: true,
                                                             eventLimit: true, // allow "more" link when too many events
@@ -236,7 +236,28 @@
     <% }%>
 
 
-                                                            ]
+                                                            ],
+                                                            eventDrop: function(event, delta, revertFunc) {
+                                                                alert(event.title + " was dropped on " + event.start.format());
+
+                                                                if (!confirm("Are you sure about this change?")) {
+                                                                    revertFunc();
+                                                                }
+
+                                                            },
+                                                            dayClick: function(date, jsEvent, view) {
+                                                                
+
+                                                                alert('Clicked on: ' + date.format());
+
+                                                                alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+                                                                alert('Current view: ' + view.name);
+
+                                                                // change the day's background color just for fun
+                                                                $(this).css('background-color', 'red');
+
+                                                            }
                                                         });
                                                     },
                                                     change: function (themeSystem) {
@@ -271,26 +292,13 @@
     $(document).ready(function () {
         $(".select2-A").select2({
             placeholder: "Select a state",
-            allowClear: true
+            allowClear: true,
+            dropdownParent: $("#mimodalejemplo")
+            
         });
     });
-    $('.min-date').bootstrapMaterialDatePicker({format: 'DD/MM/YYYY HH:mm', minDate: new Date()});
-    
-    $('#calendar').fullCalendar({
-    events: [
-        // events here
-    ],
-    editable: true,
-    eventDrop: function(event, delta, revertFunc) {
+    $('.min-date').bootstrapMaterialDatePicker({format: 'HH:mm', minDate: new Date(), time:false,});
 
-        alert(event.title + " was dropped on " + event.start.format());
-
-        if (!confirm("Are you sure about this change?")) {
-            revertFunc();
-        }
-
-    }
-});
 </script>
 
 </body>
