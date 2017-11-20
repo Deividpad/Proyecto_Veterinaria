@@ -11,7 +11,82 @@
                 <h3 class="animated fadeInLeft">Crear Cita</h3>                
             </div>
         </div>
+    </div> 
+    <!-- Modal -->
+    <div class="modal fade" id="mimodalejemplo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">        
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="col-md-10">
+                    <div class="col-md-12 panel">
+                        <div class="col-md-12 panel-heading">
+                            <h4>Editar Cantidad de Producto</h4>
+                        </div>
+                        <div class="col-md-12 panel-body" style="padding-bottom:30px;">
+                            <div class="col-md-12">
+                                <form class="cmxform" id="signupForm" method="POST" action="ProductoscotiControllers?action=update">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-animate-text" style="margin-top:40px !important; display: none;">
+                                            <input type="text" class="form-text" id="idProductoCotizacion" name="idProductoCotizacion" required>
+                                            <span class="bar"></span>
+                                            <label>Id idProductoCotizacion</label>
+                                        </div>
+                                        <div class="form-group form-animate-text" style="margin-top:40px !important; display: none;">
+                                            <input type="text" class="form-text" id="idcotizacion" name="idcotizacion"  required>
+                                            <span class="bar"></span>
+                                            <label>Id Cotizacion</label>
+                                        </div>
+                                        <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                            <input type="number" min="1" class="form-text" id="cantidad" onkeyup="return runScript(this.value)" name="cantidad" required>
+                                            <span class="bar"></span>
+                                            <label>Cantidad</label>
+                                        </div>
+
+                                        <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                            <input type="number" class="form-text" disabled="disabled" id="valor" name="valor" required>
+                                            <span class="bar"></span>
+                                            <label style="padding-top: 15px;">Valor Unitario</label>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!--div class="form-group " style="margin-top:40px !important;">
+                                            <label style="color: #090;">Total</label>
+                                            <input id="scriptBox" type="text" disabled="disabled"/>
+                                        </div> 
+                                        <div class="form-group">
+                                            <select class="select2-A">       
+                                                <option value="AK">Alaska</option>
+                                                <option value="HI">Hawaii</option>                      
+                                            </select>                       
+                                        </div-->
+                                        <div class="col-sm-12 padding-0">
+                                            <select class="form-control">
+                                                <option>option one</option>
+                                                <option>option two</option>
+                                                <option>option three</option>
+                                                <option>option four</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <input class="submit btn btn-success" id="myBtn1" type="submit" value="Modificar">
+                                        <input type="submit" class="submit btn btn-danger" value="Volver" onclick="reset()" data-dismiss="modal">
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div> 
+                    </div>
+                </div>         
+            </div>
+        </div>
     </div>
+    <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default" data-toggle="modal" data-target="#mimodalejemplo">
+        <div>
+            <span style="color: red;">Editar Cantidad</span>
+        </div>
+    </button>
 
 
 
@@ -99,7 +174,9 @@
 
 
 
+
 </div>
+
 <!-- end: content -->
 
 <button id="mimin-mobile-menu-opener" class="animated rubberBand btn btn-circle btn-danger">
@@ -139,41 +216,41 @@
 
                 $(document).ready(function () {
 
-                initThemeChooser({
+                    initThemeChooser({
 
-                init: function (themeSystem) {
-                $('#calendar').fullCalendar({
-                themeSystem: themeSystem,
-                        header: {
-                        left: 'prev,next today',
-                                center: 'title',
-                                right: 'month,agendaWeek,agendaDay,listMonth'
+                        init: function (themeSystem) {
+                            $('#calendar').fullCalendar({
+                                themeSystem: themeSystem,
+                                header: {
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'month,agendaWeek,agendaDay,listMonth'
+                                },
+                                defaultDate: new Date,
+                                weekNumbers: true,
+                                navLinks: true, // can click day/week names to navigate views
+                                editable: true,
+                                eventLimit: true, // allow "more" link when too many events
+                                events: [
+    <% ArrayList listar = (ArrayList) request.getAttribute("ArrayCitas");
+        for (Object Obj : listar) {
+            Citas cita = (Citas) Obj;%>
+                                    {
+                                        title: 'All Day Event',
+                                        start: '<%= cita.getFechaEntrada()%>',
+                                        end: '<%= cita.getFechaSalida()%>'
+                                    },
+    <% }%>
+
+
+                                ]
+                            });
                         },
-                        defaultDate: new Date,
-                        weekNumbers: true,
-                        navLinks: true, // can click day/week names to navigate views
-                        editable: true,
-                        eventLimit: true, // allow "more" link when too many events
-                        events: [
-                <% ArrayList listar = (ArrayList) request.getAttribute("ArrayCitas");
-                for (Object Obj : listar) {
-                    Citas cita = (Citas) Obj;%>
-                                            {
-                        title: 'All Day Event',
-                                start: '<%= cita.getFechaEntrada() %>',
-                                end: '<%= cita.getFechaSalida() %>'
-                        },
-                        <% }%>
-                        
-                        
-                        ]
-                });
-                },
                         change: function (themeSystem) {
-                        $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
+                            $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
                         }
 
-                });
+                    });
                 });
 
 </script>
@@ -196,6 +273,16 @@
 });
 </script>
 -->
+<script>
+
+    $(document).ready(function () {
+        $(".select2-A").select2({
+            placeholder: "Select a state",
+            allowClear: true
+        });
+    });
+
+</script>
 
 </body>
 </html>

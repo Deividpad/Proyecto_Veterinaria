@@ -35,7 +35,19 @@
                                     <td>Plantilla</td>
                                     <td>Plantilla</td>
                                     <td>Plantilla</td>
-                                    <td>Plantilla</td>
+                                    <td>
+                                        <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default" onclick="myFunction(${p.idProducto},${p.valor}, '${p.nombre}')" data-toggle="modal" data-target="#mimodalejemplo">
+                                            <div>
+                                                <span style="color: red;">Agregar Producto</span>
+                                            </div>
+                                        </button> 
+                                        <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'ProductosControllers?action=update&id=${p.idProducto}'">
+                                            <span class="fa fa-edit"></span>
+                                        </button>
+                                        <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'ProductosControllers?action=delete&id=${p.idProducto}'">
+                                            <span class="fa fa-trash"></span>
+                                        </button>                                            
+                                    </td>
                                 </tr>                                  
                             </tbody>
                         </table>
@@ -70,9 +82,9 @@
 <!-- custom -->
 <script src="asset/js/main.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#datatables-example').DataTable();
-    });
+                                            $(document).ready(function () {
+                                                $('#datatables-example').DataTable();
+                                            });
 </script>
 <!-- end: Javascript -->
 <!-- Le javascript
