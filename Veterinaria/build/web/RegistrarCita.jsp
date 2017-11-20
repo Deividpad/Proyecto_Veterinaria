@@ -275,7 +275,22 @@
         });
     });
     $('.min-date').bootstrapMaterialDatePicker({format: 'DD/MM/YYYY HH:mm', minDate: new Date()});
+    
+    $('#calendar').fullCalendar({
+    events: [
+        // events here
+    ],
+    editable: true,
+    eventDrop: function(event, delta, revertFunc) {
 
+        alert(event.title + " was dropped on " + event.start.format());
+
+        if (!confirm("Are you sure about this change?")) {
+            revertFunc();
+        }
+
+    }
+});
 </script>
 
 </body>

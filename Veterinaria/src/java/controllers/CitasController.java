@@ -60,32 +60,25 @@ public class CitasController extends HttpServlet {
         Session sesion = HibernateUtil.getSessionFactory().openSession();        
         Mascota mascota = (Mascota) sesion.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
         Persona persona = (Persona) sesion.get(Persona.class, 1);       
-        java.util.Date fechaentrada = new java.util.Date(request.getParameter("fechaentrada"));
-        java.util.Date fechasalida = new java.util.Date(request.getParameter("fechasalida"));
         String tipo = request.getParameter("tipo"); 
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");        
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");        
         PrintWriter out = response.getWriter();
-        Date date;
+        Date fechaentrada;
+        Date fechasalida;
         
-            out.print("Fecha entrada: "+ fechaentrada);            
-        
-            
-            
-        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd");
-        String dateInString = "7-Jun-2013";
-        Date date = null;
+            //out.print("Fecha entrada: "+ fechaentrada);            
+     
         try {
-            date = formatter.parse(dateInString);
-            
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
+            fechaentrada = formatter.parse(request.getParameter("fechaentrada"));
+            fechasalida = formatter.parse(request.getParameter("fechasalida"));
+        } catch (Exception e) {
+            out.print("Error"+e.getMessage());
+            fechaentrada = null;
+            fechasalida = null;
+        }
+   
         
-        
-        
-        
-        /*Citas cita = new Citas(mascota,persona,fechaentrada, fechasalida,tipo,"Programada");
+        Citas cita = new Citas(mascota,persona,fechaentrada, fechasalida,tipo,"Programada");
         //GUARDAMOS EBJETO EN BD
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -98,7 +91,7 @@ public class CitasController extends HttpServlet {
             response.sendRedirect("CitasController?action=admin");
         } catch (IOException ex) {
             Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
        
 
     }
