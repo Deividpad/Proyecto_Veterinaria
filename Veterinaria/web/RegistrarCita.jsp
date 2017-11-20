@@ -12,6 +12,7 @@
             </div>
         </div>
     </div> 
+
     <!-- Modal -->
     <div class="modal fade" id="mimodalejemplo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">        
         <div class="modal-dialog" role="document">
@@ -19,32 +20,26 @@
                 <div class="col-md-10">
                     <div class="col-md-12 panel">
                         <div class="col-md-12 panel-heading">
-                            <h4>Editar Cantidad de Producto</h4>
+                            <h4>Crear Cita</h4>
                         </div>
                         <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                             <div class="col-md-12">
-                                <form class="cmxform" id="signupForm" method="POST" action="ProductoscotiControllers?action=update">
-                                    <div class="col-md-6">
-                                        <div class="form-group form-animate-text" style="margin-top:40px !important; display: none;">
-                                            <input type="text" class="form-text" id="idProductoCotizacion" name="idProductoCotizacion" required>
+                                <form class="cmxform" id="signupForm" method="POST" action="CitasController?action=create">
+                                    <div class="col-md-6">                                        
+                                        <div class="form-group form-animate-text">
+                                            <input type="datetime" name="fechaentrada" class="form-text min-date" required>
                                             <span class="bar"></span>
-                                            <label>Id idProductoCotizacion</label>
-                                        </div>
-                                        <div class="form-group form-animate-text" style="margin-top:40px !important; display: none;">
-                                            <input type="text" class="form-text" id="idcotizacion" name="idcotizacion"  required>
-                                            <span class="bar"></span>
-                                            <label>Id Cotizacion</label>
-                                        </div>
-                                        <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                            <input type="number" min="1" class="form-text" id="cantidad" onkeyup="return runScript(this.value)" name="cantidad" required>
-                                            <span class="bar"></span>
-                                            <label>Cantidad</label>
-                                        </div>
+                                            <label><span class="fa fa-calendar"></span> Fecha Entrada</label>
+                                        </div>                                        
 
-                                        <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                            <input type="number" class="form-text" disabled="disabled" id="valor" name="valor" required>
+                                        <div class="col-sm-12 padding-0">                                                                                      
                                             <span class="bar"></span>
-                                            <label style="padding-top: 15px;">Valor Unitario</label>                                        
+                                            <label>Mascota</label>
+                                            <select class="form-control" name="mascota">
+                                                <c:forEach var="mascota" items="${requestScope.ArrayMascotas}">
+                                                    <option value="${mascota.idMascotas}"><c:out value="${mascota.nombre}"/></option>                                                </c:forEach>
+                                                
+                                            </select>                                            
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -58,17 +53,22 @@
                                                 <option value="HI">Hawaii</option>                      
                                             </select>                       
                                         </div-->
+
+                                        <div class="form-group form-animate-text">
+                                            <input type="text" class="form-text min-date" name="fechasalida" required>
+                                            <span class="bar"></span>
+                                            <label><span class="fa fa-calendar"></span> Fecha Salida</label>
+                                        </div>
                                         <div class="col-sm-12 padding-0">
-                                            <select class="form-control">
-                                                <option>option one</option>
-                                                <option>option two</option>
-                                                <option>option three</option>
-                                                <option>option four</option>
+                                            <span class="bar"></span>
+                                            <label>Tipo Cita</label>
+                                            <select class="form-control" name="tipo">
+                                                <option value="Programada">Programadaa</option>
+                                                <option value="Urgencia">Urgencia</option>                                                
                                             </select>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="padding-top: 20px;">
                                         <input class="submit btn btn-success" id="myBtn1" type="submit" value="Modificar">
                                         <input type="submit" class="submit btn btn-danger" value="Volver" onclick="reset()" data-dismiss="modal">
                                     </div>
@@ -81,14 +81,7 @@
                 </div>         
             </div>
         </div>
-    </div>
-    <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default" data-toggle="modal" data-target="#mimodalejemplo">
-        <div>
-            <span style="color: red;">Editar Cantidad</span>
-        </div>
-    </button>
-
-
+    </div>    
 
     <div id='top'>
 
@@ -158,7 +151,7 @@
             </div>
 
             <span id='loading' style='display:none'></span>
-            <button class="btn btn-primary" onclick="location.href = 'CitasController?action=admin'">Agregar Cita</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#mimodalejemplo">Agregar Cita</button>
         </div>
 
 
@@ -214,44 +207,44 @@
 
 <script>
 
-                $(document).ready(function () {
+                                            $(document).ready(function () {
 
-                    initThemeChooser({
+                                                initThemeChooser({
 
-                        init: function (themeSystem) {
-                            $('#calendar').fullCalendar({
-                                themeSystem: themeSystem,
-                                header: {
-                                    left: 'prev,next today',
-                                    center: 'title',
-                                    right: 'month,agendaWeek,agendaDay,listMonth'
-                                },
-                                defaultDate: new Date,
-                                weekNumbers: true,
-                                navLinks: true, // can click day/week names to navigate views
-                                editable: true,
-                                eventLimit: true, // allow "more" link when too many events
-                                events: [
+                                                    init: function (themeSystem) {
+                                                        $('#calendar').fullCalendar({
+                                                            themeSystem: themeSystem,
+                                                            header: {
+                                                                left: 'prev,next today',
+                                                                center: 'title',
+                                                                right: 'month,agendaWeek,agendaDay,listMonth'
+                                                            },
+                                                            defaultDate: new Date,
+                                                            weekNumbers: true,
+                                                            navLinks: true, // can click day/week names to navigate views
+                                                            editable: true,
+                                                            eventLimit: true, // allow "more" link when too many events
+                                                            events: [
     <% ArrayList listar = (ArrayList) request.getAttribute("ArrayCitas");
         for (Object Obj : listar) {
             Citas cita = (Citas) Obj;%>
-                                    {
-                                        title: 'All Day Event',
-                                        start: '<%= cita.getFechaEntrada()%>',
-                                        end: '<%= cita.getFechaSalida()%>'
-                                    },
+                                                                {
+                                                                    title: 'All Day Event',
+                                                                    start: '<%= cita.getFechaEntrada()%>',
+                                                                    end: '<%= cita.getFechaSalida()%>'
+                                                                },
     <% }%>
 
 
-                                ]
-                            });
-                        },
-                        change: function (themeSystem) {
-                            $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
-                        }
+                                                            ]
+                                                        });
+                                                    },
+                                                    change: function (themeSystem) {
+                                                        $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
+                                                    }
 
-                    });
-                });
+                                                });
+                                            });
 
 </script>
 <!-- end: Javascript 
@@ -281,6 +274,7 @@
             allowClear: true
         });
     });
+    $('.min-date').bootstrapMaterialDatePicker({format: 'DD/MM/YYYY HH:mm', minDate: new Date()});
 
 </script>
 

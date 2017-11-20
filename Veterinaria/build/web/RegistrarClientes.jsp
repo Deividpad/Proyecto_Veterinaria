@@ -75,6 +75,16 @@
                                     <option>option four</option>
                                 </select>
                             </div>
+                            <div class="form-group " style="margin-top:40px !important;">
+                                           <label style="color: #090;">Total</label>
+                                           <input id="scriptBox" type="text" disabled="disabled"/>
+                                       </div> 
+                                       <div class="form-group">
+                                           <select class="select2-A">       
+                                               <option value="AK">Alaska</option>
+                                               <option value="HI">Hawaii</option>                      
+                                           </select>                       
+                                       </div>
                         </div>  
 
 
@@ -210,6 +220,16 @@
 
 
     });
+</script>
+<script>
+
+    $(document).ready(function () {
+        $(".select2-A").select2({
+            placeholder: "Select a state",
+            allowClear: true
+        });
+    });
+
 </script>
 <!-- end: Javascript -->
 </body>

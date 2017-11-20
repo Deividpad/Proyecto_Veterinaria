@@ -18,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="asset/css/plugins/datatables.bootstrap.min.css"/>        
         <link rel="stylesheet" type="text/css" href="asset/css/plugins/simple-line-icons.css"/>
         <link rel="stylesheet" type="text/css" href="asset/css/plugins/animate.min.css"/>
+        <link rel="stylesheet" type="text/css" href="asset/css/plugins/bootstrap-material-datetimepicker.css"/>
         <link href='fullcalendar-3.7.0/fullcalendar.min.css' rel='stylesheet' />
         <link href='fullcalendar-3.7.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
         <link href="asset/css/style.css" rel="stylesheet">
