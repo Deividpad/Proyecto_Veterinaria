@@ -50,58 +50,61 @@ public class CitasController extends HttpServlet {
             Registrar(request, response);
         }
         /*else if (action.equalsIgnoreCase("update")) {
-            Actualizar(request, response);
-        } else if (action.equalsIgnoreCase("eliminar")) {
-            Eliminar(request, response);
-        }*/
+         Actualizar(request, response);
+         } else if (action.equalsIgnoreCase("eliminar")) {
+         Eliminar(request, response);
+         }*/
     }
 
     private void Registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();        
-        Mascota mascota = (Mascota) sesion.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
-        Persona persona = (Persona) sesion.get(Persona.class, 1);       
-        String tipo = request.getParameter("tipo"); 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
+        Persona persona = (Persona) session.get(Persona.class, 1);
+        String tipo = request.getParameter("tipo");
         PrintWriter out = response.getWriter();
-        Date fechaentrada;
-        Date fechasalida;
-        
-            //out.print("Fecha entrada: "+ fechaentrada);            
-     
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date fechaentrada = null;
+        Date fechasalida = null;
+        //Fecha Entrada
+        String fechaen = request.getParameter("fhentrada");
+        String tmentrada = request.getParameter("tmentrada");
+        String fhentrada = fechaen + " " + tmentrada;
+
+        //Fecha Salida
+        String fechasal = request.getParameter("fhsalida");
+        String tmsalida = request.getParameter("tmsalida");
+        String fhsalida = fechasal + " " + tmsalida;
         try {
-            fechaentrada = formatter.parse(request.getParameter("fechaentrada"));
-            fechasalida = formatter.parse(request.getParameter("fechasalida"));
+            fechaentrada = formatter.parse(fhentrada);
+            fechasalida = formatter.parse(fhsalida);
+            out.print("sfadsfdsf" + fhsalida);
+
+            Citas cita = new Citas(mascota, persona, fechaentrada, fechasalida, tipo, "Programada");
+            //GUARDAMOS EBJETO EN BD
+
+            session.beginTransaction();
+            session.save(cita);
+            session.getTransaction().commit();
+            session.close();
+
         } catch (Exception e) {
-            out.print("Error"+e.getMessage());
             fechaentrada = null;
             fechasalida = null;
         }
-   
-        
-        Citas cita = new Citas(mascota,persona,fechaentrada, fechasalida,tipo,"Programada");
-        //GUARDAMOS EBJETO EN BD
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(cita);
-        session.getTransaction().commit();
-        session.close();
-
-        
-        try {
-            response.sendRedirect("CitasController?action=admin");
-        } catch (IOException ex) {
-            Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-
+        /*try {
+         response.sendRedirect("CitasController?action=admin");
+         } catch (IOException ex) {
+         Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+         }  */
     }
 
     private void Admin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         /*try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code.
-            out.println("Entro al metodo");
+         /* TODO output your page here. You may use following sample code.
+         out.println("Entro al metodo");
             
-        }*/
+         }*/
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Query qcitas = sesion.createQuery("FROM Citas");
         //Query q = sesion.createQuery("FROM Odontologos WHERE especialidad = 'General'"); Con el WHERE para condición
