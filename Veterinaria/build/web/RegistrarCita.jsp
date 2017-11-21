@@ -33,11 +33,11 @@
                                             <label><span class="fa fa-calendar"></span> Fecha Entrada</label>
                                         </div>                                        
                                         <div class="form-group form-animate-text">
-                                            <input type="text" class="form-text time" name="tmentrada" id="tmentrada" value="08:55" required>
+                                            <input type="text" class="form-text time" name="tmentrada" id="tmentrada" required>
                                             <span class="bar"></span>
                                             <label><span class="fa fa-clock-o"></span> Hora Entrada</label>
                                         </div>
-                                        
+
                                         <div class="col-sm-12 padding-0">                                                                                      
                                             <span class="bar"></span>
                                             <label>Mascota</label><br>
@@ -56,12 +56,12 @@
                                             <label><span class="fa fa-calendar"></span> Fecha Salida</label>
                                         </div>                                        
                                         <div class="form-group form-animate-text">
-                                            <input type="text" class="form-text time" name="tmsalida" id="tmsalida" value="08:55" required>
+                                            <input type="text" class="form-text time" name="tmsalida" id="tmsalida" required>
                                             <span class="bar"></span>
                                             <label><span class="fa fa-clock-o"></span> Hora Salida</label>
                                         </div>
 
-                                        
+
                                         <div class="col-sm-12 padding-0">
                                             <span class="bar"></span>
                                             <label>Tipo Cita</label>
@@ -70,15 +70,15 @@
                                                 <option value="Urgencia">Urgencia</option>                                                
                                             </select>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="col-md-12" style="padding-top: 20px;">
-                                        <input class="submit btn btn-success" id="myBtn1" type="submit" value="Modificar" >
+                                        <input class="submit btn btn-success" id="myBtn1" type="submit" onclick="Validarfecha()" value="Modificar" >
                                         <input type="submit" class="submit btn btn-danger" value="Volver" onclick="reset()" data-dismiss="modal">
                                     </div>
 
                                 </form>
-                               
+
                             </div>
                         </div> 
                     </div>
@@ -211,51 +211,61 @@
 
 <script>
 
-    $(document).ready(function () {
+                                            $(document).ready(function () {
 
-        initThemeChooser({
-            init: function (themeSystem) {
-                $('#calendar').fullCalendar({
-                    themeSystem: themeSystem,
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay,listMonth'
-                    },
-                    defaultDate: new Date,
-                    weekNumbers: false,
-                    navLinks: true, // can click day/week names to navigate views
-                    editable: true,
-                    eventLimit: true, // allow "more" link when too many events
-                    events: [
+                                                initThemeChooser({
+                                                    init: function (themeSystem) {
+                                                        $('#calendar').fullCalendar({
+                                                            themeSystem: themeSystem,
+                                                            header: {
+                                                                left: 'prev,next today',
+                                                                center: 'title',
+                                                                right: 'month,agendaWeek,agendaDay,listMonth'
+                                                            },
+                                                            defaultDate: new Date,                                                            
+                                                            weekNumbers: true,
+                                                            navLinks: true, // can click day/week names to navigate views
+                                                            editable: true,
+                                                            eventLimit: true, // allow "more" link when too many events
+                                                            events: [
     <% ArrayList listar = (ArrayList) request.getAttribute("ArrayCitas");
         for (Object Obj : listar) {
             Citas cita = (Citas) Obj;%>
-                        {
-                            title: 'All Day Event',
-                            start: '<%= cita.getFechaEntrada()%>',
-                            end: '<%= cita.getFechaSalida()%>'
-                        },
+                                                                {
+                                                                    title: 'All Day Event',
+                                                                    start: '<%= cita.getFechaEntrada()%>',
+                                                                    end: '<%= cita.getFechaSalida()%>'
+                                                                },
     <% }%>
 
 
-                    ],
-                    eventDrop: function (event, delta, revertFunc) {
-                        alert(event.title + " was dropped on " + event.start.format());
+                                                            ],
+                                                            eventDrop: function (event, delta, revertFunc) {
+                                                                alert(event.title + " was dropped on " + event.start.format());
 
-                        if (!confirm("Are you sure about this change?")) {
-                            revertFunc();
-                        }
+                                                                if (!confirm("Are you sure about this change?")) {
+                                                                    revertFunc();
+                                                                }
 
-                    },
-                    dayClick: function (date, jsEvent, view) {
+                                                            },
+                                                            dayClick: function (date, jsEvent, view) {
 //                                                                        alert("salio");                                                                        
 //                                                                        var elem = document.getElementById('mimodalejemplo');
 //                                                                        elem.style.display = 'block';
-                        var elem = document.getElementById('buttonmodal');
-                        elem.click();
-                        var fhsalida = document.getElementById('fhentrada').value = date.format();
-                        //alert('Clicked on: ' + date.format());
+                                                                        var actual = new Date());
+                                                                        var calendar = date.format();
+                                                                        alert("Fecha actual"+actual+" Calendar: "+calendar);
+                                                                        //document.getElementById('fechajava').value;
+                                                                        if(date.format() > ){
+                                                                            alert("Se puede");
+                                                                        }
+//                                                               Ventana modal        
+//                                                                var elem = document.getElementById('buttonmodal');
+//                                                                elem.click();
+//                                                                var fhsalida = document.getElementById('fhentrada').value = date.format();
+//                                                                
+//                                                                
+                                                                //alert('Clicked on: ' + date.format());
 //
 //                                                                    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 //
@@ -263,15 +273,15 @@
 //
 //                                                                    // change the day's background color just for fun
 //                                                                    $(this).css('background-color', 'red');
-                    }
-                });
-            },
-            change: function (themeSystem) {
-                $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
-            }
+                                                            }
+                                                        });
+                                                    },
+                                                    change: function (themeSystem) {
+                                                        $('#calendar').fullCalendar('option', 'themeSystem', themeSystem);
+                                                    }
 
-        });
-    });
+                                                });
+                                            });
 
 </script>
 <!-- end: Javascript 
@@ -305,10 +315,26 @@
     });
     //$('.min-date').bootstrapMaterialDatePicker({format: 'HH:mm', minDate: new Date(), time: false, });
 //    $('.min-date').bootstrapMaterialDatePicker({ format : 'DD/MM/YYYY HH:mm', minDate : new Date() });
-    $('.datetime').bootstrapMaterialDatePicker({ format : 'dddd DD MMMM YYYY - HH:mm',animation:true});
+    $('.datetime').bootstrapMaterialDatePicker({format: 'dddd DD MMMM YYYY - HH:mm', animation: true});
     //$('.datetime').bootstrapMaterialDatePicker({ format : 'YYYY MMMM dddd - HH:mm',animation:true});
-    $('.time').bootstrapMaterialDatePicker({date: false, format: 'HH:mm', minDate: new Date(), animation: true});
+    $('.time').bootstrapMaterialDatePicker({date: false, format: 'HH:mm', animation: true});
     $('.dateAnimate').bootstrapMaterialDatePicker({weekStart: 0, time: false, minDate: new Date(), animation: true});
+
+    function Validarfecha() {
+        var fhentrada = document.getElementById('fhentrada').value + " " + document.getElementById('tmentrada').value;
+        var fhsalida = document.getElementById('fhsalida').value + " " + document.getElementById('tmsalida').value;
+        if (fhentrada < fhsalida) {
+            alert("Si se pudo");
+            alert("Entrada: " + fhentrada);
+            alert("Salida " + fhsalida);
+        } else {
+            alert("No se pudo");
+            alert("Entrada: " + fhentrada);
+            alert("Salida " + fhsalida);
+        }
+
+    }
+
 
 </script>
 

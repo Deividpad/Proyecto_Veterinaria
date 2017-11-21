@@ -80,13 +80,13 @@ public class CitasController extends HttpServlet {
             fechasalida = formatter.parse(fhsalida);
             out.print("sfadsfdsf" + fhsalida);
 
-            Citas cita = new Citas(mascota, persona, fechaentrada, fechasalida, tipo, "Programada");
+            /*Citas cita = new Citas(mascota, persona, fechaentrada, fechasalida, tipo, "Programada");
             //GUARDAMOS EBJETO EN BD
 
             session.beginTransaction();
             session.save(cita);
             session.getTransaction().commit();
-            session.close();
+            session.close();*/
 
         } catch (Exception e) {
             fechaentrada = null;
