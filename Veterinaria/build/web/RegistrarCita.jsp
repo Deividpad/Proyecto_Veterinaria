@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                             <div class="col-md-12">
-                                <form class="cmxform" id="signupForm" method="POST" action="CitasController?action=create">
+                                <form class="cmxform" id="signupForm" method="POST" onsubmit="check(event, this)" action="CitasController?action=create">
                                     <div class="col-md-6">                                        
                                         <div class="form-group form-animate-text">
                                             <input type="text" class="form-text dateAnimate" id="fhentrada" name="fhentrada" required>
@@ -73,7 +73,7 @@
 
                                     </div>
                                     <div class="col-md-12" style="padding-top: 20px;">
-                                        <input class="submit btn btn-success" id="myBtn1" type="submit" onclick="Validarfecha()" value="Modificar" >
+                                        <input class="submit btn btn-success" id="myBtn1" type="submit" value="Modificar" >
                                         <input type="submit" class="submit btn btn-danger" value="Volver" onclick="reset()" data-dismiss="modal">
                                     </div>
 
@@ -222,7 +222,7 @@
                                                                 center: 'title',
                                                                 right: 'month,agendaWeek,agendaDay,listMonth'
                                                             },
-                                                            defaultDate: new Date,                                                            
+                                                            defaultDate: new Date,
                                                             weekNumbers: true,
                                                             navLinks: true, // can click day/week names to navigate views
                                                             editable: true,
@@ -242,23 +242,37 @@
                                                             ],
                                                             eventDrop: function (event, delta, revertFunc) {
                                                                 alert(event.title + " was dropped on " + event.start.format());
-
                                                                 if (!confirm("Are you sure about this change?")) {
                                                                     revertFunc();
                                                                 }
 
                                                             },
                                                             dayClick: function (date, jsEvent, view) {
+
+                                                                if (date.add(1, 'days') <= new Date()) {
+                                                                    //alert("");
+                                                                } else {
+                                                                    date.subtract(1, 'days');
+                                                                    //alert("Si se puede"+date.format());
+//                                                                    Ventana modal        
+                                                                    var elem = document.getElementById('buttonmodal');
+                                                                    elem.click();
+                                                                    var fhsalida = document.getElementById('fhentrada').value = date.format();
+//                                                                
+                                                                }
+
 //                                                                        alert("salio");                                                                        
 //                                                                        var elem = document.getElementById('mimodalejemplo');
 //                                                                        elem.style.display = 'block';
-                                                                        var actual = new Date());
-                                                                        var calendar = date.format();
-                                                                        alert("Fecha actual"+actual+" Calendar: "+calendar);
-                                                                        //document.getElementById('fechajava').value;
-                                                                        if(date.format() > ){
-                                                                            alert("Se puede");
-                                                                        }
+//                                                                        
+//                                                                        
+//                                                                        var actual = new Date());
+//                                                                        var calendar = date.format();
+//                                                                        alert("Fecha actual"+actual+" Calendar: "+calendar);
+//                                                                        //document.getElementById('fechajava').value;
+//                                                                        if(date.format() > ){
+//                                                                            alert("Se puede");
+
 //                                                               Ventana modal        
 //                                                                var elem = document.getElementById('buttonmodal');
 //                                                                elem.click();
@@ -281,9 +295,7 @@
                                                     }
 
                                                 });
-                                            });
-
-</script>
+                                            });</script>
 <!-- end: Javascript 
 <script>
     
@@ -320,21 +332,38 @@
     $('.time').bootstrapMaterialDatePicker({date: false, format: 'HH:mm', animation: true});
     $('.dateAnimate').bootstrapMaterialDatePicker({weekStart: 0, time: false, minDate: new Date(), animation: true});
 
-    function Validarfecha() {
+    function check(e, f) {
         var fhentrada = document.getElementById('fhentrada').value + " " + document.getElementById('tmentrada').value;
         var fhsalida = document.getElementById('fhsalida').value + " " + document.getElementById('tmsalida').value;
-        if (fhentrada < fhsalida) {
-            alert("Si se pudo");
-            alert("Entrada: " + fhentrada);
-            alert("Salida " + fhsalida);
-        } else {
-            alert("No se pudo");
-            alert("Entrada: " + fhentrada);
-            alert("Salida " + fhsalida);
-        }
+        /*if (fhentrada < fhsalida) {
+         alert("Si se pudo");
+         alert("Entrada: " + fhentrada);
+         alert("Salida " + fhsalida);
+         } else {
+         alert("No se pudo");
+         //            alert("Entrada: " + fhentrada);
+         //            alert("Salida " + fhsalida);
+         e.preventDefault();
+         }*/
+        var f = document.getElementById('tmentrada').value;
+        var time = new Date();
+        var hora = time.getHours();
+        var minuto = time.getMinutes();
+        var finaltime = hora+":"+minuto;
+//        if(f > d.getHours()){
+//            alert("Se puede");
+//        }else{
+//               alert("No se puede");
+//        }
+            if(f > finaltime){
+                alert("se puede");
+            }else{
+                alert("no se puede");
+            }
+        alert(f+" "+ finaltime);
+        e.preventDefault();
 
     }
-
 
 </script>
 
