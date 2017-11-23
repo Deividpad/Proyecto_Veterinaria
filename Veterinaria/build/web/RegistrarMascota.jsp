@@ -13,15 +13,8 @@
                 </p>
             </div>
         </div>
-        <div class="panel-body">
-            <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Registrar Mascota</h3>
-                <p class="animated fadeInDown">
-                    Form <span class="fa-angle-right fa"></span> Form Element
-                </p>
-            </div>
-        </div>
     </div>
+Alexa tiene genio
 
     <div class="col-md-10">
         <div class="col-md-12 panel">
