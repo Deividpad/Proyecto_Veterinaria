@@ -60,6 +60,8 @@ public class CitasController extends HttpServlet {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
         Persona persona = (Persona) session.get(Persona.class, 1);
+        String Proposito = "";
+        String Observaciones = "";
         String tipo = request.getParameter("tipo");
         PrintWriter out = response.getWriter();
 
@@ -80,23 +82,24 @@ public class CitasController extends HttpServlet {
             fechasalida = formatter.parse(fhsalida);
             out.print("sfadsfdsf" + fhsalida);
 
-            /*Citas cita = new Citas(mascota, persona, fechaentrada, fechasalida, tipo, "Programada");
+            Citas cita = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
+            cita.setObservaciones(Observaciones);
             //GUARDAMOS EBJETO EN BD
-
+            
             session.beginTransaction();
             session.save(cita);
             session.getTransaction().commit();
-            session.close();*/
+            session.close();
 
         } catch (Exception e) {
             fechaentrada = null;
             fechasalida = null;
         }
-        /*try {
+        try {
          response.sendRedirect("CitasController?action=admin");
          } catch (IOException ex) {
          Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
-         }  */
+         }  
     }
 
     private void Admin(HttpServletRequest request, HttpServletResponse response) throws IOException {

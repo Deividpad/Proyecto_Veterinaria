@@ -47,7 +47,13 @@
                                                 </c:forEach>
 
                                             </select>                       
-                                        </div>
+                                        </div><br><br>
+
+                                        <!--                                        <div class="form-group form-animate-text" style="margin-top:40px !important;">                                            
+                                                                                    <textarea name="comentarios" rows="10" cols="40" placeholder="Proposito de la cita"></textarea>
+                                                                                    <span class="bar"></span>
+                                                                                    <label></label>
+                                                                                </div>-->
                                     </div>
                                     <div class="col-md-6">  
                                         <div class="form-group form-animate-text">
@@ -249,18 +255,16 @@
 //                                                                }
 //                                                                $.post('ActionServlet', {
 //                                                                    nombre: nombreVar,
-//                                                                    apellido: apellidoVar,
-//                                                                    edad: edadVar
-//                                                                }, function (responseText) {
-//                                                                    $('#tabla').html(responseText);
-//                                                                });
+                                                                //                                                                    apellido: apellidoVar,
+                                                                //                                                                    edad: edadVar //                                                                }, function (responseText) {
+                                                                //                                                                    $('#tabla').html(responseText);
+                                                                //                                                                });
 
                                                                 alert(event.title + " was dropped on " + event.start.format());
                                                                 var elem = document.getElementById('buttonmodal');
                                                                 elem.click();
                                                             },
-                                                            dayClick: function (date, jsEvent, view) {
-                                                                //alert(date.add(1, 'days'));
+                                                            dayClick: function (date, jsEvent, view) {                                                                 //alert(date.add(1, 'days'));
                                                                 if (date.add(1, 'days') <= new Date()) {
                                                                     //alert("No se puede"+date.format());
                                                                 } else {
@@ -270,10 +274,10 @@
                                                                     var elem = document.getElementById('buttonmodal');
                                                                     elem.click();
                                                                     document.getElementById('fhentrada').value = date.format();
-//                                                                
+                                                                    //                                                                
                                                                 }
-//                                                                    // change the day's background color just for fun
-//                                                                    $(this).css('background-color', 'red');
+                                                                //                                                                    // change the day's background color just for fun
+                                                                //                                                                    $(this).css('background-color', 'red');
                                                             },
                                                             eventClick: function (calEvent, jsEvent, view) {
 
@@ -330,8 +334,7 @@
         });
     });
     //$('.min-date').bootstrapMaterialDatePicker({format: 'HH:mm', minDate: new Date(), time: false, });
-//    $('.min-date').bootstrapMaterialDatePicker({ format : 'DD/MM/YYYY HH:mm', minDate : new Date() });
-    $('.datetime').bootstrapMaterialDatePicker({format: 'dddd DD MMMM YYYY - HH:mm', animation: true});
+    //    $('.min-date').bootstrapMaterialDatePicker({ format : 'DD/MM/YYYY HH:mm', minDate : new Date() });     $('.datetime').bootstrapMaterialDatePicker({format: 'dddd DD MMMM YYYY - HH:mm', animation: true});
     //$('.datetime').bootstrapMaterialDatePicker({ format : 'YYYY MMMM dddd - HH:mm',animation:true});
     $('.time').bootstrapMaterialDatePicker({date: false, format: 'HH:mm', animation: true});
     $('.dateAnimate').bootstrapMaterialDatePicker({weekStart: 0, time: false, minDate: new Date(), animation: true});
