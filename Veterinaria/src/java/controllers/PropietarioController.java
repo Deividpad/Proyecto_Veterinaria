@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.HibernateUtil;
 import models.Propietario;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -69,10 +70,11 @@ public class PropietarioController extends HttpServlet {
         String correo = request.getParameter("correo");
         String direccion = request.getParameter("direccion");
         String ciudad = request.getParameter("ciudad");
-        String contra = request.getParameter("contrasena");
+//        String contra = request.getParameter("contrasena");
+        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
         String estado = request.getParameter("estado");
 
-        Propietario pro = new Propietario(documento, nombre, apellido, genero, telefono, correo, direccion, ciudad, contra, estado);
+        Propietario pro = new Propietario(documento, nombre, apellido, genero, telefono, correo, direccion, ciudad, contrasenaencriptada, estado);
         Session sesion = models.HibernateUtil.getSessionFactory().openSession();
         sesion.beginTransaction();
         sesion.save(pro);

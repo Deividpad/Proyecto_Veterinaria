@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import models.HibernateUtil;
 import models.Persona;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -73,7 +74,8 @@ public class PersonasController extends HttpServlet {
         String perfil = request.getParameter("perfil");
         String especialidad = request.getParameter("especialidad");
         String foto = request.getParameter("foto");
-        String contrasena = request.getParameter("contrasena");
+//        String contrasena = request.getParameter("contrasena");
+        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
         String estado = request.getParameter("estado");
 
 //        Part fotoPart = request.getPart("foto");
@@ -85,7 +87,7 @@ public class PersonasController extends HttpServlet {
 //                dis.readFully(foto);
 //            }
 //        } 
-        Persona perso = new Persona(documento, nombres, apellidos, genero, telefono, correo, direccion, ciudad, perfil, foto, contrasena, estado);
+        Persona perso = new Persona(documento, nombres, apellidos, genero, telefono, correo, direccion, ciudad, perfil, foto, contrasenaencriptada, estado);
         perso.setEspecialidad(especialidad);
 //        if (fotoSize>0){
 //        perso.setFoto(foto);}

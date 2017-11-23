@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.HibernateUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 //import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -61,8 +62,8 @@ public class LoginController extends HttpServlet {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Query q = sesion.createQuery("FROM Persona WHERE correo =? AND contrasena =? ");
         q.setString(0, request.getParameter("correo"));
-        String contrasenaencriptada = (request.getParameter("contrasena"));
-        //String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
+//        String contrasenaencriptada = (request.getParameter("contrasena"));
+        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
         q.setString(1, contrasenaencriptada);
         ArrayList listaObjetos = (ArrayList) q.list();
         //Verifica contraseña
@@ -91,13 +92,14 @@ public class LoginController extends HttpServlet {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Query q = sesion.createQuery("FROM Propietario WHERE correo =? AND contrasena =? ");
         q.setString(0, request.getParameter("correo"));
-        String contrasenaencriptada = (request.getParameter("contrasena"));
-        //String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
+//        String contraseña = (request.getParameter("contrasena"));
+        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
+        
         q.setString(1, contrasenaencriptada);
         ArrayList listaObjetos = (ArrayList) q.list();
         //Verifica contraseña
         if (listaObjetos.size() >= 1) {
-
+            
             /*HttpSession session = request.getSession();
             Clientes cliente = (Clientes) listaObjetos.get(0);
             session.setAttribute("User", "Cliente");
@@ -114,6 +116,7 @@ public class LoginController extends HttpServlet {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
     }
 
     /*private void exitClient(HttpServletRequest request, HttpServletResponse response) {

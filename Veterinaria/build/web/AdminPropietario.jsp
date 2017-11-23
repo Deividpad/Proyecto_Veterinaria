@@ -34,8 +34,7 @@
                                     <th>Telefono</th>                                        
                                     <th>Correo</th>  
                                     <th>Direccion</th>
-                                    <th>Ciudad</th>
-                                    <th>Contraseña</th>
+                                    <th>Ciudad</th>                                    
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -50,8 +49,7 @@
                                         <td><c:out value="${propi.telefono}"/></td>
                                         <td><c:out value="${propi.correo}"/></td>
                                         <td><c:out value="${propi.direccion}"/></td>
-                                        <td><c:out value="${propi.ciudad}"/></td>
-                                        <td><c:out value="${propi.contrasena}"/></td>
+                                        <td><c:out value="${propi.ciudad}"/></td>                                       
                                         <td><c:out value="${propi.estado}"/></td>
                                         <td>
                                             <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'PropietarioController?action=update&id=${propi.idPropietario}'">
