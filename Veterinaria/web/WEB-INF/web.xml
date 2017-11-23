@@ -8,6 +8,14 @@
         <servlet-name>CitasController</servlet-name>
         <servlet-class>controllers.CitasController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PropietarioController</servlet-name>
+        <servlet-class>controllers.PropietarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PersonasController</servlet-name>
+        <servlet-class>controllers.PersonasController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>CitasController</servlet-name>
         <url-pattern>/CitasController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropietarioController</servlet-name>
+        <url-pattern>/PropietarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PersonasController</servlet-name>
+        <url-pattern>/PersonasController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

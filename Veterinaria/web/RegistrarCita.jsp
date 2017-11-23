@@ -232,6 +232,7 @@
         for (Object Obj : listar) {
             Citas cita = (Citas) Obj;%>
                                                                 {
+                                                                    id: '<%= cita.getIdCitasMedicas()%>',
                                                                     title: 'All Day Event',
                                                                     start: '<%= cita.getFechaEntrada()%>',
                                                                     end: '<%= cita.getFechaSalida()%>'
@@ -240,54 +241,57 @@
 
 
                                                             ],
+                                                            eventColor: '#378006',
                                                             eventDrop: function (event, delta, revertFunc) {
-                                                                alert(event.title + " was dropped on " + event.start.format());
-                                                                if (!confirm("Are you sure about this change?")) {
-                                                                    revertFunc();
-                                                                }
+//                                                                alert(event.title + " was dropped on " + event.start.format());
+//                                                                if (!confirm("Are you sure about this change?")) {
+//                                                                    revertFunc();
+//                                                                }
+//                                                                $.post('ActionServlet', {
+//                                                                    nombre: nombreVar,
+//                                                                    apellido: apellidoVar,
+//                                                                    edad: edadVar
+//                                                                }, function (responseText) {
+//                                                                    $('#tabla').html(responseText);
+//                                                                });
 
+                                                                alert(event.title + " was dropped on " + event.start.format());
+                                                                var elem = document.getElementById('buttonmodal');
+                                                                elem.click();
                                                             },
                                                             dayClick: function (date, jsEvent, view) {
-
+                                                                //alert(date.add(1, 'days'));
                                                                 if (date.add(1, 'days') <= new Date()) {
-                                                                    //alert("");
+                                                                    //alert("No se puede"+date.format());
                                                                 } else {
                                                                     date.subtract(1, 'days');
                                                                     //alert("Si se puede"+date.format());
 //                                                                    Ventana modal        
                                                                     var elem = document.getElementById('buttonmodal');
                                                                     elem.click();
-                                                                    var fhsalida = document.getElementById('fhentrada').value = date.format();
+                                                                    document.getElementById('fhentrada').value = date.format();
 //                                                                
                                                                 }
-
-//                                                                        alert("salio");                                                                        
-//                                                                        var elem = document.getElementById('mimodalejemplo');
-//                                                                        elem.style.display = 'block';
-//                                                                        
-//                                                                        
-//                                                                        var actual = new Date());
-//                                                                        var calendar = date.format();
-//                                                                        alert("Fecha actual"+actual+" Calendar: "+calendar);
-//                                                                        //document.getElementById('fechajava').value;
-//                                                                        if(date.format() > ){
-//                                                                            alert("Se puede");
-
-//                                                               Ventana modal        
-//                                                                var elem = document.getElementById('buttonmodal');
-//                                                                elem.click();
-//                                                                var fhsalida = document.getElementById('fhentrada').value = date.format();
-//                                                                
-//                                                                
-                                                                //alert('Clicked on: ' + date.format());
-//
-//                                                                    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-//
-//                                                                    alert('Current view: ' + view.name);
-//
 //                                                                    // change the day's background color just for fun
 //                                                                    $(this).css('background-color', 'red');
+                                                            },
+                                                            eventClick: function (calEvent, jsEvent, view) {
+
+                                                                alert('Event: ' + calEvent.title);
+                                                                alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                                                                alert('View: ' + view.name);
+                                                                // change the border color just for fun
+                                                                $(this).css('border-color', 'red');
+                                                            },
+                                                            eventResize: function (event, delta, revertFunc) {
+
+                                                                alert(event.title + " end is now " + event.end.format());
+                                                                if (!confirm("is this okay?")) {
+                                                                    revertFunc();
+                                                                }
                                                             }
+
+
                                                         });
                                                     },
                                                     change: function (themeSystem) {
@@ -331,37 +335,29 @@
     //$('.datetime').bootstrapMaterialDatePicker({ format : 'YYYY MMMM dddd - HH:mm',animation:true});
     $('.time').bootstrapMaterialDatePicker({date: false, format: 'HH:mm', animation: true});
     $('.dateAnimate').bootstrapMaterialDatePicker({weekStart: 0, time: false, minDate: new Date(), animation: true});
-
     function check(e, f) {
         var fhentrada = document.getElementById('fhentrada').value + " " + document.getElementById('tmentrada').value;
         var fhsalida = document.getElementById('fhsalida').value + " " + document.getElementById('tmsalida').value;
-        /*if (fhentrada < fhsalida) {
-         alert("Si se pudo");
-         alert("Entrada: " + fhentrada);
-         alert("Salida " + fhsalida);
-         } else {
-         alert("No se pudo");
-         //            alert("Entrada: " + fhentrada);
-         //            alert("Salida " + fhsalida);
-         e.preventDefault();
-         }*/
-        var f = document.getElementById('tmentrada').value;
-        var time = new Date();
-        var hora = time.getHours();
-        var minuto = time.getMinutes();
-        var finaltime = hora+":"+minuto;
-//        if(f > d.getHours()){
-//            alert("Se puede");
-//        }else{
-//               alert("No se puede");
-//        }
-            if(f > finaltime){
+        if (fhentrada < fhsalida) {
+            alert("Si se pudo");
+            var f = document.getElementById('tmentrada').value;
+            var time = new Date();
+            var hora = time.getHours();
+            var minuto = time.getMinutes();
+            var finaltime = hora + ":" + minuto;
+            if (f > finaltime) {
                 alert("se puede");
-            }else{
-                alert("no se puede");
+            } else {
+                alert("Verifique que la hora sea mayor a la actual");
+                alert(f + " " + finaltime);
+                e.preventDefault();
             }
-        alert(f+" "+ finaltime);
-        e.preventDefault();
+
+        } else {
+            alert("Verifique que la fecha de salida sea menor o igual que la entrada");
+            e.preventDefault();
+        }
+
 
     }
 

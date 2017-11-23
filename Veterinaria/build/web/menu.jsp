@@ -13,8 +13,8 @@
                     <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                    <li><a href="RegistrarClientes.jsp">Registrar Propietario</a></li>
-                    <li><a href="AdminClientes.jsp">Administrar</a></li>
+                    <li><a href="RegistrarPropietario.jsp">Registrar Propietario</a></li>
+                    <li><a href="PropietarioController?action=admin">Administrar</a></li>
                 </ul>
             </li>
             <li class="active ripple">
@@ -31,8 +31,8 @@
                     <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                    <li><a href="">Registrar Veterinario</a></li>
-                    <li><a href="">Administrar</a></li>
+                    <li><a href="RegistrarPersona.jsp">Registrar Veterinario</a></li>
+                    <li><a href="PersonasController?action=admin">Administrar</a></li>
                 </ul>
             </li>
             <li class="active ripple">
