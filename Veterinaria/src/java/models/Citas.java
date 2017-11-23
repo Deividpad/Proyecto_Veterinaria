@@ -1,5 +1,5 @@
 package models;
-// Generated 18/11/2017 02:45:07 PM by Hibernate Tools 4.3.1
+// Generated 23/11/2017 10:21:32 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,6 +17,8 @@ public class Citas  implements java.io.Serializable {
      private Persona persona;
      private Date fechaEntrada;
      private Date fechaSalida;
+     private String proposito;
+     private String observaciones;
      private String tipo;
      private String estado;
      private Set hospitalizacions = new HashSet(0);
@@ -26,19 +28,22 @@ public class Citas  implements java.io.Serializable {
     }
 
 	
-    public Citas(Mascota mascota, Persona persona, Date fechaEntrada, Date fechaSalida, String tipo, String estado) {
+    public Citas(Mascota mascota, Persona persona, Date fechaEntrada, Date fechaSalida, String proposito, String tipo, String estado) {
         this.mascota = mascota;
         this.persona = persona;
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
+        this.proposito = proposito;
         this.tipo = tipo;
         this.estado = estado;
     }
-    public Citas(Mascota mascota, Persona persona, Date fechaEntrada, Date fechaSalida, String tipo, String estado, Set hospitalizacions, Set medicamentoses) {
+    public Citas(Mascota mascota, Persona persona, Date fechaEntrada, Date fechaSalida, String proposito, String observaciones, String tipo, String estado, Set hospitalizacions, Set medicamentoses) {
        this.mascota = mascota;
        this.persona = persona;
        this.fechaEntrada = fechaEntrada;
        this.fechaSalida = fechaSalida;
+       this.proposito = proposito;
+       this.observaciones = observaciones;
        this.tipo = tipo;
        this.estado = estado;
        this.hospitalizacions = hospitalizacions;
@@ -79,6 +84,20 @@ public class Citas  implements java.io.Serializable {
     
     public void setFechaSalida(Date fechaSalida) {
         this.fechaSalida = fechaSalida;
+    }
+    public String getProposito() {
+        return this.proposito;
+    }
+    
+    public void setProposito(String proposito) {
+        this.proposito = proposito;
+    }
+    public String getObservaciones() {
+        return this.observaciones;
+    }
+    
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
     public String getTipo() {
         return this.tipo;

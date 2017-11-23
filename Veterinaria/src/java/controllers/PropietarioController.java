@@ -59,6 +59,7 @@ public class PropietarioController extends HttpServlet {
         Formulario Registrar: Falta que 
         confirme la contraseña y en el formulario editar
         que los select aparezcan selecionado segun el que viene de la base de datos
+        Y verificar las validaciones javascript que algunos input faltan por validar
         */
         long documento = Long.parseLong(request.getParameter("documento"));
         String nombre = request.getParameter("nombres");

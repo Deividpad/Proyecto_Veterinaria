@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 18/11/2017 02:45:10 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 23/11/2017 10:21:34 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="models.Persona" table="persona" catalog="bdveterinaria" optimistic-lock="version">
         <id name="idVeterinario" type="java.lang.Integer">
@@ -47,17 +47,17 @@
         <property name="estado" type="string">
             <column name="Estado" length="8" not-null="true" />
         </property>
-        <set name="citases" table="citas" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Veterinario" not-null="true" />
-            </key>
-            <one-to-many class="models.Citas" />
-        </set>
         <set name="observacioneses" table="observaciones" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="Veterinario" not-null="true" />
             </key>
             <one-to-many class="models.Observaciones" />
+        </set>
+        <set name="citases" table="citas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Veterinario" not-null="true" />
+            </key>
+            <one-to-many class="models.Citas" />
         </set>
         <set name="medicamentoses" table="medicamentos" inverse="true" lazy="true" fetch="select">
             <key>

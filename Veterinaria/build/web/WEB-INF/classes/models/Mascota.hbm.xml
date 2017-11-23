@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 18/11/2017 02:45:10 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 23/11/2017 10:21:34 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="models.Mascota" table="mascota" catalog="bdveterinaria" optimistic-lock="version">
         <id name="idMascotas" type="java.lang.Integer">
@@ -20,8 +20,11 @@
         <property name="peso" type="float">
             <column name="Peso" precision="12" scale="0" not-null="true" />
         </property>
-        <property name="talla" type="float">
-            <column name="Talla" precision="12" scale="0" not-null="true" />
+        <property name="condicionCorporal" type="int">
+            <column name="CondicionCorporal" not-null="true" />
+        </property>
+        <property name="color" type="string">
+            <column name="Color" length="100" not-null="true" />
         </property>
         <property name="especie" type="string">
             <column name="Especie" length="7" not-null="true" />
@@ -29,8 +32,8 @@
         <property name="raza" type="string">
             <column name="Raza" length="45" not-null="true" />
         </property>
-        <property name="sexo" type="string">
-            <column name="Sexo" length="7" not-null="true" />
+        <property name="genero" type="string">
+            <column name="Genero" length="7" not-null="true" />
         </property>
         <property name="fechaNacimiento" type="date">
             <column name="FechaNacimiento" length="10" not-null="true" />

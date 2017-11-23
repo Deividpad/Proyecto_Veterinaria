@@ -1,5 +1,5 @@
 package models;
-// Generated 18/11/2017 02:45:07 PM by Hibernate Tools 4.3.1
+// Generated 23/11/2017 10:21:32 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,10 +17,11 @@ public class Mascota  implements java.io.Serializable {
      private String nombre;
      private String foto;
      private float peso;
-     private float talla;
+     private int condicionCorporal;
+     private String color;
      private String especie;
      private String raza;
-     private String sexo;
+     private String genero;
      private Date fechaNacimiento;
      private String alimentacion;
      private String medicamentos;
@@ -33,28 +34,30 @@ public class Mascota  implements java.io.Serializable {
     }
 
 	
-    public Mascota(Propietario propietario, String nombre, String foto, float peso, float talla, String especie, String raza, String sexo, Date fechaNacimiento, String alimentacion, String estado) {
+    public Mascota(Propietario propietario, String nombre, String foto, float peso, int condicionCorporal, String color, String especie, String raza, String genero, Date fechaNacimiento, String alimentacion, String estado) {
         this.propietario = propietario;
         this.nombre = nombre;
         this.foto = foto;
         this.peso = peso;
-        this.talla = talla;
+        this.condicionCorporal = condicionCorporal;
+        this.color = color;
         this.especie = especie;
         this.raza = raza;
-        this.sexo = sexo;
+        this.genero = genero;
         this.fechaNacimiento = fechaNacimiento;
         this.alimentacion = alimentacion;
         this.estado = estado;
     }
-    public Mascota(Propietario propietario, String nombre, String foto, float peso, float talla, String especie, String raza, String sexo, Date fechaNacimiento, String alimentacion, String medicamentos, String observaciones, String estado, Set citases, Set hospitalizacions) {
+    public Mascota(Propietario propietario, String nombre, String foto, float peso, int condicionCorporal, String color, String especie, String raza, String genero, Date fechaNacimiento, String alimentacion, String medicamentos, String observaciones, String estado, Set citases, Set hospitalizacions) {
        this.propietario = propietario;
        this.nombre = nombre;
        this.foto = foto;
        this.peso = peso;
-       this.talla = talla;
+       this.condicionCorporal = condicionCorporal;
+       this.color = color;
        this.especie = especie;
        this.raza = raza;
-       this.sexo = sexo;
+       this.genero = genero;
        this.fechaNacimiento = fechaNacimiento;
        this.alimentacion = alimentacion;
        this.medicamentos = medicamentos;
@@ -99,12 +102,19 @@ public class Mascota  implements java.io.Serializable {
     public void setPeso(float peso) {
         this.peso = peso;
     }
-    public float getTalla() {
-        return this.talla;
+    public int getCondicionCorporal() {
+        return this.condicionCorporal;
     }
     
-    public void setTalla(float talla) {
-        this.talla = talla;
+    public void setCondicionCorporal(int condicionCorporal) {
+        this.condicionCorporal = condicionCorporal;
+    }
+    public String getColor() {
+        return this.color;
+    }
+    
+    public void setColor(String color) {
+        this.color = color;
     }
     public String getEspecie() {
         return this.especie;
@@ -120,12 +130,12 @@ public class Mascota  implements java.io.Serializable {
     public void setRaza(String raza) {
         this.raza = raza;
     }
-    public String getSexo() {
-        return this.sexo;
+    public String getGenero() {
+        return this.genero;
     }
     
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
     public Date getFechaNacimiento() {
         return this.fechaNacimiento;

@@ -22,8 +22,8 @@
                     <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                    <li><a href="">Registrar Mascota</a></li>
-                    <li><a href="">Administrar</a></li>
+                    <li><a href="MascotasController?action=select">Registrar Mascota</a></li>
+                    <li><a href="MascotasController?action=admin">Administrar</a></li>
                 </ul>
             </li>
             <li class="active ripple">

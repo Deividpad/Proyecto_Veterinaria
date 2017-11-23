@@ -1,5 +1,5 @@
 package models;
-// Generated 18/11/2017 02:45:07 PM by Hibernate Tools 4.3.1
+// Generated 23/11/2017 10:21:32 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -25,8 +25,8 @@ public class Persona  implements java.io.Serializable {
      private String foto;
      private String contrasena;
      private String estado;
-     private Set citases = new HashSet(0);
      private Set observacioneses = new HashSet(0);
+     private Set citases = new HashSet(0);
      private Set medicamentoses = new HashSet(0);
 
     public Persona() {
@@ -47,7 +47,7 @@ public class Persona  implements java.io.Serializable {
         this.contrasena = contrasena;
         this.estado = estado;
     }
-    public Persona(long documento, String nombres, String apellidos, String genero, long telefono, String correo, String direccion, String ciudad, String perfil, String especialidad, String foto, String contrasena, String estado, Set citases, Set observacioneses, Set medicamentoses) {
+    public Persona(long documento, String nombres, String apellidos, String genero, long telefono, String correo, String direccion, String ciudad, String perfil, String especialidad, String foto, String contrasena, String estado, Set observacioneses, Set citases, Set medicamentoses) {
        this.documento = documento;
        this.nombres = nombres;
        this.apellidos = apellidos;
@@ -61,8 +61,8 @@ public class Persona  implements java.io.Serializable {
        this.foto = foto;
        this.contrasena = contrasena;
        this.estado = estado;
-       this.citases = citases;
        this.observacioneses = observacioneses;
+       this.citases = citases;
        this.medicamentoses = medicamentoses;
     }
    
@@ -164,19 +164,19 @@ public class Persona  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public Set getCitases() {
-        return this.citases;
-    }
-    
-    public void setCitases(Set citases) {
-        this.citases = citases;
-    }
     public Set getObservacioneses() {
         return this.observacioneses;
     }
     
     public void setObservacioneses(Set observacioneses) {
         this.observacioneses = observacioneses;
+    }
+    public Set getCitases() {
+        return this.citases;
+    }
+    
+    public void setCitases(Set citases) {
+        this.citases = citases;
     }
     public Set getMedicamentoses() {
         return this.medicamentoses;

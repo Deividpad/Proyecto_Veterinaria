@@ -16,6 +16,10 @@
         <servlet-name>PersonasController</servlet-name>
         <servlet-class>controllers.PersonasController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MascotasController</servlet-name>
+        <servlet-class>controllers.MascotasController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>PersonasController</servlet-name>
         <url-pattern>/PersonasController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MascotasController</servlet-name>
+        <url-pattern>/MascotasController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

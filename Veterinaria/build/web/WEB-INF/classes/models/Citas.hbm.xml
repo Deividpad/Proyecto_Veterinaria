@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 18/11/2017 02:45:10 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 23/11/2017 10:21:34 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="models.Citas" table="citas" catalog="bdveterinaria" optimistic-lock="version">
         <id name="idCitasMedicas" type="java.lang.Integer">
@@ -19,6 +19,12 @@
         </property>
         <property name="fechaSalida" type="timestamp">
             <column name="Fecha_Salida" length="19" not-null="true" />
+        </property>
+        <property name="proposito" type="string">
+            <column name="Proposito" length="65535" not-null="true" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="Observaciones" length="65535" />
         </property>
         <property name="tipo" type="string">
             <column name="Tipo" length="11" not-null="true" />

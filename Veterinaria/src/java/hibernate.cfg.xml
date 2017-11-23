@@ -48,8 +48,8 @@ Contributor(s):
     <mapping resource="models/Observaciones.hbm.xml"/>
     <mapping resource="models/Propietario.hbm.xml"/>
     <mapping resource="models/Persona.hbm.xml"/>
-    <mapping resource="models/Citas.hbm.xml"/>
     <mapping resource="models/Medicamentos.hbm.xml"/>
+    <mapping resource="models/Citas.hbm.xml"/>
     <mapping resource="models/Mascota.hbm.xml"/>
     <mapping resource="models/Hospitalizacion.hbm.xml"/>
   </session-factory>
