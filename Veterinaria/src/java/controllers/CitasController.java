@@ -41,6 +41,12 @@ public class CitasController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        /*
+        Pagina para comprar computadores
+        https://www.ebay.com/sch/i.html?_nkw=rbay%20es
+        
+        */
         PrintWriter out = response.getWriter();
         String action = request.getParameter("action");
 
