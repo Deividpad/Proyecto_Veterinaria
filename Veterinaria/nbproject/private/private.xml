@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/AdsiAndroid/Documents/GitHub/Proyecto_Veterinaria/Veterinaria/src/java/controllers/MascotasController.java</file>
+            <file>file:/C:/Users/AdsiAndroid/Documents/GitHub/Proyecto_Veterinaria/Veterinaria/web/RegistrarClientes.jsp</file>
+            <file>file:/C:/Users/AdsiAndroid/Documents/GitHub/Proyecto_Veterinaria/Veterinaria/src/java/controllers/CitasController.java</file>
+            <file>file:/C:/Users/AdsiAndroid/Documents/GitHub/Proyecto_Veterinaria/Veterinaria/web/RegistrarCita.jsp</file>
+            <file>file:/C:/Users/AdsiAndroid/Documents/GitHub/Proyecto_Veterinaria/Veterinaria/src/java/models/Citas.java</file>
+        </group>
     </open-files>
 </project-private>
