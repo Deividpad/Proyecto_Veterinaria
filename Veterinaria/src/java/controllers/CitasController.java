@@ -7,6 +7,7 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,7 @@ import models.Citas;
 import models.HibernateUtil;
 import models.Mascota;
 import models.Persona;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -97,7 +99,7 @@ public class CitasController extends HttpServlet {
             session.getTransaction().commit();
             session.close();
 
-        } catch (Exception e) {
+        } catch (ParseException | HibernateException e) {
             fechaentrada = null;
             fechasalida = null;
         }

@@ -361,7 +361,7 @@
                     var f = document.getElementById('tmentrada').value;
                     var time = new Date();
                     var hora = time.getHours();
-                    var minuto = time.getMinutes();
+                    var minuto = time.getMinutes();                    
                     var finaltime = hora + ":" + minuto;
                     if (f > finaltime) {
             alert("se puede");
