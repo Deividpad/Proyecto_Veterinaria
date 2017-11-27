@@ -18,10 +18,8 @@
             <div class="panel box-shadow-none content-header">
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <h3 class="animated fadeInLeft">Registrar Cliente</h3>
-                        <p class="animated fadeInDown">
-                            Form <span class="fa-angle-right fa"></span> Form Element
-                        </p>
+                        <h3 class="animated fadeInLeft">Registrar Propietario</h3>
+
                     </div>
                 </div>
             </div>
@@ -53,6 +51,7 @@
                                     <div class="col-sm-12 padding-0">
                                         <label class="control-label col-lg-4">Genero</label>
                                         <select class="form-control" name="genero">
+                                            <option value="" selected="selected">Seleccione...</option>
                                             <option value="Femenino">femenino</option>
                                             <option value="Masculino">Masculino</option>
                                         </select>
@@ -95,6 +94,7 @@
                                     <div class="col-sm-12 padding-0">
                                         <label class="control-label col-lg-4">Estados</label>
                                         <select class="form-control" name="estado">
+                                            <option value="" selected="selected">Seleccione...</option>
                                             <option value="Activo">Activo</option>
                                             <option value="Inactivo">Inactivo</option>
                                         </select>
@@ -119,7 +119,6 @@
                 var nit;
                 try {
                     nit = parseInt(e);
-
                 } catch (e) {
                     nit = 0;
                 }
@@ -179,31 +178,33 @@
                         nombres: "required",
                         ciudad: "required",
                         direccion: "required",
-                        apellidos:"required",
-                        correo:"required",
-                        
-                        
+                        apellidos: "required",
+                        correo: "required",
                         documento: {
                             required: true,
                             min: 1,
                             minlength: 10,
-                            maxlength: 10
+                            maxlength: 10,
                         },
                         telefono: {
                             required: true,
                             min: 1,
                             minlength: 10,
-                            maxlength: 10
+                            maxlength: 10,
                         },
                         contrasena: {
                             required: true,
-                            minlength: 5
+                            minlength: 5,
                         },
                         confirmar_contrasena: {
                             required: true,
                             minlength: 5,
-                            equalTo: "#contrasena"
+                            equalTo: "#contrasena",
                         },
+                        genero: {
+                            required: true,
+                        },
+
                         validate_agree: "required"
                     },
                     messages: {
@@ -212,6 +213,7 @@
                         ciudad: "Por favor, Digite la ciudad.",
                         direccion: "Por favor, Digite su direccion.",
                         correo: "Por favor,Digite un correo valido.",
+                        genero: "Por favor, seleccione su Genero",
                         documento: {
                             required: "Por favor,Digite su Documento",
                             min: "Documento valido",
@@ -236,8 +238,6 @@
                     }
 
                 });
-
-
             });
         </script>
     </body>
