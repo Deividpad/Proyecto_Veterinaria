@@ -68,8 +68,30 @@ public class CitasController extends HttpServlet {
  
     private void Registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
-        String fullname = request.getParameter("fullname");
+        String fullname = request.getParameter("fhentrada");
         out.print("Hello desde metodo registrar" + fullname);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date fechaentrada = null;
+        Date fechasalida = null;
+        //Fecha Entrada
+        String fechaen = request.getParameter("fhentrada");
+        String tmentrada = request.getParameter("tmentrada");
+        String fhentrada = fechaen + " " + tmentrada;
+
+        //Fecha Salida
+        String fechasal = request.getParameter("fhsalida");
+        String tmsalida = request.getParameter("tmsalida");
+        String fhsalida = fechasal + " " + tmsalida;
+        try {
+            fechaentrada = formatter.parse(fhentrada);
+            fechasalida = formatter.parse(fhsalida);
+            //out.print("sfadsfdsf" + fhsalida);
+            
+        } catch (ParseException | HibernateException e) {
+            fechaentrada = null;
+            fechasalida = null;
+        }
+        
 //        Session session = HibernateUtil.getSessionFactory().openSession();
 //        Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
 //        Persona persona = (Persona) session.get(Persona.class, 1);

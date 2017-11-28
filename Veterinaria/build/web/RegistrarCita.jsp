@@ -30,8 +30,8 @@
                         </div>
                         <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                             <div class="col-md-12">
-                                <!--action="CitasController?action=create"-->
-                                <form class="cmxform" id="signupForm" method="POST" onsubmit="check(event, this)" >
+                                <!--action="CitasController?action=create" onsubmit="check(event, this)"-->
+<!--                                <form class="cmxform" id="signupForm" method="POST"  >-->
                                     <div class="col-md-6">   
                                        <h6>Hello World!</h6>
                                         Name: <input type="text" id="fullname">
@@ -81,7 +81,7 @@
                                         <div class="col-sm-12 padding-0">
                                             <span class="bar"></span>
                                             <label>Tipo Cita</label>
-                                            <select class="form-control" name="tipo">
+                                            <select class="form-control" name="tipo" id="tipo">
                                                 <option value="Programada">Programadaa</option>
                                                 <option value="Urgencia">Urgencia</option>                                                
                                             </select>
@@ -89,11 +89,11 @@
 
                                     </div>
                                     <div class="col-md-12" style="padding-top: 20px;">
-                                        <input class="submit btn btn-success" id="myBtn1" type="submit" value="Modificar" >
+                                        <input class="submit btn btn-success" id="myBtn1" type="submit" onclick="check()" value="Modificar" >
                                         <input type="submit" class="submit btn btn-danger" value="Volver" onclick="reset()" data-dismiss="modal">
                                     </div>
 
-                                </form>
+                                <!--</form>-->
 
                             </div>
                         </div> 
@@ -363,17 +363,16 @@
     });
     $('#bttHello').click(function(){
         alert("Le dio click al buton");
-                     var fullname = $('#fullname').val();
-                     var action = "create";
-                     alert("Hola: "+fullname);
+                     //var fullname = $('#fullname').val();
+                     var action = "create";                     
                     $.ajax({
                     type:'POST',
-                    data: {fullname: fullname},
+                    data: {fhentrada: $('#fhentrada').val(),tmentrada: $('#tmentrada').val(),fhsalida: $('#fhsalida').val(),tmsalida: $('#tmsalida').val()},
                     url: 'CitasController?action='+action,  
                     success: function(result){
                         $('#result1').html(result);
                         alert(result);
-                    }                   
+                    }                  
                     
                 });
                  });             
@@ -388,20 +387,8 @@
                         alert("La fecha es mayor valido sin hora");
                         if (fhentrada < fhsalida) {
                             alert("Se puede crear la cita ");
-                            var fullname = $('#fullname').val();
-                     var action = "create";
-                     alert("Hola: "+fullname);
-                    $.ajax({
-                    type:'POST',
-                    data: {fullname: fullname},
-                    url: 'CitasController?action='+action,  
-                    success: function(result){
-                        $('#result1').html(result);
-                        alert(result);
-                        e.preventDefault();
-                    }                  
-                    
-                });
+                             var elem = document.getElementById('bttHello');
+                            elem.click();
                             
                         }else{
                             alert("Verifique que la fecha de salida sea menor o igual que la entrada");
