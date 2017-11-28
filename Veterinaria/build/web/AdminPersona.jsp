@@ -59,6 +59,9 @@
                                         <button class=" btn btn-circle btn-mn btn-danger"  onclick="location.href = 'PersonasController?action=eliminar&id=${person.idVeterinario}'">
                                             <span class="fa fa-trash"></span>
                                         </button> 
+                                        <button class=" btn btn-circle btn-mn btn-danger"  onclick="location.href = 'PersonasController?action=eliminar333&id=${person.idVeterinario}'">
+                                            <span class="fa fa-trash">Generar</span>
+                                        </button> 
                                         </td>
                                     </tr>                                  
 

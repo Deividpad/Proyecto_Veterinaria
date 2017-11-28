@@ -22,24 +22,24 @@
         </div>
     </div>
 
+    <form class="cmxform" id="signupForm" method="POST" action="PersonasController?action=create">
 
-    <div class="col-md-10">
-        <div class="col-md-12 panel">
-            <div class="col-md-12 panel-heading">
-                <h4>Ingrese los datos</h4>
-            </div>
-            <div class="col-md-12 panel-body" style="padding-bottom:30px;">
-                <div class="col-md-12">
-                    <form class="cmxform" id="signupForm" method="POST" action="PersonasController?action=create">
+        <div class="col-lg-9">
+            <div class="col-md-12 panel">
+                <div class="col-md-12 panel-heading">
+                    <h4>Ingrese los datos</h4>
+                </div>
+                <div class="col-md-12 panel-body" style="padding-bottom:30px;">
+                    <div class="col-md-12">
                         <div class="col-md-6">
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="number" class="form-text" id="Documento" name="documento" required>
+                                <input type="number" class="form-text" id="documento" name="documento" required>
                                 <span class="bar"></span>
                                 <label>Documento</label>
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="Nombres" onkeyup="return runScript(this.value)" name="nombres" required>
+                                <input type="text" class="form-text" id="nombres" onkeyup="return runScript(this.value)" name="nombres" required>
                                 <span class="bar"></span>
                                 <label>Nombres</label>
                             </div>
@@ -53,8 +53,8 @@
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
 
-                                <select class="form-text" name="genero" id="options">
-                                    <option value="" selected="selected">Seleccione...</option>
+                                <select class="form-text" name="genero" id="selected">
+                                    <option value="" >Seleccione...</option>
                                     <option value="Femenino">Femenino</option>
                                     <option value="Masculino">Masculino</option>
                                 </select>
@@ -69,11 +69,11 @@
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="email" class="form-text" id="email" name="correo" required>
+                                <input type="email" class="form-text" id="correo" name="correo" required>
                                 <span class="bar"></span>
                                 <label>Correo</label>
                             </div>
-                          </div>
+                        </div>
 
                         <div class="col-md-6">
 
@@ -92,8 +92,8 @@
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
 
-                                <select class="form-text" id="perfil" name="perfil" required>
-                                    <option>Seleccione...</option>
+                                <select class="form-text" name="perfil" >
+                                    <option value="" selected="selected">Seleccione...</option>
                                     <option value="Administrador">Administrador</option>
                                     <option value="Veterinario">Veterinario</option>
                                     <option value="Auxiliar">Auxiliar</option>
@@ -102,63 +102,158 @@
                                 <label>Perfil</label>
                             </div>
 
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="Nombres" name="especialidad" required>
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;" >
+                                <input type="text"  class="form-text" id="especialidad" name="especialidad" placeholder="Especialidad" onkeyup="return runScript(this.value)" >
                                 <span class="bar"></span>
-                                <label>Especialidad</label>
+<!--                                <label>Especialidad</label>-->
                             </div>
-
+              
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="password" class="form-text" id="Nombres" onkeyup="return runScript(this.value)" name="contrasena" required>
+                                <input type="password" class="form-text" id="contrasena" onkeyup="return runScript(this.value)" name="contrasena" required>
                                 <span class="bar"></span>
                                 <label>Contraseña</label>
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="password" class="form-text" id="confirmar_contrasena"  onkeyup="return runScript(this.value)"  required>
+                                <span class="bar"></span>
+                                <label>Confirmar Contraseña</label>
+                            </div>
+
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;" >
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
 
-                                <select class="form-text" name="estado" required>
-                                    <option>Seleccione...</option>
+                                <select class="form-text" name="estado"  >
+                                    <option value="" selected="selected">Seleccione...</option>
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
 
                                 </select>
-                     
+
                                 <span class="bar" ></span>
                                 <label>Estado</label>
                             </div>
-                            
-                            <!--                            <div class="col-sm-12 padding-0">
-                                                            <select class="form-control">
-                                                                <option>option one</option>
-                                                                <option>option two</option>
-                                                                <option>option three</option>
-                                                                <option>option four</option>
-                                                            </select>
-                                                        </div>-->
+
                         </div>  
-                        
-                       <div class="col-md-12">
-                       <div class="form-group form-animate-text" style="margin-top:10px !important;">
-                            <input type="text" class="form-text" id="Nombres" onkeyup="return runScript(this.value)" name="foto" required>
-                            <span class="bar"></span>
-                        <label>Foto</label>
-                        </div>
-                        </div>
 
-                        <div class="col-md-12">
+
+                        <style>
+                            #divInput label{
+                                overflow:hidden;
+                                position:absolute;
+                                /*                            z-index:19;
+                                                            *z-index:2;*/
+
+                                float: right;
+                            }
+                            #foto{
+                                /*                            position:absolute;
+                                                            -moz-opacity:0 ;
+                                                            filter:alpha(opacity: 0);
+                                                            opacity: 0;
+                                                            z-index:2;
+                                                            *z-index:1; *height:0;*/
+
+                            }
+                        </style>
+
+                        <div class="col-md-12" style="margin-top:30px" >
                             <input class="submit btn btn-primary" id="validate" type="submit" value="Guardar" > &nbsp
-                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'PersonasController?action=admin'">
+                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'AdminCliente.jsp'"><br><br>
                         </div>
-                    </form>
+                        <!--Foto-->
+                        <!--                          <div class="col-md-4">
+                                                    <div class="col-md-12 padding-0">
+                                                      <div class="panel box-v2">
+                                                          <div class="panel-heading padding-0" id="vista_previa">
+                                                            <img src="asset/img/bg2.jpg" class="box-v2-cover img-responsive"/>
+                                                            <div class="box-v2-detail">
+                                                              <img src="asset/img/avatar.jpg" class="img-responsive"/>
+                                                              <h4>Akihiko Avaron</h4>
+                                                            </div>
+                                                          </div>
+                                                          <div class="panel-body">
+                                                            <div class="col-md-12 padding-0 text-center">
+                                                              <div class="col-md-4 col-sm-4 col-xs-6 padding-0">
+                                                                  <h3>2.000</h3>
+                                                                  <p>Post</p>
+                                                              </div>
+                                                              <div class="col-md-4 col-sm-4 col-xs-6 padding-0">
+                                                                  <h3>2.232</h3>
+                                                                  <p>share</p>
+                                                              </div>
+                                                              <div class="col-md-4 col-sm-4 col-xs-12 padding-0">
+                                                                  <h3>4.320</h3>
+                                                                  <p>photos</p>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                      </div>
+                                                    </div>
+                                                  
+                                            </div>-->
+                        <!--Fin_foto-->
 
+
+                        <!--</form>-->
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-lg-3"> <h1>Imagen</h1>
 
+            <div class="col-md-12">
+                <input type="file" class="form-text" id="foto" name="foto" required>
+
+            </div>
+            <div class="card-avatar">
+                <a href="#pablo">
+                    <div class="img" id="vista_previa"><label for="foto"></label>Vista previa</div>
+                </a>
+            </div>
+        </div>
+
+    </form>
 </div>
 <!-- end: content -->
+<form action="#" method="post" id="subearchivos" hidden>
+    <input type="submit" id="enviar" name="enviar" />
+    <input type="button" value="cancelar"  style="display: none;" onclick="cancela('subearchivos');" id="resetear" />
+</form>
+
+<script>
+    document.getElementById('vista_previa').innerHTML = '<img src="images/avatar_circle_blue_512dp.png" alt="" width="250" />';
+    if (window.FileReader) {
+        function seleccionArchivo(evt) {
+            var files = evt.target.files;
+            var f = files[0];
+            var leerArchivo = new FileReader();
+            document.getElementById('resetear').style.display = 'block';
+            leerArchivo.onload = (function (elArchivo) {
+                return function (e) {
+                    document.getElementById('vista_previa').innerHTML = '<img src="' + e.target.result + '" alt="" width="250" />';
+                };
+            })(f);
+            leerArchivo.readAsDataURL(f);
+        }
+    } else {
+        document.getElementById('vista_previa').innerHTML = "El navegador no soporta vista previa";
+    }
+    document.getElementById('foto').addEventListener('change', seleccionArchivo, false);
+    function cancela(elForm) {
+        document.getElementById(elForm).reset();
+        if (window.FileReader) {
+            document.getElementById('vista_previa').innerHTML = "Vista Previa";
+        } else {
+            document.getElementById('vista_previa').innerHTML = "El navegador no soporta vista previa";
+        }
+        document.getElementById('resetear').style.display = 'none';
+    }
+</script>
+
+
+
 <script>
     function runScript(e) {
         var nit;
@@ -221,11 +316,20 @@
                 $(label.parent("div").removeClass("form-animate-error"));
             },
             rules: {
-                 
-               
+
+                nombres: "required",
+                apellidos: "required",
+                selected: "required",
                 razonsocial: "required",
                 ciudad: "required",
                 direccion: "required",
+                documento: {
+                    required: true,
+                    min: 1,
+                    minlength: 10,
+                    maxlength: 10
+                },
+
                 nit: {
                     required: true,
                     min: 1,
@@ -251,15 +355,35 @@
                     required: true,
                 },
                 genero: {
-                    required: true,  
+                    required: true,
                 },
-            
+                estado: {
+                    required: true,
+                },
+
                 validate_agree: "required"
             },
             messages: {
-                razonsocial: "Por favor, introduzca Razon social",
-                ciudad: "Por favor, introduzca la ciudad",
-                direccion: "por favor, introduzca su direccion",
+
+                nombres: "Por favor, Digite el  Nombre.",
+                apellidos: "Por favor, Digite el  Apellido.",
+                genero: "Por favor, Seleccione el Genero.",
+                perfil: "Por favor, Seleccione un Perfil",
+                estado: "Por favor, Seleccione un Estado",
+                ciudad: "Por favor, Digite la Ciudad",
+                direccion: "Por favor, Digite la Dirección.",
+                foto: "Por favor, Seleccione una Foto",
+//                especialidad: "Por favor, Digite una Especialidad",
+
+                documento: {
+                    required: "Por favor,Digite el Documento",
+                    min: "Documento invalido",
+                    minlength: "Documento invalido",
+                    maxlength: "Documento invalido"
+                },
+                correo: {
+                    required: "Por favor, Digite el correo"},
+                min: "Por favor, Introduzca un Correo valido",
                 nit: {
                     required: "Nit invalido",
                     min: "Nit valido",
@@ -267,17 +391,17 @@
                     maxlength: "No valido"
                 },
                 telefono: {
-                    required: "Proporcione un numero de telefono",
+                    required: "Por favor, Digite el Numero",
                     min: "No valido",
                     minlength: "su telefono debe tener almenos 10 caracteres",
                     maxlength: "No valido"
                 },
                 contrasena: {
-                    required: "Proporcione una contraseña",
+                    required: "Por favor, Digite una contraseña",
                     minlength: "Su contraseña debe tener al menos 5 caracteres"
                 },
                 confirmar_contrasena: {
-                    required: "Proporcione una contraseña",
+                    required: "Por favor, Digite la misma contraseña",
                     minlength: "Su contraseña debe tener al menos 5 caracteres",
                     equalTo: "Ingrese la misma contraseña que la anterior"
                 },
@@ -287,38 +411,6 @@
 
     });
 </script>
-<!--<script>
-  $('#validate').click(function() {
 
-    if ($('#options').val().trim() === '') {
-        alert('Debe seleccionar una opción');
-
-    } else {
-        alert('Campo correcto');
-    }
-});
-</script>-->
-<!--<script>
-    $(".validar_form").submit(function () {
-var select = $("#id_casa").val();
-if (select == null) {
-    $('.error').text("Seleccione una Casa de Apuestas");
-    return false;
-} else {
-    $('.errors').hide();
-    alert('OK');
-    return true;
-}
-});
-</script>-->
-<!--<script>
-    
-    if($("#genero option:selected").val() == 0) {
-    alert("Debe Seleccionar una categoria");
-    return false;
-}
- 
-</script>-->
-<!-- end: Javascript -->
 </body>
 </html>
