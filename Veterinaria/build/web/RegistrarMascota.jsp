@@ -37,7 +37,7 @@
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <input type="number" class="form-text" id="peso" name="peso" required>
                                 <span class="bar"></span>
-                                <label>Peso</label>
+                                <label>Peso (Kg)</label>
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -53,18 +53,18 @@
                             </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <select class="form-text" required name="especie" id="especie">
-                                    <option>Seleccione la especie</option>
-                                    <option value="Canino">Canino</option>
-                                    <option value="Felino">Felino</option>
+                                <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
+
+                                <select class="form-text" name="especie" id="especie">
+                                    <option value="" selected="selected">Seleccione...</option>
+                                    <option value="Femenino">Canino</option>
+                                    <option value="Masculino">Felino</option>
                                 </select>
+                                <span class="bar" ></span>
+                                <label>Especie</label> 
                             </div>
                             
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="raza" onkeyup="return runScript(this.value)" name="raza" required>
-                                <span class="bar"></span>
-                                <label>Raza</label>
-                            </div>
+                            
                             
                              
                             
@@ -73,11 +73,21 @@
                         <div class="col-md-6">
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <select class="form-text" name="sexo" id="sexo" required>
-                                    <option>Seleccione el genero</option>
+                                <input type="text" class="form-text" id="raza" onkeyup="return runScript(this.value)" name="raza" required>
+                                <span class="bar"></span>
+                                <label>Raza</label>
+                            </div>
+                            
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
+
+                                <select class="form-text" name="genero" id="genero">
+                                    <option value="" selected="selected">Seleccione...</option>
                                     <option value="Hembra">Hembra</option>
                                     <option value="Macho">Macho</option>
                                 </select>
+                                <span class="bar" ></span>
+                                <label>Genero</label> 
                             </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -86,47 +96,54 @@
                                 <label>Alimentacion</label>
                             </div>
                             
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="medicamentos" onkeyup="return runScript(this.value)" name="medicamentos" value="">
-                                <span class="bar"></span>
-                                <label>Medicamentos</label>
-                            </div>
                            
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;" >
-                                <select  name="propietario"class="form-text" id="propietario" required>
-                                    <option>Seleccione el propietario</option>
+                            
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;" class="bar" required >
+                                <select  name="propietario" class="form-text"id="propietario" >
+                                    <option value="" selected="selected">Seleccione...</option>
                                     <c:forEach var="pro" items="${requestScope.ListarPropietario}">
                                         <option value="${pro.idPropietario}">${pro.nombres}</option>
                                     </c:forEach>
-
                                 </select>
-                            </div>
-                            
-                            
-                            
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="observaciones" onkeyup="return runScript(this.value)" name="observaciones" value="" >
                                 <span class="bar"></span>
-                                <label>Observaciones</label>
+                                <label>Propietario</label> 
                             </div>
                             
                             
+                            
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <select class="form-text" name="estado" id="estado" required>
-                                    <option>Seleccione el estado</option>
+                                <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
+
+                                <select class="form-text" name="estado" id="estado">
+                                    <option value="" selected="selected">Seleccione...</option>
                                     <option value="Activa">Activa</option>
                                     <option value="Inactiva">Inactiva</option>
-                                    
                                 </select>
+                                <span class="bar" ></span>
+                                <label>Estado</label> 
                             </div>
                         </div>  
                          <div class="col-md-12">
-                            <div class="form-group form-animate-text" style="margin-top:20px !important;">
+                             
+                              <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="observaciones" onkeyup="return runScript(this.value)" name="observaciones" value=""  >
+                                <span class="bar"></span>
+                                <label>Observaciones (No obligatorio) </label>
+                            </div>
+                             
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="medicamentos" onkeyup="return runScript(this.value)" name="medicamentos" value="">
+                                <span class="bar"></span>
+                                <label>Medicamentos (No obligatorio)</label>
+                            </div>
+                             <div class="form-group form-animate-text" style="margin-top:20px !important;"   <label>Foto 
+                               
                                 <input type="file" class="form-text" id="foto" onkeyup="return runScript(this.value)" name="foto" required>
                                 <span class="bar"></span>
                                 <br>
                                
                             </div>
+                             
                              </div>
                         
                         <div class="col-md-12">
@@ -163,7 +180,7 @@
         } catch (e) {
             nit = 0;
         }
-        document.getElementById("telefono").value = nit;
+        //document.getElementById("telefono").value = nit;
     }
 </script>
 <button id="mimin-mobile-menu-opener" class="animated rubberBand btn btn-circle btn-danger">
@@ -204,22 +221,52 @@
                 $(label.parent("div").removeClass("form-animate-error"));
             },
             rules: {
-                nombre: "required",
+                alimentacion: "required",
                 foto: "required",
-                raza: "required",
-                nombres: {
+               
+                nombre: {
                     required: true,
-                    
+                    minlength: 3,
+                    maxlength: 60
                 },
-                telefono: {
+                peso: {
+                    required: true,
+                    min: 0.5,
+                    max: 70
+                },
+                condicion: {
                     required: true,
                     min: 1,
-                    minlength: 10,
-                    maxlength: 10
+                    max: 5
+                    
                 },
+                color: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 100
+                    
+                },
+                raza: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 45
+                },
+                
                 contrasena: {
                     required: true,
                     minlength: 5
+                },
+                especie: {
+                    required: true
+                },
+                genero: {
+                    required: true
+                },
+                propietario: {
+                    required: true
+                },
+                estado: {
+                    required: true,
                 },
                 confirmar_contrasena: {
                     required: true,
@@ -229,23 +276,49 @@
                 validate_agree: "required"
             },
             messages: {
-                nombre: "Por favor, digite un nombre.",
-                foto: "Por favor, digite una foto.",
-                raza: "Por favor, digite la raza.",
+                
+                foto: "Por favor, inserte una foto.",
+                
                 alimentacion: "Por favor, digite la alimentación.",
-                nombres: {
-                    required: "Por favor, introduzca un nombre",
-                   
+                propietario:"Por favor, seleecione",
+                nombre: {
+                    required: "Por favor, digite un nombre",
+                    minlength: "Número minímo de caracteres (3).",
+                    maxlength: "Número máximo de caracteres (60)."
                 },
-                telefono: {
-                    required: "Proporcione un numero de telefono",
-                    min: "No valido",
-                    minlength: "su telefono debe tener almenos 10 caracteres",
+                peso: {
+                    required: "Por favor, digite el peso",
+                    min: "Por favor ingrese un valor mayor o igual a 0.5.",
+                    max: "Por favor, introduzca un valor inferior o igual a 70."
+                },
+                condicion: {
+                    required: "Por favor, digite la condición corporal",
+                    min: "Por favor ingrese un valor mayor o igual que 1.",
+                    max: "Por favor ingrese un valor menor o igual a 5."
+                    
+                },
+                color: {
+                    required: "Por favor, digite un nombre",
+                    minlength: "Por favor, digite al menos 3 caracteres.",
+                    maxlength: "Por favor, ingrese no más de 100 caracteres."
+                },
+                raza: {
+                    required: "Por favor, digite la raza.",
+                    minlength: "Por favor, digite al menos 3 caracteres.",
                     maxlength: "No valido"
                 },
                 contrasena: {
                     required: "Proporcione una contraseña",
                     minlength: "Su contraseña debe tener al menos 5 caracteres"
+                },
+                especie: {
+                    required: "Por favor, seleccione una opcion"
+                },
+                genero: {
+                    required: "Por favor, seleccione una opcion"
+                },
+                 estado: {
+                    required: "Por favor, seleccione una opcion"
                 },
                 confirmar_contrasena: {
                     required: "Proporcione una contraseña",
