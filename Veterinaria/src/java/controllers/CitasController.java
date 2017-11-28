@@ -43,20 +43,21 @@ public class CitasController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         /*
         Pagina para comprar computadores
         https://www.ebay.com/sch/i.html?_nkw=rbay%20es
         
-        */
+         */
         PrintWriter out = response.getWriter();
+        
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("admin")) {
             Admin(request, response);
         } else if (action.equalsIgnoreCase("create")) {
             Registrar(request, response);
-        }
+        } 
         /*else if (action.equalsIgnoreCase("update")) {
          Actualizar(request, response);
          } else if (action.equalsIgnoreCase("eliminar")) {
@@ -64,50 +65,53 @@ public class CitasController extends HttpServlet {
          }*/
     }
 
+ 
     private void Registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
-        Persona persona = (Persona) session.get(Persona.class, 1);
-        String Proposito = "";
-        String Observaciones = "";
-        String tipo = request.getParameter("tipo");
         PrintWriter out = response.getWriter();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date fechaentrada = null;
-        Date fechasalida = null;
-        //Fecha Entrada
-        String fechaen = request.getParameter("fhentrada");
-        String tmentrada = request.getParameter("tmentrada");
-        String fhentrada = fechaen + " " + tmentrada;
-
-        //Fecha Salida
-        String fechasal = request.getParameter("fhsalida");
-        String tmsalida = request.getParameter("tmsalida");
-        String fhsalida = fechasal + " " + tmsalida;
-        try {
-            fechaentrada = formatter.parse(fhentrada);
-            fechasalida = formatter.parse(fhsalida);
-            out.print("sfadsfdsf" + fhsalida);
-
-            Citas cita = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
-            cita.setObservaciones(Observaciones);
-            //GUARDAMOS EBJETO EN BD
-            
-            session.beginTransaction();
-            session.save(cita);
-            session.getTransaction().commit();
-            session.close();
-
-        } catch (ParseException | HibernateException e) {
-            fechaentrada = null;
-            fechasalida = null;
-        }
-        try {
-         response.sendRedirect("CitasController?action=admin");
-         } catch (IOException ex) {
-         Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
-         }  
+        String fullname = request.getParameter("fullname");
+        out.print("Hello desde metodo registrar" + fullname);
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
+//        Persona persona = (Persona) session.get(Persona.class, 1);
+//        String Proposito = "";
+//        String Observaciones = "";
+//        String tipo = request.getParameter("tipo");
+//        PrintWriter out = response.getWriter();
+//
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//        Date fechaentrada = null;
+//        Date fechasalida = null;
+//        //Fecha Entrada
+//        String fechaen = request.getParameter("fhentrada");
+//        String tmentrada = request.getParameter("tmentrada");
+//        String fhentrada = fechaen + " " + tmentrada;
+//
+//        //Fecha Salida
+//        String fechasal = request.getParameter("fhsalida");
+//        String tmsalida = request.getParameter("tmsalida");
+//        String fhsalida = fechasal + " " + tmsalida;
+//        try {
+//            fechaentrada = formatter.parse(fhentrada);
+//            fechasalida = formatter.parse(fhsalida);
+//            out.print("sfadsfdsf" + fhsalida);
+//
+//            Citas cita = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
+//            cita.setObservaciones(Observaciones);
+//            //GUARDAMOS EBJETO EN BD
+//
+//            //            session.beginTransaction();
+//            //            session.save(cita);
+//            //            session.getTransaction().commit();
+//            //            session.close();
+//        } catch (ParseException | HibernateException e) {
+//            fechaentrada = null;
+//            fechasalida = null;
+//        }
+////        try {
+////            response.sendRedirect("CitasController?action=admin");
+////        } catch (IOException ex) {
+////            Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+////        }
     }
 
     private void Admin(HttpServletRequest request, HttpServletResponse response) throws IOException {

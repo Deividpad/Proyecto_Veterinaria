@@ -13,7 +13,12 @@
             </div>
         </div>
     </div> 
-
+    <form>
+     <h6>Hello World!</h6>
+<!--                                        Name: <input type="text" id="fullname">
+                                        <input type="button" value="Hello" id="bttHello">        
+                                        <span id="result1"></span>-->
+        </form>
     <!-- Modal --><!-- Modal -->
     <div class="modal fade" id="mimodalejemplo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">        
         <div class="modal-dialog" role="document">
@@ -25,8 +30,13 @@
                         </div>
                         <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                             <div class="col-md-12">
-                                <form class="cmxform" id="signupForm" method="POST" onsubmit="check(event, this)" action="CitasController?action=create">
-                                    <div class="col-md-6">                                        
+                                <!--action="CitasController?action=create"-->
+                                <form class="cmxform" id="signupForm" method="POST" onsubmit="check(event, this)" >
+                                    <div class="col-md-6">   
+                                       <h6>Hello World!</h6>
+                                        Name: <input type="text" id="fullname">
+                                        <input type="button" value="Hello" id="bttHello">        
+                                        <span id="result1"></span>
                                         <div class="form-group form-animate-text">
                                             <input type="text" class="form-text dateAnimate" id="fhentrada" name="fhentrada" required>
                                             <span class="bar"></span>
@@ -264,20 +274,23 @@
                                                                 
                                                     
                                                     eventDrop: function (event, delta, revertFunc) {
-//                                                                alert(event.title + " was dropped on " + event.start.format());
-//                                                                if (!confirm("Are you sure about this change?")) {
-//                                                                    revertFunc();
-//                                                                }
-//                                                                $.post('ActionServlet', {
-//                                                                    nombre: nombreVar,
-                                                    //                                                                    apellido: apellidoVar,
-                                                    //                                                                    edad: edadVar //                                                                }, function (responseText) {
-                                                    //                                                                    $('#tabla').html(responseText);
-                                                    //                                                                });
-
-                                                    alert(event.title + " was dropped on " + event.start.format());
-                                                            var elem = document.getElementById('buttonmodal');
+                                                        var estado = event.title;
+                                                        
+                                                        if(estado == "Cancelada" || estado == "Atendida"){
+                                                        alert("Cita ya no se puede modificar");    
+                                                        revertFunc();   
+                                                        }else{
+                                                            event.start.add(1, 'days')
+                                                    if(event.start >= new Date()){
+                                                        var elem = document.getElementById('buttonmodal');
                                                             elem.click();
+                                                    }else{
+//                                                        alert("Fecha no valida "+event.start.format()+" Actual"     );
+                                                        revertFunc();   
+                                                    }
+                                                        }                                            
+                                                    
+                                                            
                                                     },
                                                     dayClick: function (date, jsEvent, view) {                                                                 //alert(date.add(1, 'days'));
                                                     if (date.add(1, 'days') <= new Date()) {
@@ -348,26 +361,91 @@
 
     });
     });
-            //$('.min-date').bootstrapMaterialDatePicker({format: 'HH:mm', minDate: new Date(), time: false, });
-            //    $('.min-date').bootstrapMaterialDatePicker({ format : 'DD/MM/YYYY HH:mm', minDate : new Date() });     $('.datetime').bootstrapMaterialDatePicker({format: 'dddd DD MMMM YYYY - HH:mm', animation: true});
-            //$('.datetime').bootstrapMaterialDatePicker({ format : 'YYYY MMMM dddd - HH:mm',animation:true});
+    $('#bttHello').click(function(){
+        alert("Le dio click al buton");
+                     var fullname = $('#fullname').val();
+                     var action = "create";
+                     alert("Hola: "+fullname);
+                    $.ajax({
+                    type:'POST',
+                    data: {fullname: fullname},
+                    url: 'CitasController?action='+action,  
+                    success: function(result){
+                        $('#result1').html(result);
+                        alert(result);
+                    }                   
+                    
+                });
+                 });             
             $('.time').bootstrapMaterialDatePicker({date: false, format: 'HH:mm', animation: true});
             $('.dateAnimate').bootstrapMaterialDatePicker({weekStart: 0, time: false, minDate: new Date(), animation: true});
             function check(e, f) {
-            var fhentrada = document.getElementById('fhentrada').value + " " + document.getElementById('tmentrada').value;
-                    var fhsalida = document.getElementById('fhsalida').value + " " + document.getElementById('tmsalida').value;
+                    var fhentrada = Date.parse(document.getElementById('fhentrada').value + " " + document.getElementById('tmentrada').value);
+                    var fhsalida = Date.parse(document.getElementById('fhsalida').value + " " + document.getElementById('tmsalida').value);
+                    var onlyfhentrada = document.getElementById('fhentrada').value;                    
+//                    alert("La fecha de entrada: "+onlyfhentrada+);
+                    if(Date.parse(onlyfhentrada) > new Date()){
+                        alert("La fecha es mayor valido sin hora");
+                        if (fhentrada < fhsalida) {
+                            alert("Se puede crear la cita ");
+                            var fullname = $('#fullname').val();
+                     var action = "create";
+                     alert("Hola: "+fullname);
+                    $.ajax({
+                    type:'POST',
+                    data: {fullname: fullname},
+                    url: 'CitasController?action='+action,  
+                    success: function(result){
+                        $('#result1').html(result);
+                        alert(result);
+                        e.preventDefault();
+                    }                  
+                    
+                });
+                            
+                        }else{
+                            alert("Verifique que la fecha de salida sea menor o igual que la entrada");
+                    e.preventDefault();
+                        }
+                        //Si no es mayor la fecha de entrada valido con hora
+                    }else{
+                        alert("No es mayor valido con hora");
+                         //Validacion si la fecha es igual a hoy
                     if (fhentrada < fhsalida) {
             alert("Si se pudo");
                     var f = document.getElementById('tmentrada').value;
                     var time = new Date();
                     var hora = time.getHours();
-                    var minuto = time.getMinutes();                    
+                    if(hora == 0){
+                        hora = "0"+time.getHours();
+                        alert("La hora es igual a cero: "+hora);
+                    }
+                    var minuto = time.getMinutes();
+                    if(minuto < 10 ){
+                        minuto = "0"+time.getMinutes();
+                    }
                     var finaltime = hora + ":" + minuto;
+                    alert("Hora de entrada"+f + " Antes del if la hora actual: " + finaltime);
                     if (f > finaltime) {
-            alert("se puede");
+            alert("Cita creada con validacion en la hora");
+                var elem = document.getElementById('bttHello');
+                elem.click();
+//                var fullname = $('#fullname').val();
+//                     var action = "create";
+//                     alert("Hola: "+fullname);
+//                    $.ajax({
+//                    type:'POST',
+//                    data: {fullname: fullname},
+//                    url: 'CitasController?action='+action,  
+//                    success: function(result){
+//                        $('#result1').html(result);
+//                        alert(result);                        
+//                    }                  
+//                    
+//                });
             } else {
-            alert("Verifique que la hora sea mayor a la actual");
-                    alert(f + " " + finaltime);
+            alert("Verifique las horas no se pueden");
+                    alert("Hora entrada: "+f + " Hora actual: " + finaltime);
                     e.preventDefault();
             }
 
@@ -377,6 +455,8 @@
             }
 
 
+                    }
+                   
             }
 
 </script>
