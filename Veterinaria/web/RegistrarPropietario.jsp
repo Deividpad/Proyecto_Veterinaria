@@ -47,17 +47,17 @@
                                         <input type="text" class="form-text" id="apellidos" name="apellidos" required>
                                         <span class="bar"></span>
                                         <label>Apellidos</label>
-                                    </div><br>
-                                    <div class="col-sm-12 padding-0">
-                                        <label class="control-label col-lg-4">Genero</label>
-                                        <select class="form-control" name="genero">
+                                    </div>
+                                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                        <select class="form-text" name="genero" id="options">
                                             <option value="" selected="selected">Seleccione...</option>
-                                            <option value="Femenino">femenino</option>
+                                            <option value="Femenino">Femenino</option>
                                             <option value="Masculino">Masculino</option>
                                         </select>
+                                         <span class="bar" ></span>
+                                         <label>Genero</label>
                                     </div>
-                                    <br>
-                                    <br>
+                                  
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                         <input type="number" class="form-text"  id="telefono" name="telefono" required>
                                         <span class="bar"></span>
@@ -87,17 +87,18 @@
                                         <input type="password" class="form-text" id="contrasena" name="contrasena" required>
                                         <span class="bar"></span>
                                         <label>Contraseña</label>
-                                    </div><br>
-
-
-
-                                    <div class="col-sm-12 padding-0">
-                                        <label class="control-label col-lg-4">Estados</label>
-                                        <select class="form-control" name="estado">
+                                    </div>
+                                    
+                                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                       
+                                        <select class="form-text" name="estado" id="options">
+                                            
                                             <option value="" selected="selected">Seleccione...</option>
                                             <option value="Activo">Activo</option>
                                             <option value="Inactivo">Inactivo</option>
                                         </select>
+                                         <span class="bar" ></span>
+                                         <label>Estados</label>
                                     </div>
 
                                 </div>
@@ -175,22 +176,38 @@
                         $(label.parent("div").removeClass("form-animate-error"));
                     },
                     rules: {
-                        nombres: "required",
-                        ciudad: "required",
-                        direccion: "required",
-                        apellidos: "required",
-                        correo: "required",
+                      
                         documento: {
                             required: true,
                             min: 1,
                             minlength: 10,
                             maxlength: 10,
                         },
+                        nombres: {
+                            required: true,
+                            maxlength: 60,
+                        },
+                         apellidos: {
+                            required: true,
+                            maxlength: 60,
+                        },
                         telefono: {
                             required: true,
                             min: 1,
                             minlength: 10,
                             maxlength: 10,
+                        },
+                         correo: {
+                            required: true,
+                            maxlength: 45,
+                        },
+                        direccion: {
+                            required: true,
+                            maxlength: 120,
+                        },
+                        ciudad: {
+                            required: true,
+                            maxlength: 45,
                         },
                         contrasena: {
                             required: true,
@@ -204,26 +221,51 @@
                         genero: {
                             required: true,
                         },
-
+                         estado: {
+                            required: true,
+                        },
+                      
                         validate_agree: "required"
                     },
                     messages: {
-                        nombres: "Por favor, Digite un  Nombre.",
-                        apellidos: "Por favor, Digite un Apellido.",
-                        ciudad: "Por favor, Digite la ciudad.",
-                        direccion: "Por favor, Digite su direccion.",
-                        correo: "Por favor,Digite un correo valido.",
                         genero: "Por favor, seleccione su Genero",
+                        estado: "Por favor, seleccione un Estado",
+                        
+                         nombres: {
+                            required: "Por favor, Digite un  Nombre.",
+                            minlength: "Numero minimo de caracteres 1.",
+                            maxlength: "Numero maximo de caracteres 60"
+                        },
+                         apellidos: {
+                            required: "Por favor, Digite un Apellido.",
+                            minlength: "Numero minimo de caracteres 1.",
+                            maxlength: "Numero maximo de caracteres 60"
+                        },
                         documento: {
                             required: "Por favor,Digite su Documento",
                             min: "Documento valido",
                             minlength: "Documento valido",
                             maxlength: "Documento valido"
                         },
+                         correo: {
+                            required:  "Por favor,Digite un correo valido.",
+                            minlength: "Numero minimo de caracteres 1.",
+                            maxlength: "Numero maximo de caracteres 45"
+                        },
+                        direccion: {
+                            required: "Por favor, Digite su direccion.",
+                            minlength: "Numero minimo de caracteres 1.",
+                            maxlength: "Numero maximo de caracteres 120."
+                        },
+                        ciudad: {
+                            required: "Por favor, Digite la ciudad.",
+                            minlength: "Numero minimo de caracteres 1.",
+                            maxlength: "Numero maximo de caracteres 45."
+                        },
                         telefono: {
                             required: "Por favor,Digite un numero de telefono",
                             min: "No valido",
-                            minlength: "su telefono debe tener almenos 10 caracteres",
+                            minlength: "Su telefono debe tener almenos 10 caracteres",
                             maxlength: "No valido"
                         },
                         contrasena: {
