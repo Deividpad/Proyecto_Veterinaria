@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="number" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="condicion" name="condicion" required>
+                                <input type="number" class="form-text" data-val-regex-pattern="^3[0-9]+$"  onkeyup="return runScript(this.value)" id="condicion" name="condicion" required>
                                 <span class="bar"></span>
                                 <label>Condicion Corporal</label>
                             </div>
@@ -50,7 +50,7 @@
                                 <input type="text" class="form-text" id="color" name="color" required>
                                 <span class="bar"></span>
                                 <label>Color</label>
-                            </div>
+                            </div> 
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
@@ -73,7 +73,7 @@
                         <div class="col-md-6">
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="raza" onkeyup="return runScript(this.value)" name="raza" required>
+                                <input type="text" class="form-text" id="raza"  name="raza" required>
                                 <span class="bar"></span>
                                 <label>Raza</label>
                             </div>
@@ -91,7 +91,7 @@
                             </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="alimentacion" onkeyup="return runScript(this.value)" name="alimentacion" required>
+                                <input type="text" class="form-text" id="alimentacion"  name="alimentacion" required>
                                 <span class="bar"></span>
                                 <label>Alimentacion</label>
                             </div>
@@ -126,19 +126,19 @@
                          <div class="col-md-12">
                              
                               <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="observaciones" onkeyup="return runScript(this.value)" name="observaciones" value=""  >
+                                <input type="text" class="form-text" id="observaciones"  name="observaciones" value=""  >
                                 <span class="bar"></span>
                                 <label>Observaciones (No obligatorio) </label>
                             </div>
                              
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="medicamentos" onkeyup="return runScript(this.value)" name="medicamentos" value="">
+                                <input type="text" class="form-text" id="medicamentos"  name="medicamentos" value="">
                                 <span class="bar"></span>
                                 <label>Medicamentos (No obligatorio)</label>
                             </div>
                              <div class="form-group form-animate-text" style="margin-top:20px !important;"   <label>Foto 
                                
-                                <input type="file" class="form-text" id="foto" onkeyup="return runScript(this.value)" name="foto" required>
+                                <input type="file" class="form-text" id="foto"  name="foto" required>
                                 <span class="bar"></span>
                                 <br>
                                
@@ -161,14 +161,14 @@
 <!-- end: content -->
 <script>
     function runScript(e) {
-        var nit;
+        var condicion;
         try {
-            nit = parseInt(e);
+            condicion = parseInt(e);
 
         } catch (e) {
-            nit = 0;
+            condicion = 0;
         }
-        document.getElementById("nit").value = nit;
+        document.getElementById("condicion").value = condicion;
     }
     function runScriptel(e) {
         var nit;
