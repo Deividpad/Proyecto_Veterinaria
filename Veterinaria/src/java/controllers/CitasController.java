@@ -67,8 +67,7 @@ public class CitasController extends HttpServlet {
 
     private void Registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
-//            String fullnamee = request.getParameter("fhentrada");
-//            out.print("Hello desde metodo registr");
+        Citas cita;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date fechaentrada = null;
         Date fechasalida = null;
@@ -84,27 +83,68 @@ public class CitasController extends HttpServlet {
         try {
             fechaentrada = formatter.parse(fhentrada);
             fechasalida = formatter.parse(fhsalida);
-            //out.print("sfadsfdsf" + fhsalida);
+            //out.print("En el try" + fechaentrada);
 
         } catch (ParseException | HibernateException e) {
             fechaentrada = null;
             fechasalida = null;
         }
 
-        //select * from citas where Fecha_Entrada between '2017-11-29 07:15' and '2017-11-29 07:45' or Fecha_Salida between '2017-11-29 07:15' and '2017-11-29 07:45'; 
         Session session = HibernateUtil.getSessionFactory().openSession();
-//         Query q = session.createQuery("FROM ProductosCotizaciones WHERE cotizacion =? ");
         Query q = session.createQuery("From Citas where Fecha_Entrada between ? and ? or Fecha_Salida between ? and ?");
         q.setString(0, fhentrada);
         q.setString(1, fhsalida);
         q.setString(2, fhentrada);
         q.setString(3, fhsalida);
-        ArrayList listaObjetos = (ArrayList) q.list();
-        if (listaObjetos.size() >= 1) {
-            //String fullname = request.getParameter("fhentrada");
-        out.print("si hay un between");
-        }else{           
-        out.print("Noooo hay ningun between");
+        ArrayList listaCitas = (ArrayList) q.list();
+        if (listaCitas.size() >= 1) {            
+            for (Object pro : listaCitas) {
+                cita = (Citas) pro;
+                int hourint = cita.getFechaSalida().getHours();
+                int min = cita.getFechaSalida().getMinutes();
+                String hourst = Integer.toString(hourint);
+                String minst = Integer.toString(min);
+                String horabd = hourst + ":" + minst;
+                if (horabd.equals(tmentrada)) {
+                    out.print("si hay un between dentro del if");
+//                    Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
+//                    Persona persona = (Persona) session.get(Persona.class, 1);
+//                    String Proposito = "";
+//                    String Observaciones = "";
+//                    String tipo = request.getParameter("tipo");
+//                    cita = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
+//                    cita.setObservaciones(Observaciones);
+//                    session.beginTransaction();
+//                    session.save(cita);
+//                    session.getTransaction().commit();
+//                    session.close();
+//                    try {
+//                        response.sendRedirect("CitasController?action=admin");
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+                }else{
+                    out.print("!Cita interferida¡ Selecione otra hora");
+                }
+            }
+        } else {
+            out.print("Noooo hay ningun between ");
+//            Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
+//            Persona persona = (Persona) session.get(Persona.class, 1);
+//            String Proposito = "";
+//            String Observaciones = "";
+//            String tipo = request.getParameter("tipo");
+//            cita = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
+//            cita.setObservaciones(Observaciones);
+//            session.beginTransaction();
+//            session.save(cita);
+//            session.getTransaction().commit();
+//            session.close();
+//            try {
+//                response.sendRedirect("CitasController?action=admin");
+//            } catch (IOException ex) {
+//                Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
 //        Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
 //        Persona persona = (Persona) session.get(Persona.class, 1);

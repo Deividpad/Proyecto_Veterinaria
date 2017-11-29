@@ -26,17 +26,15 @@
                 <div class="col-md-10">
                     <div class="col-md-12 panel">
                         <div class="col-md-12 panel-heading">
-                            <h4>Crear Cita</h4>
+                            <h4>Crear Cita</h4><span style="color:red;" id="result1"></span>
+                            <input type="button" style="display: none;" value="Hello" id="bttHello">        
                         </div>
                         <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                             <div class="col-md-12">
                                 <!--action="CitasController?action=create" onsubmit="check(event, this)"-->
-<!--                                <form class="cmxform" id="signupForm" method="POST"  >-->
-                                    <div class="col-md-6">   
-                                       <h6>Hello World!</h6>
-                                        Name: <input type="text" id="fullname">
-                                        <input type="button" value="Hello" id="bttHello">        
-                                        <span id="result1"></span>
+                                <!--<form class="cmxform" id="signupForm" method="POST"  >-->
+                                    <div class="col-md-6">                                                                                 
+                                        
                                         <div class="form-group form-animate-text">
                                             <input type="text" class="form-text dateAnimate" id="fhentrada" name="fhentrada" required>
                                             <span class="bar"></span>
@@ -67,7 +65,7 @@
                                     </div>
                                     <div class="col-md-6">  
                                         <div class="form-group form-animate-text">
-                                            <input type="text" class="form-text dateAnimate" name="fhsalida" value="2017-10-30" id="fhsalida" required>
+                                            <input type="text" class="form-text dateAnimate" name="fhsalida" id="fhsalida" required>
                                             <span class="bar"></span>
                                             <label><span class="fa fa-calendar"></span> Fecha Salida</label>
                                         </div>                                        
@@ -367,7 +365,7 @@
                      var action = "create";                     
                     $.ajax({
                     type:'POST',
-                    data: {fhentrada: $('#fhentrada').val(),tmentrada: $('#tmentrada').val(),fhsalida: $('#fhsalida').val(),tmsalida: $('#tmsalida').val()},
+                    data: {fhentrada: $('#fhentrada').val(),tmentrada: $('#tmentrada').val(),fhsalida: $('#fhsalida').val(),tmsalida: $('#tmsalida').val(),tipo: $('#tipo').val(),mascota: $('#mascota').val()},
                     url: 'CitasController?action='+action,  
                     success: function(result){
                         $('#result1').html(result);
@@ -392,7 +390,7 @@
                             
                         }else{
                             alert("Verifique que la fecha de salida sea menor o igual que la entrada");
-                    e.preventDefault();
+                    
                         }
                         //Si no es mayor la fecha de entrada valido con hora
                     }else{
@@ -433,12 +431,12 @@
             } else {
             alert("Verifique las horas no se pueden");
                     alert("Hora entrada: "+f + " Hora actual: " + finaltime);
-                    e.preventDefault();
+                    
             }
 
             } else {
             alert("Verifique que la fecha de salida sea menor o igual que la entrada");
-                    e.preventDefault();
+                    
             }
 
 
