@@ -76,7 +76,7 @@
                         <div class="col-md-6">
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="raza" onkeyup="return runScript(this.value)" name="raza" required value="<%= SActualizar.getRaza()%>">
+                                <input type="text" class="form-text" id="raza"  name="raza" required value="<%= SActualizar.getRaza()%>">
                                 <span class="bar"></span>
                                 <label>Raza</label>
                             </div>
@@ -95,7 +95,7 @@
                             </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="alimentacion" onkeyup="return runScript(this.value)" name="alimentacion" required value="<%= SActualizar.getAlimentacion()%>">
+                                <input type="text" class="form-text" id="alimentacion"  name="alimentacion" required value="<%= SActualizar.getAlimentacion()%>">
                                 <span class="bar"></span>
                                 <label>Alimentacion</label>
                             </div>
@@ -135,19 +135,19 @@
                          <div class="col-md-12">
                              
                               <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="observaciones" onkeyup="return runScript(this.value)" name="observaciones" value=""  value="<%= SActualizar.getObservaciones()%>">
+                                <input type="text" class="form-text" id="observaciones"  name="observaciones" value=""  value="<%= SActualizar.getObservaciones()%>">
                                 <span class="bar"></span>
                                 <label>Observaciones (No obligatorio) </label>
                             </div>
                              
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="medicamentos" onkeyup="return runScript(this.value)" name="medicamentos" value="" value="<%= SActualizar.getMedicamentos()%>">
+                                <input type="text" class="form-text" id="medicamentos"  name="medicamentos" value="" value="<%= SActualizar.getMedicamentos()%>">
                                 <span class="bar"></span>
                                 <label>Medicamentos (No obligatorio)</label>
                             </div>
                              <div class="form-group form-animate-text" style="margin-top:20px !important;"   <label>Foto 
                                
-                                <input type="file" class="form-text" id="foto" onkeyup="return runScript(this.value)" name="foto" required value="<%= SActualizar.getFoto()%>">
+                                <input type="file" class="form-text" id="foto"  name="foto" required value="<%= SActualizar.getFoto()%>">
                                 <span class="bar"></span>
                                 <br>
                                
@@ -170,14 +170,14 @@
 <!-- end: content -->
 <script>
     function runScript(e) {
-        var nit;
+        var condicion;
         try {
-            nit = parseInt(e);
+            condicion = parseInt(e);
 
         } catch (e) {
-            nit = 0;
+            condicion = 0;
         }
-        document.getElementById("nit").value = nit;
+        document.getElementById("condicion").value = nit;
     }
     function runScriptel(e) {
         var nit;
