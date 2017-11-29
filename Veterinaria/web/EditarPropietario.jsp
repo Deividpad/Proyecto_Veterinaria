@@ -22,9 +22,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <h3 class="animated fadeInLeft">Registrar Cliente</h3>
-                        <p class="animated fadeInDown">
-                            Form <span class="fa-angle-right fa"></span> Form Element
-                        </p>
+                       
                     </div>
                 </div>
             </div>
@@ -54,13 +52,15 @@
                                         <input type="text" class="form-text" id="apellidos" value="<%=sActualizar.getApellidos()%>" name="apellidos" required>
                                         <span class="bar"></span>
                                         <label>Apellidos</label>
-                                    </div><br>
+                                    </div>
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                        <input type="text" class="form-text" id="genero" value="<%=sActualizar.getGenero()%>" name="genero" required>
+                                        <select class="form-text" name="genero" id="genero">
+                                            <option <% if (sActualizar.getGenero().equals("Femenino")){ out.print("selected");}%> value="Femenino">Femenino</option>
+                                             <option <% if (sActualizar.getGenero().equals("Masculino")){ out.print("selected");}%> value="Masculino">Masculino</option>
+                                        </select>
                                         <span class="bar"></span>
                                         <label>Genero</label>
                                     </div>
-                                    <br>
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                         <input type="text" class="form-text"  id="telefono" value="<%=sActualizar.getTelefono()%>" name="telefono" required>
                                         <span class="bar"></span>
@@ -86,15 +86,15 @@
                                         <span class="bar"></span>
                                         <label>Ciudad</label>
                                     </div>
-                                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                        <input type="text" class="form-text" id="contrasena" value="<%=sActualizar.getContrasena()%>" name="contrasena" required>
-                                        <span class="bar"></span>
-                                        <label>Contraseña</label>
-                                    </div><br>
+                                    
 
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                        <input type="text" class="form-text" id="estado" value="<%=sActualizar.getEstado()%>" name="estado" required>
-                                        <span class="bar"></span>
+                                        
+                                        <select class="form-text" name="estado" id="estado">
+                                            <option <% if ( sActualizar.getEstado().equals("Activo")){ out.print("selected");}%> value="Activo">Activo</option>
+                                            <option <% if ( sActualizar.getEstado().equals("Inactivo")){ out.print("selected");}%> value="Inactivo">Inactivo</option>
+                                        </select>
+                                         <span class="bar"></span>
                                         <label>Estado</label>
                                     </div>
 
@@ -173,61 +173,107 @@
                     success: function (label) {
                         $(label.parent("div").removeClass("form-animate-error"));
                     },
-                    rules: {
-                        nombres: "required",
-                        ciudad: "required",
-                        direccion: "required",
-                        apellidos:"required",
-                        correo:"required",
-                       documento: {
+                       rules: {
+                      
+                        documento: {
                             required: true,
                             min: 1,
                             minlength: 10,
-                            maxlength: 10
+                            maxlength: 10,
+                        },
+                        nombres: {
+                            required: true,
+                            maxlength: 60,
+                        },
+                         apellidos: {
+                            required: true,
+                            maxlength: 60,
                         },
                         telefono: {
                             required: true,
                             min: 1,
                             minlength: 10,
-                            maxlength: 10
+                            maxlength: 10,
+                        },
+                         correo: {
+                            required: true,
+                            maxlength: 45,
+                        },
+                        direccion: {
+                            required: true,
+                            maxlength: 120,
+                        },
+                        ciudad: {
+                            required: true,
+                            maxlength: 45,
                         },
                         contrasena: {
                             required: true,
-                            minlength: 5
+                            minlength: 5,
                         },
                         confirmar_contrasena: {
                             required: true,
                             minlength: 5,
-                            equalTo: "#contrasena"
+                            equalTo: "#contrasena",
                         },
+                        genero: {
+                            required: true,
+                        },
+                         estado: {
+                            required: true,
+                        },
+                      
                         validate_agree: "required"
                     },
                     messages: {
-                       nombres: "Por favor, Digite un  Nombre.",
-                        apellidos: "Por favor, Digite un Apellido.",
-                        ciudad: "Por favor, Digite la ciudad.",
-                        direccion: "Por favor, Digite su direccion.",
-                        correo: "Por favor,Digite un correo valido.",
-                       documento: {
-                            required: "Por favor,Digite su Documento",
-                            min: "Documento valido",
-                            minlength: "Documento valido",
-                            maxlength: "Documento valido"
+                        genero: "Por favor, seleccione su genero.",
+                        estado: "Por favor, seleccione un estado.",
+                        
+                         nombres: {
+                            required: "Por favor, digite un nombre.",
+                            minlength: "Número minimo de caracteres 1.",
+                            maxlength: "Número maximo de caracteres 60."
+                        },
+                         apellidos: {
+                            required: "Por favor, digite un Apellido.",
+                            minlength: "Número minimo de caracteres 1.",
+                            maxlength: "Número maximo de caracteres 60."
+                        },
+                        documento: {
+                            required: "Por favor, digite su documento.",
+                            min: "Documento valido.",
+                            minlength: "Documento valido.",
+                            maxlength: "Documento valido."
+                        },
+                         correo: {
+                            required:  "Por favor,digite un correo.",
+                            minlength: "Número minimo de caracteres 1.",
+                            maxlength: "Número maximo de caracteres 45."
+                        },
+                        direccion: {
+                            required: "Por favor, digite su dirección.",
+                            minlength: "Número minimo de caracteres 1.",
+                            maxlength: "Número maximo de caracteres 120."
+                        },
+                        ciudad: {
+                            required: "Por favor, digite la ciudad.",
+                            minlength: "Numero minimo de caracteres 1.",
+                            maxlength: "Numero maximo de caracteres 45."
                         },
                         telefono: {
-                            required: "Por favor,Digite un numero de telefono",
-                            min: "No valido",
-                            minlength: "su telefono debe tener almenos 10 caracteres",
-                            maxlength: "No valido"
+                            required: "Por favor, digite un numero de teléfono.",
+                            min: "No valido.",
+                            minlength: "Su teléfono debe tener almenos 10 caracteres.",
+                            maxlength: "No valido."
                         },
                         contrasena: {
-                            required: "Proporcione una contraseña",
-                            minlength: "Su contraseña debe tener al menos 5 caracteres"
+                            required: "Proporcione una contraseña.",
+                            minlength: "Su contraseña debe tener al menos 5 caracteres."
                         },
                         confirmar_contrasena: {
-                            required: "Proporcione una contraseña",
-                            minlength: "Su contraseña debe tener al menos 5 caracteres",
-                            equalTo: "Ingrese la misma contraseña que la anterior"
+                            required: "Proporcione una contraseña.",
+                            minlength: "Su contraseña debe tener al menos 5 caracteres.",
+                            equalTo: "Ingrese la misma contraseña que la anterior."
                         },
                     }
 

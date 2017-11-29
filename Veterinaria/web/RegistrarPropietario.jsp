@@ -228,54 +228,54 @@
                         validate_agree: "required"
                     },
                     messages: {
-                        genero: "Por favor, seleccione su Genero",
-                        estado: "Por favor, seleccione un Estado",
+                        genero: "Por favor, seleccione su genero.",
+                        estado: "Por favor, seleccione un estado.",
                         
                          nombres: {
-                            required: "Por favor, Digite un  Nombre.",
-                            minlength: "Numero minimo de caracteres 1.",
-                            maxlength: "Numero maximo de caracteres 60"
+                            required: "Por favor, digite un nombre.",
+                            minlength: "Número minimo de caracteres 1.",
+                            maxlength: "Número maximo de caracteres 60."
                         },
                          apellidos: {
-                            required: "Por favor, Digite un Apellido.",
-                            minlength: "Numero minimo de caracteres 1.",
-                            maxlength: "Numero maximo de caracteres 60"
+                            required: "Por favor, digite un Apellido.",
+                            minlength: "Número minimo de caracteres 1.",
+                            maxlength: "Número maximo de caracteres 60."
                         },
                         documento: {
-                            required: "Por favor,Digite su Documento",
-                            min: "Documento valido",
-                            minlength: "Documento valido",
-                            maxlength: "Documento valido"
+                            required: "Por favor, digite su documento.",
+                            min: "Documento valido.",
+                            minlength: "Documento valido.",
+                            maxlength: "Documento valido."
                         },
                          correo: {
-                            required:  "Por favor,Digite un correo valido.",
-                            minlength: "Numero minimo de caracteres 1.",
-                            maxlength: "Numero maximo de caracteres 45"
+                            required:  "Por favor,digite un correo.",
+                            minlength: "Número minimo de caracteres 1.",
+                            maxlength: "Número maximo de caracteres 45"
                         },
                         direccion: {
-                            required: "Por favor, Digite su direccion.",
-                            minlength: "Numero minimo de caracteres 1.",
-                            maxlength: "Numero maximo de caracteres 120."
+                            required: "Por favor, digite su dirección.",
+                            minlength: "Número minimo de caracteres 1.",
+                            maxlength: "Número maximo de caracteres 120."
                         },
                         ciudad: {
-                            required: "Por favor, Digite la ciudad.",
+                            required: "Por favor, digite la ciudad.",
                             minlength: "Numero minimo de caracteres 1.",
                             maxlength: "Numero maximo de caracteres 45."
                         },
                         telefono: {
-                            required: "Por favor,Digite un numero de telefono",
-                            min: "No valido",
-                            minlength: "Su telefono debe tener almenos 10 caracteres",
-                            maxlength: "No valido"
+                            required: "Por favor, digite un número de teléfono.",
+                            min: "No valido.",
+                            minlength: "Su teléfono debe tener almenos 10 caracteres.",
+                            maxlength: "No valido."
                         },
                         contrasena: {
-                            required: "Proporcione una contraseña",
-                            minlength: "Su contraseña debe tener al menos 5 caracteres"
+                            required: "Proporcione una contraseña.",
+                            minlength: "Su contraseña debe tener al menos 5 caracteres."
                         },
                         confirmar_contrasena: {
-                            required: "Proporcione una contraseña",
-                            minlength: "Su contraseña debe tener al menos 5 caracteres",
-                            equalTo: "Ingrese la misma contraseña que la anterior"
+                            required: "Proporcione una contraseña.",
+                            minlength: "Su contraseña debe tener al menos 5 caracteres.",
+                            equalTo: "Ingrese la misma contraseña que la anterior."
                         },
                     }
 
