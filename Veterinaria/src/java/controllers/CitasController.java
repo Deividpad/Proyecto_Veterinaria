@@ -45,19 +45,19 @@ public class CitasController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         /*
-        Pagina para comprar computadores
-        https://www.ebay.com/sch/i.html?_nkw=rbay%20es
+         Pagina para comprar computadores
+         https://www.ebay.com/sch/i.html?_nkw=rbay%20es
         
          */
         PrintWriter out = response.getWriter();
-        
+
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("admin")) {
             Admin(request, response);
         } else if (action.equalsIgnoreCase("create")) {
             Registrar(request, response);
-        } 
+        }
         /*else if (action.equalsIgnoreCase("update")) {
          Actualizar(request, response);
          } else if (action.equalsIgnoreCase("eliminar")) {
@@ -65,11 +65,10 @@ public class CitasController extends HttpServlet {
          }*/
     }
 
- 
     private void Registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
-        String fullname = request.getParameter("fhentrada");
-        out.print("Hello desde metodo registrar" + fullname);
+//            String fullnamee = request.getParameter("fhentrada");
+//            out.print("Hello desde metodo registr");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date fechaentrada = null;
         Date fechasalida = null;
@@ -86,13 +85,27 @@ public class CitasController extends HttpServlet {
             fechaentrada = formatter.parse(fhentrada);
             fechasalida = formatter.parse(fhsalida);
             //out.print("sfadsfdsf" + fhsalida);
-            
+
         } catch (ParseException | HibernateException e) {
             fechaentrada = null;
             fechasalida = null;
         }
-        
-//        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        //select * from citas where Fecha_Entrada between '2017-11-29 07:15' and '2017-11-29 07:45' or Fecha_Salida between '2017-11-29 07:15' and '2017-11-29 07:45'; 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+//         Query q = session.createQuery("FROM ProductosCotizaciones WHERE cotizacion =? ");
+        Query q = session.createQuery("From Citas where Fecha_Entrada between ? and ? or Fecha_Salida between ? and ?");
+        q.setString(0, fhentrada);
+        q.setString(1, fhsalida);
+        q.setString(2, fhentrada);
+        q.setString(3, fhsalida);
+        ArrayList listaObjetos = (ArrayList) q.list();
+        if (listaObjetos.size() >= 1) {
+            //String fullname = request.getParameter("fhentrada");
+        out.print("si hay un between");
+        }else{           
+        out.print("Noooo hay ningun between");
+        }
 //        Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
 //        Persona persona = (Persona) session.get(Persona.class, 1);
 //        String Proposito = "";
