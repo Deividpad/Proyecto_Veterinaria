@@ -13,12 +13,8 @@
             </div>
         </div>
     </div> 
-    <form>
-     <h6>Hello World!</h6>
-<!--                                        Name: <input type="text" id="fullname">
-                                        <input type="button" value="Hello" id="bttHello">        
-                                        <span id="result1"></span>-->
-        </form>
+    
+     
     <!-- Modal --><!-- Modal -->
     <div class="modal fade" id="mimodalejemplo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">        
         <div class="modal-dialog" role="document">
@@ -415,19 +411,8 @@
             alert("Cita creada con validacion en la hora");
                 var elem = document.getElementById('bttHello');
                 elem.click();
-//                var fullname = $('#fullname').val();
-//                     var action = "create";
-//                     alert("Hola: "+fullname);
-//                    $.ajax({
-//                    type:'POST',
-//                    data: {fullname: fullname},
-//                    url: 'CitasController?action='+action,  
-//                    success: function(result){
-//                        $('#result1').html(result);
-//                        alert(result);                        
-//                    }                  
-//                    
-//                });
+              
+
             } else {
             alert("Verifique las horas no se pueden");
                     alert("Hora entrada: "+f + " Hora actual: " + finaltime);

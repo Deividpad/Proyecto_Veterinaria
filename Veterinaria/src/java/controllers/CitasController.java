@@ -100,13 +100,28 @@ public class CitasController extends HttpServlet {
         if (listaCitas.size() >= 1) {            
             for (Object pro : listaCitas) {
                 cita = (Citas) pro;
-                int hourint = cita.getFechaSalida().getHours();
-                int min = cita.getFechaSalida().getMinutes();
-                String hourst = Integer.toString(hourint);
-                String minst = Integer.toString(min);
-                String horabd = hourst + ":" + minst;
-                if (horabd.equals(tmentrada)) {
-                    out.print("si hay un between dentro del if");
+                //Valida hora de entrada del formulario con hora de salida de BD
+                int hourent = cita.getFechaSalida().getHours();
+                int minent = cita.getFechaSalida().getMinutes();
+                String hourentrada = Integer.toString(hourent);
+                String minentrada = Integer.toString(minent);
+                String horabdentrada = hourentrada + ":" + minentrada;
+                
+                //Validar hora de salida del formulario con hora de entra de BD
+                int hoursld = cita.getFechaEntrada().getHours();
+                int minsld = cita.getFechaEntrada().getMinutes();                
+                String hoursalida = Integer.toString(hoursld);
+                String minsalida = Integer.toString(minsld);
+                if(hoursld < 10){
+                    hoursalida = "0"+hoursalida;
+                }
+                if(minsld < 10){
+                    minsalida = "0"+minsalida;
+                }                
+                String horabdsalida = hoursalida + ":" + minsalida; 
+                out.print("Hora entrada BD: "+horabdsalida+" hora salida frm: "+tmsalida);
+                if (horabdentrada.equals(tmentrada) || horabdsalida.equals(tmsalida)) {
+                    out.print("Fecha de entrada igual a la de salida dentro del segundo if");
 //                    Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
 //                    Persona persona = (Persona) session.get(Persona.class, 1);
 //                    String Proposito = "";
