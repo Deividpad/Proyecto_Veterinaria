@@ -245,24 +245,23 @@
                                                     id: '<%= cita.getIdCitasMedicas()%>',
                                                             title: '<%= cita.getEstado() %>',
                                                             start: '<%= cita.getFechaEntrada()%>',
-                                                            end: '<%= cita.getFechaSalida()%>'
+                                                            end: '<%= cita.getFechaSalida()%>',
+                                            <% if(cita.getEstado().equals("Programada")){ %>
+                                                                //Azul
+                                                backgroundColor: 'blue',
+                                            <%  } else if(cita.getEstado().equals("Atendida")){ %>
+                                                //Verde
+                                                backgroundColor: '#378006',
+                                           <% } else { %>
+                                               //Rojo
+                                               backgroundColor: 'red',
+                                                   <% }  %>
                                                     },
                                                         <% } %>
 
 
                                                     ],
-                                                   <% for (Object Obj : listar) {
-                                            Citas cita = (Citas) Obj; 
-                                            if(cita.getEstado().equals("Programada")){ %>
-                                                                //Azul
-                                                eventColor: 'blue',
-                                            <%  } else if(cita.getEstado().equals("Atendida")){ %>
-                                                //Verde
-                                                eventColor: '#378006',
-                                           <% } else { %>
-                                               //Rojo
-                                               eventColor: 'red',
-                                                   <% } } %>
+                                                   
                                                    
 
                                                                 
