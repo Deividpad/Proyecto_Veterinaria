@@ -56,7 +56,7 @@
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                         <select class="form-text" name="genero" id="genero">
                                             <option <% if (sActualizar.getGenero().equals("Femenino")){ out.print("selected");}%> value="Femenino">Femenino</option>
-                                             <option <% if (sActualizar.getGenero().equals("Masculino")){ out.print("selected");}%> value="Masculino">Masculino</option>
+                                            <option <% if (sActualizar.getGenero().equals("Masculino")){ out.print("selected");}%> value="Masculino">Masculino</option>
                                         </select>
                                         <span class="bar"></span>
                                         <label>Genero</label>

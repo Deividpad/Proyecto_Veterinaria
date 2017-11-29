@@ -139,7 +139,7 @@ public class PropietarioController extends HttpServlet {
             pro.setCorreo(request.getParameter("correo"));
             pro.setDireccion(request.getParameter("direccion"));
             pro.setCiudad(request.getParameter("ciudad"));
-            pro.setContrasena(request.getParameter("contrasena"));
+          //  pro.setContrasena(request.getParameter("contrasena"));
             pro.setEstado(request.getParameter("estado"));
 
             sesion.beginTransaction();

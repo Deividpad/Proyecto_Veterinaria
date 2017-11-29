@@ -148,13 +148,13 @@ public class PersonasController extends HttpServlet {
             perso.setApellidos(request.getParameter("apellidos"));
             perso.setGenero(request.getParameter("genero"));
             perso.setTelefono(Long.parseLong(request.getParameter("telefono")));
-            perso.setCorreo(request.getParameter("perfil"));
+            perso.setCorreo(request.getParameter("correo"));
             perso.setDireccion(request.getParameter("direccion"));
             perso.setCiudad(request.getParameter("ciudad"));
             perso.setPerfil(request.getParameter("perfil"));
             perso.setEspecialidad(request.getParameter("especialidad"));
             perso.setFoto(request.getParameter("foto"));
-            perso.setContrasena(request.getParameter("contrasena"));
+//            perso.setContrasena(request.getParameter("contrasena"));
             perso.setEstado(request.getParameter("estado"));
             sesion.beginTransaction();
             sesion.saveOrUpdate(perso);

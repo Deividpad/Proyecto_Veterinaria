@@ -33,13 +33,13 @@
                     <div class="col-md-12">
                         <div class="col-md-6">
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="number" class="form-text" id="documento" name="documento" required>
+                                <input type="number" class="form-text" id="documento" onkeyup="return runScript(this.value)" name="documento" required>
                                 <span class="bar"></span>
                                 <label>Documento</label>
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="nombres" onkeyup="return runScript(this.value)" name="nombres" required>
+                                <input type="text" class="form-text" id="nombres" name="nombres" required>
                                 <span class="bar"></span>
                                 <label>Nombres</label>
                             </div>
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="number" class="form-text" id="telefono" name="telefono" required>
+                                <input type="number" class="form-text" id="telefono" onkeyup="return runScriptt(this.value)" name="telefono" required>
                                 <span class="bar"></span>
                                 <label>Telefono</label>
                             </div>
@@ -105,11 +105,11 @@
                             <div class="form-group form-animate-text" style="margin-top:40px !important;" >
                                 <input type="text"  class="form-text" id="especialidad" name="especialidad" placeholder="Especialidad" onkeyup="return runScript(this.value)" >
                                 <span class="bar"></span>
-<!--                                <label>Especialidad</label>-->
+                                <!--                                <label>Especialidad</label>-->
                             </div>
-              
+
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="password" class="form-text" id="contrasena" onkeyup="return runScript(this.value)" name="contrasena" required>
+                                <input type="password" class="form-text" id="contrasena"  name="contrasena" required>
                                 <span class="bar"></span>
                                 <label>Contraseña</label>
                             </div>
@@ -161,42 +161,6 @@
                             <input class="submit btn btn-primary" id="validate" type="submit" value="Guardar" > &nbsp
                             <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'AdminCliente.jsp'"><br><br>
                         </div>
-                        <!--Foto-->
-                        <!--                          <div class="col-md-4">
-                                                    <div class="col-md-12 padding-0">
-                                                      <div class="panel box-v2">
-                                                          <div class="panel-heading padding-0" id="vista_previa">
-                                                            <img src="asset/img/bg2.jpg" class="box-v2-cover img-responsive"/>
-                                                            <div class="box-v2-detail">
-                                                              <img src="asset/img/avatar.jpg" class="img-responsive"/>
-                                                              <h4>Akihiko Avaron</h4>
-                                                            </div>
-                                                          </div>
-                                                          <div class="panel-body">
-                                                            <div class="col-md-12 padding-0 text-center">
-                                                              <div class="col-md-4 col-sm-4 col-xs-6 padding-0">
-                                                                  <h3>2.000</h3>
-                                                                  <p>Post</p>
-                                                              </div>
-                                                              <div class="col-md-4 col-sm-4 col-xs-6 padding-0">
-                                                                  <h3>2.232</h3>
-                                                                  <p>share</p>
-                                                              </div>
-                                                              <div class="col-md-4 col-sm-4 col-xs-12 padding-0">
-                                                                  <h3>4.320</h3>
-                                                                  <p>photos</p>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                      </div>
-                                                    </div>
-                                                  
-                                            </div>-->
-                        <!--Fin_foto-->
-
-
-                        <!--</form>-->
-
                     </div>
                 </div>
             </div>
@@ -256,15 +220,24 @@
 
 <script>
     function runScript(e) {
-        var nit;
+        var documento;
         try {
-            nit = parseInt(e);
+            documento = parseInt(e);
 
         } catch (e) {
-            nit = 0;
+            documento = 0;
         }
-        document.getElementById("nit").value = nit;
+        document.getElementById("documento").value = documento;
     }
+    function runScriptt(e) {
+                var telefono;
+                try {
+                    telefono = parseInt(e);
+                } catch (e) {
+                    telefono = 0;
+                }
+                document.getElementById("telefono").value = telefono;
+            }
     function runScriptel(e) {
         var nit;
         try {
@@ -316,31 +289,40 @@
                 $(label.parent("div").removeClass("form-animate-error"));
             },
             rules: {
-
-                nombres: "required",
-                apellidos: "required",
                 selected: "required",
                 razonsocial: "required",
-                ciudad: "required",
-                direccion: "required",
+
                 documento: {
                     required: true,
                     min: 1,
                     minlength: 10,
                     maxlength: 10
                 },
-
-                nit: {
+                nombres: {
                     required: true,
-                    min: 1,
-                    minlength: 7,
                     maxlength: 10
+                },
+                apellidos: {
+                    required: true,
+                    maxlength: 60,
+                },
+                correo: {
+                    required: true,
+                    maxlength: 45,
                 },
                 telefono: {
                     required: true,
                     min: 1,
                     minlength: 10,
                     maxlength: 10
+                },
+                direccion: {
+                    required: true,
+                    maxlength: 120,
+                },
+                ciudad: {
+                    required: true,
+                    maxlength: 45,
                 },
                 contrasena: {
                     required: true,
@@ -365,45 +347,57 @@
             },
             messages: {
 
-                nombres: "Por favor, Digite el  Nombre.",
-                apellidos: "Por favor, Digite el  Apellido.",
                 genero: "Por favor, Seleccione el Genero.",
-                perfil: "Por favor, Seleccione un Perfil",
-                estado: "Por favor, Seleccione un Estado",
-                ciudad: "Por favor, Digite la Ciudad",
-                direccion: "Por favor, Digite la Dirección.",
-                foto: "Por favor, Seleccione una Foto",
+                perfil: "Por favor, Seleccione un Perfil.",
+                estado: "Por favor, Seleccione un Estado.",
+                foto: "Por favor, Seleccione una Foto.",
 //                especialidad: "Por favor, Digite una Especialidad",
 
                 documento: {
-                    required: "Por favor,Digite el Documento",
-                    min: "Documento invalido",
-                    minlength: "Documento invalido",
-                    maxlength: "Documento invalido"
+                    required: "Por favor, digite su documento.",
+                    min: "Documento valido.",
+                    minlength: "Documento valido.",
+                    maxlength: "Documento valido."
                 },
                 correo: {
-                    required: "Por favor, Digite el correo"},
-                min: "Por favor, Introduzca un Correo valido",
-                nit: {
-                    required: "Nit invalido",
-                    min: "Nit valido",
-                    minlength: "No valido",
-                    maxlength: "No valido"
+                    required: "Por favor,digite un correo.",
+                    minlength: "Número minimo de caracteres 1.",
+                    maxlength: "Número maximo de caracteres 100."
+                },
+                nombres: {
+                    required: "Por favor, digite un nombre.",
+                    minlength: "Número minimo de caracteres 1.",
+                    maxlength: "Número maximo de caracteres 60."
+                },
+                apellidos: {
+                    required: "Por favor, digite un Apellido.",
+                    minlength: "Número minimo de caracteres 1.",
+                    maxlength: "Número maximo de caracteres 60."
                 },
                 telefono: {
-                    required: "Por favor, Digite el Numero",
-                    min: "No valido",
-                    minlength: "su telefono debe tener almenos 10 caracteres",
-                    maxlength: "No valido"
+                    required: "Por favor, digite un número de teléfono.",
+                    min: "No valido.",
+                    minlength: "Su teléfono debe tener almenos 10 caracteres.",
+                    maxlength: "No valido."
+                },
+                direccion: {
+                    required: "Por favor, digite su dirección.",
+                    minlength: "Número minimo de caracteres 1.",
+                    maxlength: "Número maximo de caracteres 120."
+                },
+                ciudad: {
+                    required: "Por favor, digite la ciudad.",
+                    minlength: "Numero minimo de caracteres 1.",
+                    maxlength: "Numero maximo de caracteres 45."
                 },
                 contrasena: {
-                    required: "Por favor, Digite una contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres"
+                    required: "Por favor, Digite una contraseña.",
+                    minlength: "Su contraseña debe tener al menos 5 caracteres."
                 },
                 confirmar_contrasena: {
-                    required: "Por favor, Digite la misma contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres",
-                    equalTo: "Ingrese la misma contraseña que la anterior"
+                    required: "Por favor, Digite la misma contraseña.",
+                    minlength: "Su contraseña debe tener al menos 5 caracteres.",
+                    equalTo: "Ingrese la misma contraseña que la anterior."
                 },
             }
 

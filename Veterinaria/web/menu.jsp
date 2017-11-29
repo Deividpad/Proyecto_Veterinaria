@@ -31,7 +31,7 @@
                     <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                    <li><a href="RegistrarPersona.jsp">Registrar Veterinario</a></li>
+                    <li><a href="RegistrarPersona.jsp">Registrar Persona</a></li>
                     <li><a href="PersonasController?action=admin">Administrar</a></li>
                 </ul>
             </li>

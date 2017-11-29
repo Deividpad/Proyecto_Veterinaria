@@ -11,6 +11,8 @@
 <title>Editar Persona</title>
 <!-- start: content -->
 <div id="content">
+     <% Persona PerActualiza = (Persona) request.getAttribute("persona");%>   
+      <form class="cmxform" id="signupForm" method="POST" action="PersonasController?action=update&id=<%= PerActualiza.getIdVeterinario()%>">
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
@@ -26,12 +28,12 @@
     <div class="col-md-9">
         <div class="col-md-12 panel">
             <div class="col-md-12 panel-heading">
-                <% Persona PerActualiza = (Persona) request.getAttribute("persona");%>        
+                    
                 <h4>Edite los datos <%=PerActualiza.getNombres()%></h4>
             </div>
             <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                 <div class="col-md-12">
-                    <form class="cmxform" id="signupForm" method="POST" action="PersonasController?action=update&id=<%= PerActualiza.getIdVeterinario()%>">
+                   
                         <div class="col-md-6">
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <input type="number" class="form-text" id="Documento" name="documento" required value="<%=PerActualiza.getDocumento()%>">
@@ -53,11 +55,9 @@
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
-
-                                <select class="form-text" name="genero" required value="<%=PerActualiza.getGenero()%>">
-                                    <option value="" selected="selected">Seleccione...</option>
-                                    <option value="Femenino">Femenino</option>
-                                    <option value="Masculino">Masculino</option>
+                                <select class="form-text" name="genero" id="genero">
+                                    <option <% if (PerActualiza.getGenero().equals("Femenino")){ out.print("selected");}%> value="Femenino">Femenino</option>
+                                     <option <% if (PerActualiza.getGenero().equals("Masculino")){ out.print("selected");}%> value="Masculino">Masculino</option>
                                 </select>
                                 <span class="bar" ></span>
                                 <label>Genero</label> 
@@ -70,7 +70,7 @@
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="email" class="form-text" id="email" name="correo" required value="<%=PerActualiza.getCorreo()%>">
+                                <input type="email" class="form-text" id="correo" name="correo" required value="<%=PerActualiza.getCorreo()%>">
                                 <span class="bar"></span>
                                 <label>Correo</label>
                             </div>
@@ -93,13 +93,12 @@
 
                             <div   class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
-
-                                <select class="form-text" id="perfil" name="perfil" required value="<%=PerActualiza.getPerfil()%>">
-                                    <option value="" selected="selected">Seleccione...</option>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Veterinario">Veterinario</option>
-                                    <option value="Auxiliar">Auxiliar</option>
-                                </select>
+                                <select class="form-text" name="perfil" id="perfil">
+                                    <option  <% if (PerActualiza.getPerfil().equals("Administrador")){ out.print("selected");}%> value="Administrador">Administrador</option>
+                                  <option  <% if (PerActualiza.getPerfil().equals("Veterinario")){ out.print("selected");}%> value="Veterinario">Veterinario</option>
+          
+                                  <option  <% if (PerActualiza.getPerfil().equals("Auxiliar")){ out.print("selected");}%> value="Auxiliar">Auxiliar</option></select>
+                                
                                 <span class="bar" ></span>
                                 <label>Perfil</label>
                             </div>
@@ -110,22 +109,19 @@
                                 <label>Especialidad</label>
                             </div>
 
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+<!--                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <input type="password" class="form-text" id="contrasena" onkeyup="return runScript(this.value)" name="contrasena" required value="<%=PerActualiza.getContrasena()%>">
                                 <span class="bar"></span>
                                 <label>Contraseña</label>
-                            </div>
+                            </div>-->
 
 
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
-
-                                <select class="form-text" name="estado" required value="<%=PerActualiza.getEstado()%>">
-                                    <option value="" selected="selected">Seleccione...</option>
-                                    <option value="Activo">Activo</option>
-                                    <option value="Inactivo">Inactivo</option>
-
+                                <select class="form-text" name="estado" id="estado">
+                                    <option  <% if(PerActualiza.getEstado().equals("Activo")){ out.print("selected");}%> value="Activo">Activo</option>
+                                    <option  <% if(PerActualiza.getEstado().equals("Inactivo")){ out.print("selected");}%> value="Inactivo">Inactivo</option>
                                 </select>
                                 <span class="bar" ></span>
                                 <label>Estado</label>
@@ -154,7 +150,7 @@
                             <input class="submit btn btn-primary" type="submit" value="Guardar" > &nbsp
                             <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'PersonasController?action=admin'">
                         </div>
-                    </form>
+                  
 
                 </div>
             </div>
@@ -172,7 +168,7 @@
             </a>
         </div>
     </div>
-
+  </form>
 </div>
                                                         
                                                         
@@ -268,35 +264,41 @@
             success: function (label) {
                 $(label.parent("div").removeClass("form-animate-error"));
             },
-            rules: {
-
-                nombres: "required",
-                apellidos: "required",
+             rules: {
                 selected: "required",
                 razonsocial: "required",
-                ciudad: "required",
-                direccion: "required",
+
                 documento: {
                     required: true,
                     min: 1,
                     minlength: 10,
                     maxlength: 10
                 },
-                nombre: {
-
-//                    number: false,
-                },
-                nit: {
+                nombres: {
                     required: true,
-                    min: 1,
-                    minlength: 7,
                     maxlength: 10
+                },
+                apellidos: {
+                    required: true,
+                    maxlength: 60,
+                },
+                correo: {
+                    required: true,
+                    maxlength: 45,
                 },
                 telefono: {
                     required: true,
                     min: 1,
                     minlength: 10,
                     maxlength: 10
+                },
+                direccion: {
+                    required: true,
+                    maxlength: 120,
+                },
+                ciudad: {
+                    required: true,
+                    maxlength: 45,
                 },
                 contrasena: {
                     required: true,
@@ -321,44 +323,57 @@
             },
             messages: {
 
-                nombres: "Por favor, Digite el  Nombre.",
-                apellidos: "Por favor, Digite el  Apellido.",
                 genero: "Por favor, Seleccione el Genero.",
-                perfil: "Por favor, Seleccione un Perfil",
-                estado: "Por favor, Seleccione un Estado",
-                ciudad: "Por favor, Digite la Ciudad",
-                direccion: "Por favor, Digite la Dirección.",
-                foto: "Por favor, Seleccione una Foto",
+                perfil: "Por favor, Seleccione un Perfil.",
+                estado: "Por favor, Seleccione un Estado.",
+                foto: "Por favor, Seleccione una Foto.",
+//                especialidad: "Por favor, Digite una Especialidad",
 
                 documento: {
-                    required: "Por favor,Digite el Documento",
-                    min: "Documento invalido",
-                    minlength: "Documento invalido",
-                    maxlength: "Documento invalido"
+                    required: "Por favor, digite su documento.",
+                    min: "Documento valido.",
+                    minlength: "Documento valido.",
+                    maxlength: "Documento valido."
                 },
                 correo: {
-                    required: "Por favor, Digite el correo"},
-                min: "Por favor, Introduzca un Correo valido",
-                nit: {
-                    required: "Nit invalido",
-                    min: "Nit valido",
-                    minlength: "No valido",
-                    maxlength: "No valido"
+                    required: "Por favor,digite un correo.",
+                    minlength: "Número minimo de caracteres 1.",
+                    maxlength: "Número maximo de caracteres 100."
+                },
+                nombres: {
+                    required: "Por favor, digite un nombre.",
+                    minlength: "Número minimo de caracteres 1.",
+                    maxlength: "Número maximo de caracteres 60."
+                },
+                apellidos: {
+                    required: "Por favor, digite un Apellido.",
+                    minlength: "Número minimo de caracteres 1.",
+                    maxlength: "Número maximo de caracteres 60."
                 },
                 telefono: {
-                    required: "Por favor, Digite el Numero",
-                    min: "No valido",
-                    minlength: "su telefono debe tener almenos 10 caracteres",
-                    maxlength: "No valido"
+                    required: "Por favor, digite un número de teléfono.",
+                    min: "No valido.",
+                    minlength: "Su teléfono debe tener almenos 10 caracteres.",
+                    maxlength: "No valido."
+                },
+                direccion: {
+                    required: "Por favor, digite su dirección.",
+                    minlength: "Número minimo de caracteres 1.",
+                    maxlength: "Número maximo de caracteres 120."
+                },
+                ciudad: {
+                    required: "Por favor, digite la ciudad.",
+                    minlength: "Numero minimo de caracteres 1.",
+                    maxlength: "Numero maximo de caracteres 45."
                 },
                 contrasena: {
-                    required: "Por favor, Digite una contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres"
+                    required: "Por favor, Digite una contraseña.",
+                    minlength: "Su contraseña debe tener al menos 5 caracteres."
                 },
                 confirmar_contrasena: {
-                    required: "Por favor, Digite la misma contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres",
-                    equalTo: "Ingrese la misma contraseña que la anterior"
+                    required: "Por favor, Digite la misma contraseña.",
+                    minlength: "Su contraseña debe tener al menos 5 caracteres.",
+                    equalTo: "Ingrese la misma contraseña que la anterior."
                 },
             }
 

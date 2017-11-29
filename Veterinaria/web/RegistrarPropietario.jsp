@@ -59,7 +59,7 @@
                                     </div>
                                   
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                        <input type="number" class="form-text"  id="telefono" name="telefono" required>
+                                        <input type="number" class="form-text"  id="telefono" onkeyup="return runScriptt(this.value)" name="telefono" required>
                                         <span class="bar"></span>
                                         <label>Telefono</label>
                                     </div>
@@ -117,13 +117,22 @@
 
         <script>
             function runScript(e) {
-                var nit;
+                var documento;
                 try {
-                    nit = parseInt(e);
+                    documento = parseInt(e);
                 } catch (e) {
-                    nit = 0;
+                    documento = 0;
                 }
-                document.getElementById("nit").value = nit;
+                document.getElementById("documento").value = documento;
+            }
+             function runScriptt(e) {
+                var telefono;
+                try {
+                    telefono = parseInt(e);
+                } catch (e) {
+                    telefono = 0;
+                }
+                document.getElementById("telefono").value = telefono;
             }
             function runScriptel(e) {
                 var nit;
