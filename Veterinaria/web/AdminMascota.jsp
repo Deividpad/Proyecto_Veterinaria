@@ -6,7 +6,8 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Administrar Mascotas</h3>                <h3 class="animated fadeInLeft">Administrar Mascotas</h3>                
+                <h3 class="animated fadeInLeft">Administrar Mascotas</h3>                
+                              
             </div>
         </div>
     </div>
