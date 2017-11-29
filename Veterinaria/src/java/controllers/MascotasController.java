@@ -73,8 +73,15 @@ public class MascotasController extends HttpServlet {
         String color = request.getParameter("color");
         String especie = request.getParameter("especie");
         String raza = request.getParameter("raza");
-        String sexo = request.getParameter("sexo");
+        String sexo = request.getParameter("genero");
         Date fecha = new Date();
+        
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//        Date fechaNacimiento = null;
+//        
+//        
+//        String fechaNa = request.getParameter("fecha")
+        
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd");
 //        String dateInString = "fechaNacimiento";
 //        Date date = null;
@@ -190,8 +197,13 @@ public class MascotasController extends HttpServlet {
         }
 
         request.setAttribute("ArrayPropietarios", ArrayPropietarios);
+        
+        
 
         Mascota mascota = (Mascota) sesion.get(Mascota.class, Integer.parseInt(request.getParameter("id")));
+        
+        
+        request.setAttribute("IdPropietario", mascota.getPropietario().getIdPropietario());
 
         if (request.getMethod().equalsIgnoreCase("GET")) {
             request.setAttribute("mascota", mascota);
@@ -214,7 +226,7 @@ public class MascotasController extends HttpServlet {
             mascota.setColor(request.getParameter("color"));
             mascota.setEspecie(request.getParameter("especie"));
             mascota.setRaza(request.getParameter("raza"));
-            mascota.setGenero(request.getParameter("sexo"));
+            mascota.setGenero(request.getParameter("genero"));
             mascota.getFechaNacimiento();
             //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd");
             //        String dateInString = "fechaNacimiento";

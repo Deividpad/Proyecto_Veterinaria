@@ -8,7 +8,7 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Registrar Mascota</h3>
+                <h3 class="animated fadeInLeft">Editar Mascota</h3>
                 <p class="animated fadeInDown">
                     Form <span class="fa-angle-right fa"></span> Form Element
                 </p>
@@ -34,12 +34,12 @@
                                 <label>Nombre</label>
                             </div>
 
-                           
+                            
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <input type="number" class="form-text" id="peso" name="peso" required value="<%= SActualizar.getPeso()%>">
                                 <span class="bar"></span>
-                                <label>Peso</label>
+                                <label>Peso (Kg)</label>
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -47,36 +47,51 @@
                                 <span class="bar"></span>
                                 <label>Condicion Corporal</label>
                             </div>
-                                
-                                <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="color" onkeyup="return runScript(this.value)" name="color" required value="<%= SActualizar.getColor()%>"> 
+                            
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="color" name="color" required value="<%= SActualizar.getColor()%>">
                                 <span class="bar"></span>
                                 <label>Color</label>
                             </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <select class="form-text" name="especie">
-                                    <option value="Canino">Canino</option>
-                                    <option value="Felino">Felino</option>
+                                <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
+
+                                <select class="form-text" name="especie" id="especie">
+                                    <!--<option value="" selected="selected">Seleccione...</option>-->
+                                    <option <% if (SActualizar.getEspecie().equals("Canino")) { out.print("selected");} %> value="Canino">Canino</option>
+                                    <option <% if (SActualizar.getEspecie().equals("Felino")) { out.print("selected");} %> value="Felino">Felino</option>
+                                  
                                 </select>
+                                <span class="bar" ></span>
+                                <label>Especie</label> 
                             </div>
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="raza" onkeyup="return runScript(this.value)" name="raza" required  value="<%= SActualizar.getRaza()%>">
-                                <span class="bar"></span>
-                                <label>Raza</label>
-                            </div>
+                            
+                            
+                            
+                             
                             
                         </div>
 
                         <div class="col-md-6">
                             
-                            
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="raza" onkeyup="return runScript(this.value)" name="raza" required value="<%= SActualizar.getRaza()%>">
+                                <span class="bar"></span>
+                                <label>Raza</label>
+                            </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <select class="form-text" name="sexo">
-                                    <option value="Hembra">Hembra</option>
-                                    <option value="Macho">Macho</option>
+                                <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
+
+                                <select class="form-text" name="genero" id="genero">
+                                    <!--<option value="" selected="selected">Seleccione...</option>-->
+                                    <option <% if (SActualizar.getGenero().equals("Hembra")) { out.print("selected");} %> value="Hembra">Hembra</option>
+                                    <option <% if (SActualizar.getGenero().equals("Macho")) { out.print("selected");} %> value="Macho">Macho</option>
+                                    
                                 </select>
+                                <span class="bar" ></span>
+                                <label>Genero</label> 
                             </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -85,49 +100,61 @@
                                 <label>Alimentacion</label>
                             </div>
                             
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="medicamentos" onkeyup="return runScript(this.value)" name="medicamentos" required value="<%= SActualizar.getMedicamentos()%>">
-                                <span class="bar"></span>
-                                <label>Medicamentos</label>
-                            </div>
                            
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;" >
-                                <select  name="propietario" class="form-text" >
-                                    
+                                
+                                
+                               
+                                <% int id = Integer.parseInt(request.getAttribute("IdPropietario").toString()); %> 
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;" class="bar" required >
+                                <select  name="propietario" class="form-text"id="propietario" >
+                                    <option value="" selected="selected">Seleccione...</option>
                                     <c:forEach var="pro" items="${requestScope.ArrayPropietarios}">
-                                        <option value="${pro.idPropietario}">${pro.nombres}</option>
+                                        
+                                         <option <% if (SActualizar.getPropietario().getIdPropietario().equals(id)) { out.print("selected");} %> value="${pro.idPropietario}">${pro.nombres}</option>
                                     </c:forEach>
-
                                 </select>
-                            </div>
-                            
-                            
-                            
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="observaciones" onkeyup="return runScript(this.value)" name="observaciones" required value="<%= SActualizar.getObservaciones()%>">
                                 <span class="bar"></span>
-                                <label>Observaciones</label>
+                                <label>Propietario</label> 
                             </div>
                             
+                      
+                            
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <select class="form-text" name="estado">
-                                    <option>option one</option>
-                                    <option value="Activa">Activa</option>
-                                    <option value="Inactiva">Inactiva</option>
+                                <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
+
+                                <select class="form-text" name="estado" id="estado">
+                                    <!--<option value="" selected="selected">Seleccione...</option>-->
+                                    <option <% if (SActualizar.getGenero().equals("Activa")) { out.print("selected");} %> value="Activa">Activa</option>
+                                    <option <% if (SActualizar.getGenero().equals("Inactiva")) { out.print("selected");} %> value="Inactiva">Inactiva</option>
                                     
                                 </select>
+                                <span class="bar" ></span>
+                                <label>Estado</label> 
                             </div>
                         </div>  
-
-                        <div class="col-md-12">
-                            <div class="form-group form-animate-text" style="margin-top:20px !important;">
+                         <div class="col-md-12">
+                             
+                              <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="observaciones" onkeyup="return runScript(this.value)" name="observaciones" value=""  value="<%= SActualizar.getObservaciones()%>">
+                                <span class="bar"></span>
+                                <label>Observaciones (No obligatorio) </label>
+                            </div>
+                             
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="medicamentos" onkeyup="return runScript(this.value)" name="medicamentos" value="" value="<%= SActualizar.getMedicamentos()%>">
+                                <span class="bar"></span>
+                                <label>Medicamentos (No obligatorio)</label>
+                            </div>
+                             <div class="form-group form-animate-text" style="margin-top:20px !important;"   <label>Foto 
+                               
                                 <input type="file" class="form-text" id="foto" onkeyup="return runScript(this.value)" name="foto" required value="<%= SActualizar.getFoto()%>">
                                 <span class="bar"></span>
                                 <br>
                                
                             </div>
-                        </div>
-
+                             
+                             </div>
+                        
                         <div class="col-md-12">
                             <input class="submit btn btn-primary" type="submit" value="Guardar" > &nbsp
                             <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'MascotasController?action=admin'">
@@ -162,7 +189,7 @@
         } catch (e) {
             nit = 0;
         }
-        document.getElementById("telefono").value = nit;
+        //document.getElementById("telefono").value = nit;
     }
 </script>
 <button id="mimin-mobile-menu-opener" class="animated rubberBand btn btn-circle btn-danger">
@@ -203,24 +230,52 @@
                 $(label.parent("div").removeClass("form-animate-error"));
             },
             rules: {
-                razonsocial: "required",
-                ciudad: "required",
-                direccion: "required",
-                nit: {
+                alimentacion: "required",
+                foto: "required",
+               
+                nombre: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 60
+                },
+                peso: {
+                    required: true,
+                    min: 0.5,
+                    max: 70
+                },
+                condicion: {
                     required: true,
                     min: 1,
-                    minlength: 7,
-                    maxlength: 10
+                    max: 5
+                    
                 },
-                telefono: {
+                color: {
                     required: true,
-                    min: 1,
-                    minlength: 10,
-                    maxlength: 10
+                    minlength: 3,
+                    maxlength: 100
+                    
                 },
+                raza: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 45
+                },
+                
                 contrasena: {
                     required: true,
                     minlength: 5
+                },
+                especie: {
+                    required: true
+                },
+                genero: {
+                    required: true
+                },
+                propietario: {
+                    required: true
+                },
+                estado: {
+                    required: true,
                 },
                 confirmar_contrasena: {
                     required: true,
@@ -230,30 +285,48 @@
                 validate_agree: "required"
             },
             messages: {
-                razonsocial: "Por favor, introduzca Razon social",
-                ciudad: "Por favor, introduzca la ciudad",
-                direccion: "por favor, introduzca su direccion",
-                nit: {
-                    required: "Nit invalido",
-                    min: "Nit valido",
-                    minlength: "No valido",
-                    maxlength: "No valido"
+                
+                foto: "Por favor, inserte una foto.",
+                
+                alimentacion: "Por favor, digite la alimentación.",
+                propietario:"Por favor, selecione una opción.",
+                nombre: {
+                    required: "Por favor, digite un nombre.",
+                    minlength: "Número minímo de caracteres (3).",
+                    maxlength: "Número máximo de caracteres (60)."
                 },
-                telefono: {
-                    required: "Proporcione un numero de telefono",
-                    min: "No valido",
-                    minlength: "su telefono debe tener almenos 10 caracteres",
-                    maxlength: "No valido"
+                peso: {
+                    required: "Por favor, digite el peso.",
+                    min: "Por favor ingrese un valor mayor o igual a 0.5.",
+                    max: "Por favor, ingrese un valor inferior o igual a 70."
                 },
-                contrasena: {
-                    required: "Proporcione una contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres"
+                condicion: {
+                    required: "Por favor, digite la condición corporal",
+                    min: "Por favor, ingrese un valor mayor o igual que 1.",
+                    max: "Por favor, ingrese un valor menor o igual a 5."
+                    
                 },
-                confirmar_contrasena: {
-                    required: "Proporcione una contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres",
-                    equalTo: "Ingrese la misma contraseña que la anterior"
+                color: {
+                    required: "Por favor, digite el color.",
+                    minlength: "Por favor, digite al menos 3 caracteres.",
+                    maxlength: "Por favor, ingrese no más de 100 caracteres."
                 },
+                raza: {
+                    required: "Por favor, digite la raza.",
+                    minlength: "Por favor, digite al menos 3 caracteres.",
+                    maxlength: "Por favor, ingrese no más de 45 caracteres."
+                },
+               
+                especie: {
+                    required: "Por favor, seleccione una opcion."
+                },
+                genero: {
+                    required: "Por favor, seleccione una opcion."
+                },
+                 estado: {
+                    required: "Por favor, seleccione una opcion."
+                }
+                
             }
 
         });

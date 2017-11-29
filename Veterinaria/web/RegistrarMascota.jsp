@@ -57,8 +57,8 @@
 
                                 <select class="form-text" name="especie" id="especie">
                                     <option value="" selected="selected">Seleccione...</option>
-                                    <option value="Femenino">Canino</option>
-                                    <option value="Masculino">Felino</option>
+                                    <option value="Canino">Canino</option>
+                                    <option value="Felino">Felino</option>
                                 </select>
                                 <span class="bar" ></span>
                                 <label>Especie</label> 
@@ -280,51 +280,44 @@
                 foto: "Por favor, inserte una foto.",
                 
                 alimentacion: "Por favor, digite la alimentación.",
-                propietario:"Por favor, seleecione",
+                propietario:"Por favor, selecione una opción.",
                 nombre: {
-                    required: "Por favor, digite un nombre",
+                    required: "Por favor, digite un nombre.",
                     minlength: "Número minímo de caracteres (3).",
                     maxlength: "Número máximo de caracteres (60)."
                 },
                 peso: {
-                    required: "Por favor, digite el peso",
+                    required: "Por favor, digite el peso.",
                     min: "Por favor ingrese un valor mayor o igual a 0.5.",
-                    max: "Por favor, introduzca un valor inferior o igual a 70."
+                    max: "Por favor, ingrese un valor inferior o igual a 70."
                 },
                 condicion: {
                     required: "Por favor, digite la condición corporal",
-                    min: "Por favor ingrese un valor mayor o igual que 1.",
-                    max: "Por favor ingrese un valor menor o igual a 5."
+                    min: "Por favor, ingrese un valor mayor o igual que 1.",
+                    max: "Por favor, ingrese un valor menor o igual a 5."
                     
                 },
                 color: {
-                    required: "Por favor, digite un nombre",
+                    required: "Por favor, digite el color.",
                     minlength: "Por favor, digite al menos 3 caracteres.",
                     maxlength: "Por favor, ingrese no más de 100 caracteres."
                 },
                 raza: {
                     required: "Por favor, digite la raza.",
                     minlength: "Por favor, digite al menos 3 caracteres.",
-                    maxlength: "No valido"
+                    maxlength: "Por favor, ingrese no más de 45 caracteres."
                 },
-                contrasena: {
-                    required: "Proporcione una contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres"
-                },
+               
                 especie: {
-                    required: "Por favor, seleccione una opcion"
+                    required: "Por favor, seleccione una opcion."
                 },
                 genero: {
-                    required: "Por favor, seleccione una opcion"
+                    required: "Por favor, seleccione una opcion."
                 },
                  estado: {
-                    required: "Por favor, seleccione una opcion"
-                },
-                confirmar_contrasena: {
-                    required: "Proporcione una contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres",
-                    equalTo: "Ingrese la misma contraseña que la anterior"
-                },
+                    required: "Por favor, seleccione una opcion."
+                }
+                
             }
 
         });
