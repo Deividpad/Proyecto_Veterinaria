@@ -20,6 +20,10 @@
         <servlet-name>MascotasController</servlet-name>
         <servlet-class>controllers.MascotasController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MedicamentosController</servlet-name>
+        <servlet-class>controllers.MedicamentosController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>MascotasController</servlet-name>
         <url-pattern>/MascotasController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MedicamentosController</servlet-name>
+        <url-pattern>/MedicamentosController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
