@@ -1,4 +1,5 @@
 
+<%@page import="models.Medicamentos"%>
 <jsp:include page="encabezado.jsp" />
 <jsp:include page="menu.jsp" />
 <!-- start: content -->
@@ -20,30 +21,40 @@
             <div class="col-md-12 panel-heading">
                 <h4>Ingrese los datos</h4>
             </div>
+            <% Medicamentos medicamento = (Medicamentos) request.getAttribute("Medicamento"); %>
             <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                 <div class="col-md-12">
-                    <form class="cmxform" id="signupForm" method="POST" action="ClientesController?action=create">
+                    <form class="cmxform" id="signupForm" method="POST" action="MedicamentosController?action=update&idmedi=<%= medicamento.getIdMedicamento() %>">
                         <div class="col-md-6">
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">                                            
-                                <textarea name="proposito" id="proposito" rows="10" cols="60" placeholder="Proposito de la cita"></textarea>
-                                <span class="bar"></span>
-                                <label></label>
-                            </div>
                             
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="nombre" value="<%= medicamento.getNombre() %>" name="nombre" required>
+                                <span class="bar"></span>
+                                <label>Nombre</label>
+                            </div>
+
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="laboratorio" value="<%= medicamento.getLaboratorio() %>" onkeyup="return runScript(this.value)" name="laboratorio" required>
+                                <span class="bar"></span>
+                                <label>Laboratorio</label>
+                            </div>
                         </div>
 
                         <div class="col-md-6">
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">                                            
-                                <textarea name="observaciones" id="observaciones" rows="10" cols="60" placeholder="Observaciones de la cita"></textarea>
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text   " class="form-text" id="lote" name="lote" value="<%= medicamento.getLote() %>" required>
                                 <span class="bar"></span>
-                                <label></label>
+                                <label>Lote</label>
                             </div>
+
+                          
                         </div>  
 
 
                         <div class="col-md-12">
                             <input class="submit btn btn-primary" type="submit" value="Guardar" > &nbsp
-                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'CitasController?action=admin&param=2'">
+                            <% String idcita = request.getSession().getAttribute("idcita").toString(); %>
+                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'MedicamentosController?action=admin&idcita=<%= idcita%>'">
                         </div>
                     </form>
 

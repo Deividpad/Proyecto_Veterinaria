@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Citas;
 import models.HibernateUtil;
 import models.Hospitalizacion;
@@ -54,51 +55,62 @@ public class MedicamentosController extends HttpServlet {
             case "Select":
                 Select(request, response);
                 break;
-              case"update":
-             actualizar(request, response);
-             break;
-//             case"eliminar":
-//             eliminar(request, response);
-//             break;
+            case "update":
+                actualizar(request, response);
+                break;
+            case "eliminar":
+                Eliminar(request, response);
+                break;
         }
     }
 
-    private void registrar(HttpServletRequest request, HttpServletResponse response) {
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Session sesion = models.HibernateUtil.getSessionFactory().openSession();
 
         String nombre = request.getParameter("nombre");
         String laboratorio = request.getParameter("laboratorio");
         String lote = request.getParameter("lote");
-        Date fecha = new Date();
-//        Persona per = (Persona) sesion.get(Persona.class, Integer.parseInt(request.getParameter("idVeterinario")));
-        Persona per = (Persona) sesion.get(Persona.class, Integer.parseInt("1"));
-//        Hospitalizacion Ho = (Hospitalizacion) sesion.get(Hospitalizacion.class, Integer.parseInt(request.getParameter("idHospitalizacion")));
-//        Citas Cit = (Citas) sesion.get(Citas.class, Integer.parseInt(request.getParameter("idCitasMedicas")));
-
-//      Medicamentos Medi = new Medicamentos(per, nombre, laboratorio, lote, fecha);
+        java.util.Date fecha = new java.util.Date();
+        String persona = request.getSession().getAttribute("idpersona").toString();
+        Persona per = (Persona) sesion.get(Persona.class, Integer.parseInt(persona));
+        String idcita = request.getSession().getAttribute("idcita").toString();
+        PrintWriter out = response.getWriter();
+//        out.print("Sesion idpersosa: "+persona+" id cita: "+idcita);
+        Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(idcita));
         Medicamentos Medi = new Medicamentos(per, nombre, laboratorio, lote, fecha);
+        Medi.setCitas(cita);
         sesion.beginTransaction();
         sesion.save(Medi);
         sesion.getTransaction().commit();
         sesion.close();
-
         try {
-            response.sendRedirect("MedicamentosController?action=admin");
+            response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
         } catch (IOException ex) {
 
         }
 
     }
 
-    public void admin(HttpServletRequest request, HttpServletResponse response) {
+    public void admin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
+        HttpSession session = request.getSession();
+        session.setAttribute("idcita", request.getParameter("idcita"));
+        String idcita = request.getSession().getAttribute("idcita").toString();
+        PrintWriter out = response.getWriter();
+        //out.print( "id cita: "+idcita);
 
-        Query q = sesion.createQuery("FROM Medicamentos");
-        ArrayList Medicamentos = (ArrayList) q.list();
+        Query q = sesion.createQuery("FROM Medicamentos WHERE citas.idCitasMedicas =?");
+        q.setString(0, idcita);
+        ArrayList ListaMedicamentos = (ArrayList) q.list();
+        if (ListaMedicamentos.size() >= 1) {
+            out.print("Si es mayor");
+        } else {
+            out.print("NO es mayor");
+        }
 
         ArrayList<Medicamentos> me = new ArrayList<>();
 
-        for (Object med : Medicamentos) {
+        for (Object med : ListaMedicamentos) {
 
             Medicamentos medi = (Medicamentos) med;
             me.add(medi);
@@ -153,81 +165,55 @@ public class MedicamentosController extends HttpServlet {
             Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     public void actualizar(HttpServletRequest request, HttpServletResponse response) {
-          Session sesion = HibernateUtil.getSessionFactory().openSession();
-           Query q = sesion.createQuery("FROM Persona");
-        ArrayList listaObjetos = (ArrayList) q.list();
-        ArrayList<Persona> ArrayPe = new ArrayList<Persona>();
 
-        for (Object Obj : listaObjetos) {
-            Persona med = (Persona) Obj;
-            ArrayPe.add(med);
-        }
-        request.setAttribute("ArrayPe", ArrayPe);
+    public void actualizar(HttpServletRequest request, HttpServletResponse response) {
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Medicamentos medicamento = (Medicamentos) sesion.get(Medicamentos.class, Integer.parseInt(request.getParameter("idmedi")));
 
-        Query c = sesion.createQuery("FROM Citas");
-        ArrayList listaO = (ArrayList) c.list();
-        ArrayList<Citas> ArrayCi = new ArrayList<Citas>();
-
-        for (Object Obj : listaO) {
-            Citas ci = (Citas) Obj;
-            ArrayCi.add(ci);
-        }
-        request.setAttribute("ArrayCi", ArrayCi);
-
-        Query H = sesion.createQuery("FROM Hospitalizacion");
-        ArrayList lista = (ArrayList) H.list();
-        ArrayList<Hospitalizacion> ArrayHo = new ArrayList<Hospitalizacion>();
-
-        for (Object Obj : lista) {
-            Hospitalizacion ho = (Hospitalizacion) Obj;
-            ArrayHo.add(ho);
-        }
-        request.setAttribute("ArrayHo", ArrayHo);
-       Medicamentos me = (Medicamentos) sesion.get(Medicamentos.class, Integer.parseInt(request.getParameter("id")));
         if (request.getMethod().equalsIgnoreCase("GET")) {
-            request.setAttribute("medi", me);
-
+            request.setAttribute("Medicamento", medicamento);
             try {
-                request.getRequestDispatcher("actuaE.jsp").forward(request, response);
+                request.getRequestDispatcher("EditarMedicamento.jsp").forward(request, response);
             } catch (ServletException ex) {
-                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         } else {
-           
-           
-            Date fecha = new Date();
-           
-            Persona p = (Persona) sesion.get(Persona.class, Integer.parseInt(request.getParameter("persona")));
-            Citas clien = (Citas) sesion.get(Citas.class, Integer.parseInt(request.getParameter("citas")));
-            Hospitalizacion h = (Hospitalizacion) sesion.get(Hospitalizacion.class, Integer.parseInt(request.getParameter("hospitalizacion")));
-            
-                       
-            me.setPersona(p);
-            me.setCitas(clien);
-            me.setHospitalizacion(h);
-           
-            me.setNombre(request.getParameter("nombre"));
-            me.setLaboratorio(request.getParameter("laboratorio"));
-            me.setLote(request.getParameter("lote"));
-            me.setFecha(fecha);
 
+            java.util.Date fecha = new java.util.Date();
+            medicamento.setNombre(request.getParameter("nombre"));
+            medicamento.setLaboratorio(request.getParameter("laboratorio"));
+            medicamento.setLote(request.getParameter("lote"));
+            medicamento.setFecha(fecha);
             sesion.beginTransaction();
-            sesion.saveOrUpdate(me);
+            sesion.saveOrUpdate(medicamento);
             sesion.getTransaction().commit();
-
+            String idcita = request.getSession().getAttribute("idcita").toString();
             try {
-                response.sendRedirect("MedicamentosController?action=admin");
+                response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
             } catch (IOException ex) {
                 Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
         sesion.close();
-     }
+    }
+
+    private void Eliminar(HttpServletRequest request, HttpServletResponse response) {
+
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Medicamentos medicamento = (Medicamentos) sesion.get(Medicamentos.class, Integer.parseInt(request.getParameter("idmedi")));
+        sesion.beginTransaction();
+        sesion.delete(medicamento);
+        sesion.getTransaction().commit();
+        sesion.close();
+        String idcita = request.getSession().getAttribute("idcita").toString();
+        try {
+            response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
+        } catch (IOException ex) {
+            Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

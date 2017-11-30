@@ -46,9 +46,9 @@
                                         <td><c:out value="${cita.estado}"/></td>
                                         <td>
                                             <c:if test="${cita.estado == 'Programada'}">
-                                                <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default"  onclick="location.href = 'MedicamentosController?action=admin'">
+                                                <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default"  onclick="location.href = 'MedicamentosController?action=admin&idcita=${cita.idCitasMedicas}'">
                                                     <div>
-                                                        <span style="color: red;">Atender Cita</span>
+                                                        <span style="color: red;">Ver Cita</span>
                                                     </div>
                                                 </button> 
                                             </c:if>

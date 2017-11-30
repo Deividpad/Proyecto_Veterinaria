@@ -1,9 +1,9 @@
 <%
     String user = (String) session.getAttribute("perfil");
-    if (user==null || user.equals("Auxiliar")) {
+    if (user == null || user.equals("Auxiliar")) {
         response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
         return;
-    }    
+    }
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="encabezado.jsp" />
@@ -22,11 +22,12 @@
         <div class="col-md-12">
             <div class="panel">
                 <div id="colortable" class="panel-heading"><h3 id="tlttable">Clientes</h3>
-                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'MedicamentosCitas.jsp'">
+                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'CitasProposito.jsp'">
                         <span class="fa fa-bars"></span>Datos Cita
                     </button>     
-                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'ProductosControllers?action=admin&id='">
-                        <span class="fa fa-bars"></span>Medicamentos
+                    <% String idcita = request.getParameter("idcita").toString(); %>
+                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'RegistrarMedicamentos.jsp'">
+                        <span class="fa fa-bars"></span>Agregar Medicamentos
                     </button>                                      
                 </div>
                 <div class="panel-body">
@@ -41,21 +42,17 @@
                                 </tr>
                             </thead>
                             <tbody>                                
-                                <tr>
-                                    <c:forEach var="medi" items="${requestScope.listaM}">                                        
+
+                                <c:forEach var="medi" items="${requestScope.listaM}">                                        
+                                    <tr>
                                         <td><c:out value="${medi.nombre}"/></td>
                                         <td><c:out value="${medi.laboratorio}"/></td>
                                         <td><c:out value="${medi.lote}"/></td>
-                                        <td>
-                                            <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default" onclick="myFunction(${p.idProducto},${p.valor}, '${p.nombre}')" data-toggle="modal" data-target="#mimodalejemplo">
-                                                <div>
-                                                    <span style="color: red;">Agregar Medicamento</span>
-                                                </div>
-                                            </button> 
-                                            <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'ProductosControllers?action=update&id=${p.idProducto}'">
+                                        <td>                                            
+                                            <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'MedicamentosController?action=update&idmedi=${medi.idMedicamento}'">
                                                 <span class="fa fa-edit"></span>
                                             </button>
-                                            <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'ProductosControllers?action=delete&id=${p.idProducto}'">
+                                            <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'MedicamentosController?action=eliminar&idmedi=${medi.idMedicamento}'">
                                                 <span class="fa fa-trash"></span>
                                             </button>                                            
                                         </td>
