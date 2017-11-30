@@ -22,7 +22,7 @@
                 <div class="col-md-10">
                     <div class="col-md-12 panel">
                         <div class="col-md-12 panel-heading">
-                            <h4>Crear Cita</h4><span style="color:red;" id="result1"></span>
+                            <input type="text" id="at" name="at" style="display: none;"><h4><input id="title" style="border: none; background-color: #fbf7f7" disabled="" type="text"></h4><span style="color:red;" id="result1"></span>
                             <input type="button" style="display: none;" value="Hello" id="bttHello">        
                         </div>
                         <div class="col-md-12 panel-body" style="padding-bottom:30px;">
@@ -45,7 +45,7 @@
                                         <div class="col-sm-12 padding-0">                                                                                      
                                             <span class="bar"></span>
                                             <label>Mascota</label><br>
-                                            <select class="select2-A" style="width: 100%;" name="mascota">        
+                                            <select class="select2-A" style="width: 100%;" name="mascota" id="mascota">        
                                                 <c:forEach var="mascota" items="${requestScope.ArrayMascotas}">
                                                     <option value="${mascota.idMascotas}"><c:out value="${mascota.nombre}"/></option>                         
                                                 </c:forEach>
@@ -76,11 +76,11 @@
                                             <span class="bar"></span>
                                             <label>Tipo Cita</label>
                                             <select class="form-control" name="tipo" id="tipo">
-                                                <option value="Programada">Programadaa</option>
+                                                <option value="Programada">Programada</option>
                                                 <option value="Urgencia">Urgencia</option>                                                
                                             </select>
                                         </div>
-
+                                        <input type="text" id="idcita" name="idcita">
                                     </div>
                                     <div class="col-md-12" style="padding-top: 20px;">
                                         <input class="submit btn btn-success" id="myBtn1" type="submit" onclick="check()" value="Modificar" >
@@ -275,13 +275,27 @@
                                                         }else{
                                                             event.start.add(1, 'days')
                                                     if(event.start >= new Date()){
+                                                        event.start.subtract(1, 'days')      
+                                                        var date = new Date(event.start);
+                                                        var year = date.getFullYear();
+                                                        var mes = date.getMonth()+1;
+                                                        var dia = date.getDate();
+                                                        if(dia < 10){
+                                                            dia = "0"+dia;
+                                                        }
+                                                        var fechadrop = year+"-"+mes+"-"+dia;                                                       
                                                         var elem = document.getElementById('buttonmodal');
                                                             elem.click();
+                                                            document.getElementById('idcita').value = event.id;
+                                                            document.getElementById('fhentrada').value = fechadrop;
+                                                            document.getElementById('fhsalida').value = fechadrop;
+                                                            document.getElementById('at').value = "update";
+                                                            document.getElementById('title').value = "Editar Cita";
                                                     }else{
 //                                                        alert("Fecha no valida "+event.start.format()+" Actual"     );
                                                         revertFunc();   
                                                     }
-                                                        }                                            
+                                                        }
                                                     
                                                             
                                                     },
@@ -295,6 +309,9 @@
                                                             var elem = document.getElementById('buttonmodal');
                                                             elem.click();
                                                             document.getElementById('fhentrada').value = date.format();
+                                                            document.getElementById('fhsalida').value = date.format();
+                                                            document.getElementById('at').value = "create";
+                                                            document.getElementById('title').value = "Crear Cita";
                                                             //                                                                
                                                     }
                                                     //                                                                    // change the day's background color just for fun
@@ -357,14 +374,23 @@
     $('#bttHello').click(function(){
         alert("Le dio click al buton");
                      //var fullname = $('#fullname').val();
-                     var action = "create";                     
+                     var id = document.getElementById('mascota').value;
+                     var action = document.getElementById('at').value;
+                     //alert("el action: "+id);
                     $.ajax({
                     type:'POST',
-                    data: {fhentrada: $('#fhentrada').val(),tmentrada: $('#tmentrada').val(),fhsalida: $('#fhsalida').val(),tmsalida: $('#tmsalida').val(),tipo: $('#tipo').val(),mascota: $('#mascota').val()},
+                    data: {fhentrada: $('#fhentrada').val(),tmentrada: $('#tmentrada').val(),fhsalida: $('#fhsalida').val(),tmsalida: $('#tmsalida').val(),tipo: $('#tipo').val(),mascota: $('#mascota').val(),idcita: $('#idcita').val()},
                     url: 'CitasController?action='+action,  
                     success: function(result){
-                        $('#result1').html(result);
+                        if(result == ("")){
+//                            alert("Es nulo");
+                            location.reload(true);
+                        }else{
+                             alert("Llego con algo");
+                            $('#result1').html(result);
                         alert(result);
+                        }
+                        
                     }                  
                     
                 });
@@ -426,6 +452,9 @@
 
                     }
                    
+            }
+            function reset() {
+                location.reload(true);
             }
 
 </script>
