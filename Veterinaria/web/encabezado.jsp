@@ -102,16 +102,18 @@
                         <span class="middle"></span>
                         <span class="bottom"></span>
                     </div>                                                                                          
-                    <a href="CotizacionesController?action=admin" class="navbar-brand">
+                    <a href="" class="navbar-brand">
                         <b>HOME</b>
                     </a>
-
+                    <% String user = (String) session.getAttribute("perfil"); %>
+                            <a><%= user %></a>
 
 
                     <ul class="nav navbar-nav navbar-right user-nav">
-
+                        
                         <li class="dropdown avatar-dropdown">
-
+                            
+                            <input type="button" value="Clientes" onclick="location.href = 'AdminClientes.jsp'">
                             <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                             <ul class="dropdown-menu user-dropdown">
 
@@ -120,7 +122,7 @@
                                 <li role="separator" class="divider"></li>
                                 <li class="more">
                                     <ul>                                      
-                                        <li style="margin-left: 50px;"><a href="Inicio.jsp"><span class="fa fa-power-off "></span></a></li>                                      
+                                        <li style="margin-left: 50px;"><a href="LoginController?action=exitpersona"><span class="fa fa-power-off "></span></a></li>                                      
                                     </ul>
                                 </li>
                             </ul>

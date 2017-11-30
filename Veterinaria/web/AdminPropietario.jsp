@@ -1,3 +1,10 @@
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null) {
+        response.sendRedirect("LoginPersona.jsp?error=true");//Se pierde la información       
+        return;
+    }    
+%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : AdminPropietario
@@ -36,7 +43,10 @@
                                     <th>Direccion</th>
                                     <th>Ciudad</th>                                    
                                     <th>Estado</th>
+                                    <% if (session.getAttribute("perfil").equals("Veterinario")) { %>
+                                    <% } else{ %> 
                                     <th>Acciones</th>
+                                    <% } %>
                                 </tr>
                             </thead>
                             <tbody>   
@@ -51,6 +61,8 @@
                                         <td><c:out value="${propi.direccion}"/></td>
                                         <td><c:out value="${propi.ciudad}"/></td>                                       
                                         <td><c:out value="${propi.estado}"/></td>
+                                        <% if (session.getAttribute("perfil").equals("Veterinario")) { %>
+                                        <% }else { %>
                                         <td>
                                             <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'PropietarioController?action=update&id=${propi.idPropietario}'">
                                                 <span class="fa fa-edit"></span>
@@ -59,6 +71,7 @@
                                                 <span class="fa fa-trash"></span>
                                             </button>                                   
                                         </td>
+                                        <% } %>
                                     </tr> 
                                 </c:forEach>               
                             </tbody>

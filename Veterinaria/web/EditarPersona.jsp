@@ -1,8 +1,10 @@
-<%-- 
-    Document   : EditarPersona
-    Created on : 20/11/2017, 05:00:12 AM
-    Author     : Erika N
---%>
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null || user.equals("Auxiliar")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+        return;
+    }    
+%>
 
 <%@page import="models.Persona"%>
 <jsp:include page="encabezado.jsp" />

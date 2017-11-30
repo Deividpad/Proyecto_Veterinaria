@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.HibernateUtil;
+import models.Persona;
 import org.apache.commons.codec.digest.DigestUtils;
 //import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Query;
@@ -50,11 +51,11 @@ public class LoginController extends HttpServlet {
         } else if (action.equalsIgnoreCase("intopropietario")) {
             ingresarPropietario(request, response);
         }
-        /*else if (action.equalsIgnoreCase("exitclient")) {
-            exitClient(request, response);
+        else if (action.equalsIgnoreCase("exitpersona")) {
+            exitPersona(request, response);
         } else if (action.equalsIgnoreCase("exitemple")) {
             exitEmpleados(request, response);
-        } */
+        }
     }
 
     private void ingresarPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -69,13 +70,13 @@ public class LoginController extends HttpServlet {
         //Verifica contraseña
         if (listaObjetos.size() >= 1) {
 
-            /*HttpSession session = request.getSession();
-            Clientes cliente = (Clientes) listaObjetos.get(0);
-            session.setAttribute("User", "Cliente");
-            String idcliente = cliente.getIdCliente().toString();
-            session.setAttribute("id", idcliente);
-            session.setAttribute("razon_social", cliente.getRazonSocial());*/
-            response.sendRedirect("AdminClientes.jsp?error=ok");//Se pierde la información          
+            HttpSession session = request.getSession();
+            Persona persona = (Persona) listaObjetos.get(0);            
+            String idpersona = persona.getIdVeterinario().toString();
+            session.setAttribute("idpersona", idpersona);
+            session.setAttribute("perfil", persona.getPerfil());
+            response.sendRedirect("AdminClientes.jsp"); 
+//            response.sendRedirect("AdminClientes.jsp?error=ok");//Se pierde la información          
             sesion.close();
         } else {
 
@@ -119,12 +120,12 @@ public class LoginController extends HttpServlet {
         
     }
 
-    /*private void exitClient(HttpServletRequest request, HttpServletResponse response) {
+    private void exitPersona(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
         session.invalidate();
         try {
-            response.sendRedirect("LoginClientes.jsp");//Se pierde la información
+            response.sendRedirect("Inicio.jsp");//Se pierde la información
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -142,7 +143,7 @@ public class LoginController extends HttpServlet {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }*/
+    }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -1,8 +1,10 @@
-<%-- 
-    Document   : RegistrarPropietario
-    Created on : 19-nov-2017, 20:31:18
-    Author     : juli-
---%>
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null || user.equals("Veterinario")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+        return;
+    }    
+%>
 <!DOCTYPE html>
 <html>
     <head>

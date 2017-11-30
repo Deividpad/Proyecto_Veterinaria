@@ -6,7 +6,8 @@
             <li class="time">
                 <h1 class="animated fadeInLeft">21:00</h1>
                 <p class="animated fadeInRight">Sat,October 1st 2029</p>
-            </li>            
+            </li>         
+           
             <li class="ripple">
                 <a class="tree-toggle nav-header">
                     <span class="fa-area-chart fa"></span> Propietario
@@ -40,8 +41,8 @@
                     <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                    <li><a href="CitasController?action=admin">Crear cita</a></li>
-                    <li><a href="">Administrar</a></li>
+                    <li><a href="CitasController?action=admin&param=1">Crear cita</a></li>
+                    <li><a href="CitasController?action=admin&param=2">Administrar</a></li>
                 </ul>
             </li>
             <li class="active ripple">
@@ -52,8 +53,7 @@
                     <li><a href="">Logout</a></li>
                     <li><a href="">Logout</a></li>                    
                 </ul>
-            </li>
-
+            </li>            
         </ul>
     </div>
 </div>

@@ -1,3 +1,10 @@
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null || user.equals("Auxiliar")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+        return;
+    }    
+%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : AdminPersonas

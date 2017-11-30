@@ -107,12 +107,19 @@
                 alertify.error("Usuario o constraseña incorrecto/a.");
                 return false;
             }
+            function permisos() {
+                alertify.error("No tiene permisos para acceder a esos sitios");
+                return false;
+            }
         </script>   
         <%
             String get = request.getParameter("error");
             if (get != null && get.equals("true")) { %>
         <script language='JavaScript' type='text/javascript'>
             error();</script>
-            <% } %>
+            <% }else if(get != null && get.equals("permisos"))  { %>
+        <script language='JavaScript' type='text/javascript'>
+            permisos();</script>
+        <% } %>
     </body>
 </html>

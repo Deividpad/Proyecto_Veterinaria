@@ -1,7 +1,7 @@
 <%
     String user = (String) session.getAttribute("perfil");
-    if (user==null) {
-        response.sendRedirect("Inicio.jsp");//Se pierde la información       
+    if (user==null || user.equals("Auxiliar")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
         return;
     }    
 %>
@@ -17,48 +17,59 @@
             </div>
         </div>
     </div>
-     <% String perfil = session.getAttribute("perfil").toString();  %>
-    <h2><%= perfil %></h2>
+
     <div class="col-md-12 top-20 padding-0">
         <div class="col-md-12">
             <div class="panel">
-                <div id="colortable" class="panel-heading"><h3 id="tlttable">Clientes</h3></div>
+                <div id="colortable" class="panel-heading"><h3 id="tlttable">Clientes</h3>
+                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'MedicamentosCitas.jsp'">
+                        <span class="fa fa-bars"></span>Datos Cita
+                    </button>     
+                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'ProductosControllers?action=admin&id='">
+                        <span class="fa fa-bars"></span>Medicamentos
+                    </button>                                      
+                </div>
                 <div class="panel-body">
                     <div class="responsive-table">
                         <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Razon social</th>
-                                    <th>Nit</th>
-                                    <th>Ciudad</th>
-                                    <th>Direccion</th>
-                                    <th>Telefono</th>                                        
+                                    <th>Nombre</th>
+                                    <th>Laboratorio</th>
+                                    <th>Lote</th>                                    
                                     <th>Aciones</th>                                        
                                 </tr>
                             </thead>
                             <tbody>                                
                                 <tr>
-                                    <td>Plantilla</td>
-                                    <td>Plantilla</td>
-                                    <td>Plantilla</td>
-                                    <td>Plantilla</td>
-                                    <td>Plantilla</td>
-                                    <td>
-                                        <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default" onclick="myFunction(${p.idProducto},${p.valor}, '${p.nombre}')" data-toggle="modal" data-target="#mimodalejemplo">
-                                            <div>
-                                                <span style="color: red;">Agregar Producto</span>
-                                            </div>
-                                        </button> 
-                                        <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'ProductosControllers?action=update&id=${p.idProducto}'">
-                                            <span class="fa fa-edit"></span>
-                                        </button>
-                                        <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'ProductosControllers?action=delete&id=${p.idProducto}'">
-                                            <span class="fa fa-trash"></span>
-                                        </button>                                            
-                                    </td>
-                                </tr>                                  
+                                    <c:forEach var="medi" items="${requestScope.listaM}">                                        
+                                        <td><c:out value="${medi.nombre}"/></td>
+                                        <td><c:out value="${medi.laboratorio}"/></td>
+                                        <td><c:out value="${medi.lote}"/></td>
+                                        <td>
+                                            <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default" onclick="myFunction(${p.idProducto},${p.valor}, '${p.nombre}')" data-toggle="modal" data-target="#mimodalejemplo">
+                                                <div>
+                                                    <span style="color: red;">Agregar Medicamento</span>
+                                                </div>
+                                            </button> 
+                                            <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'ProductosControllers?action=update&id=${p.idProducto}'">
+                                                <span class="fa fa-edit"></span>
+                                            </button>
+                                            <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'ProductosControllers?action=delete&id=${p.idProducto}'">
+                                                <span class="fa fa-trash"></span>
+                                            </button>                                            
+                                        </td>
+                                    </tr>                                  
+                                </c:forEach>
                             </tbody>
                         </table>
+                        <div style="text-align: right; color: white;">                          
+                            <button class="btn ripple btn-3d btn-primary" style="width: 8%;" onclick="location.href = 'CitasController?action=admin&param=2'">
+                                <div>
+                                    <span class="icon-action-undo"></span>  Volver
+                                </div>
+                            </button>   
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,9 +101,9 @@
 <!-- custom -->
 <script src="asset/js/main.js"></script>
 <script type="text/javascript">
-                                            $(document).ready(function () {
-                                                $('#datatables-example').DataTable();
-                                            });
+                                $(document).ready(function () {
+                                    $('#datatables-example').DataTable();
+                                });
 </script>
 <!-- end: Javascript -->
 <!-- Le javascript

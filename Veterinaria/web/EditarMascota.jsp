@@ -1,3 +1,10 @@
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null || user.equals("Veterinario")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+        return;
+    }    
+%>
 <%@page import="models.Mascota"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 

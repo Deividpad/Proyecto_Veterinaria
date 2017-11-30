@@ -55,36 +55,39 @@ public class PropietarioController extends HttpServlet {
         }
     }
 
-    private void registrar(HttpServletRequest request, HttpServletResponse response) {
-        /*
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            /*
         Formulario Registrar: Falta que 
         confirme la contraseña y en el formulario editar
         que los select aparezcan selecionado segun el que viene de la base de datos
         Y verificar las validaciones javascript que algunos input faltan por validar
-        */
-        long documento = Long.parseLong(request.getParameter("documento"));
-        String nombre = request.getParameter("nombres");
-        String apellido = request.getParameter("apellidos");
-        String genero = request.getParameter("genero");
-        long telefono = Long.parseLong(request.getParameter("telefono"));
-        String correo = request.getParameter("correo");
-        String direccion = request.getParameter("direccion");
-        String ciudad = request.getParameter("ciudad");
+             */
+            long documento = Long.parseLong(request.getParameter("documento"));
+            String nombre = request.getParameter("nombres");
+            String apellido = request.getParameter("apellidos");
+            String genero = request.getParameter("genero");
+            long telefono = Long.parseLong(request.getParameter("telefono"));
+            String correo = request.getParameter("correo");
+            String direccion = request.getParameter("direccion");
+            String ciudad = request.getParameter("ciudad");
 //        String contra = request.getParameter("contrasena");
-        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
-        String estado = request.getParameter("estado");
+            String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
+            String estado = request.getParameter("estado");
 
-        Propietario pro = new Propietario(documento, nombre, apellido, genero, telefono, correo, direccion, ciudad, contrasenaencriptada, estado);
-        Session sesion = models.HibernateUtil.getSessionFactory().openSession();
-        sesion.beginTransaction();
-        sesion.save(pro);
-        sesion.getTransaction().commit();
-        sesion.close();
+            Propietario pro = new Propietario(documento, nombre, apellido, genero, telefono, correo, direccion, ciudad, contrasenaencriptada, estado);
+            Session sesion = models.HibernateUtil.getSessionFactory().openSession();
+            sesion.beginTransaction();
+            sesion.save(pro);
+            sesion.getTransaction().commit();
+            sesion.close();
+            try {
+                response.sendRedirect("PropietarioController?action=admin");
+            } catch (IOException ex) {
 
-        try {
-            response.sendRedirect("PropietarioController?action=admin");
-        } catch (IOException ex) {
-
+            }
+        } catch (Exception e) {
+            response.sendRedirect("LoginPersona.jsp?error=permisos");
         }
 
     }
@@ -139,7 +142,7 @@ public class PropietarioController extends HttpServlet {
             pro.setCorreo(request.getParameter("correo"));
             pro.setDireccion(request.getParameter("direccion"));
             pro.setCiudad(request.getParameter("ciudad"));
-          //  pro.setContrasena(request.getParameter("contrasena"));
+            //  pro.setContrasena(request.getParameter("contrasena"));
             pro.setEstado(request.getParameter("estado"));
 
             sesion.beginTransaction();
@@ -155,19 +158,28 @@ public class PropietarioController extends HttpServlet {
 
     }
 
-    private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Propietario propiet = (Propietario) sesion.get(Propietario.class, Integer.parseInt(request.getParameter("id")));
-
-        sesion.beginTransaction();
-        sesion.delete(propiet);
-        sesion.getTransaction().commit();
-        sesion.close();
-
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            response.sendRedirect("PropietarioController?action=admin");
-        } catch (IOException ex) {
+            String perfil = request.getSession().getAttribute("perfil").toString();
+            if (perfil.equals("Auxliar")) {
+                Session sesion = HibernateUtil.getSessionFactory().openSession();
+                Propietario propiet = (Propietario) sesion.get(Propietario.class, Integer.parseInt(request.getParameter("id")));
 
+                sesion.beginTransaction();
+                sesion.delete(propiet);
+                sesion.getTransaction().commit();
+                sesion.close();
+
+                try {
+                    response.sendRedirect("PropietarioController?action=admin");
+                } catch (IOException ex) {
+
+                }
+            } else {
+                response.sendRedirect("LoginPersona.jsp?error=permisos");
+            }
+        } catch (Exception e) {
+            response.sendRedirect("LoginPersona.jsp?error=permisos");
         }
 
     }

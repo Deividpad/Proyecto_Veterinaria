@@ -1,8 +1,10 @@
-<%-- 
-    Document   : RegistrarPersona
-    Created on : 20/11/2017, 03:46:52 AM
-    Author     : Erika N
---%>
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null || user.equals("Auxiliar")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+        return;
+    }    
+%>
 
 
 <jsp:include page="encabezado.jsp" />

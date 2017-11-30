@@ -1,8 +1,10 @@
-<%-- 
-    Document   : EditarPropietario
-    Created on : 20-nov-2017, 10:23:54
-    Author     : juli-
---%>
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null || user.equals("Veterinario")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+        return;
+    }    
+%>
 
 <%@page import="models.Propietario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

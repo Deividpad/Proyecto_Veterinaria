@@ -1,3 +1,10 @@
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null) {
+        response.sendRedirect("LoginPersona.jsp?error=true");//Se pierde la información       
+        return;
+    }    
+%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="encabezado.jsp" />
 <jsp:include page="menu.jsp" />
@@ -31,8 +38,11 @@
                                     <th>Genero</th>                                        
                                     <th>Fecha Nacimiento</th>                        
                                     <th>Propietario</th>                                  
-                                    <th>Estado</th>                                     
+                                    <th>Estado</th>    
+                                    <% if (session.getAttribute("perfil").equals("Veterinario")) { %>
+                                    <% }else { %>
                                     <th>Acciones</th>                                     
+                                    <% } %>
                                                                           
                                 </tr>
                             </thead>
@@ -52,7 +62,8 @@
                                         <td><c:out value="${Mascota.fechaNacimiento}"/></td>
                                         <td><c:out value="${Mascota.propietario.nombres}"/></td>
                                         <td><c:out value="${Mascota.estado}"/></td>
-
+                                        <% if (session.getAttribute("perfil").equals("Veterinario")) { %>
+                                        <% }else { %>
                                         <td>
                                              
                                             <button title="Editar" class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'MascotasController?action=update&id=${Mascota.idMascotas}'">
@@ -62,6 +73,7 @@
                                                 <span class="fa fa-trash"></span>
                                             </button>                                            
                                         </td>
+                                        <% } %>
                                     </tr>                                  
                                 </c:forEach>
                             </tbody>

@@ -60,12 +60,12 @@ public class MascotasController extends HttpServlet {
     }
 
     private void Registrar(HttpServletRequest request, HttpServletResponse response) {
-        
+
         /*
         Formulario Registrar: formulario editar
         que los select aparezcan selecionado segun el que viene de la base de datos
         Y verificar las validaciones javascript que algunos input faltan por validar
-        */
+         */
         String nombre = request.getParameter("nombre");
         String foto = request.getParameter("foto");
         float peso = Float.parseFloat((request.getParameter("peso")));
@@ -75,13 +75,12 @@ public class MascotasController extends HttpServlet {
         String raza = request.getParameter("raza");
         String sexo = request.getParameter("genero");
         Date fecha = new Date();
-        
+
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 //        Date fechaNacimiento = null;
 //        
 //        
 //        String fechaNa = request.getParameter("fecha")
-        
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd");
 //        String dateInString = "fechaNacimiento";
 //        Date date = null;
@@ -166,20 +165,28 @@ public class MascotasController extends HttpServlet {
         }
     }
 
-    private void Eliminar(HttpServletRequest request, HttpServletResponse response) {
-
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Mascota masco = (Mascota) sesion.get(Mascota.class, Integer.parseInt(request.getParameter("id")));
-
-        sesion.beginTransaction();
-        sesion.delete(masco);
-        sesion.getTransaction().commit();
-        sesion.close();
-
+    private void Eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            response.sendRedirect("MascotasController?action=admin");
-        } catch (IOException ex) {
-            Logger.getLogger(MascotasController.class.getName()).log(Level.SEVERE, null, ex);
+            String perfil = request.getSession().getAttribute("perfil").toString();
+            if (perfil.equals("Auxliar")) {
+                Session sesion = HibernateUtil.getSessionFactory().openSession();
+                Mascota masco = (Mascota) sesion.get(Mascota.class, Integer.parseInt(request.getParameter("id")));
+
+                sesion.beginTransaction();
+                sesion.delete(masco);
+                sesion.getTransaction().commit();
+                sesion.close();
+
+                try {
+                    response.sendRedirect("MascotasController?action=admin");
+                } catch (IOException ex) {
+                    Logger.getLogger(MascotasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                response.sendRedirect("LoginPersona.jsp?error=permisos");
+            }
+        } catch (Exception e) {
+            response.sendRedirect("LoginPersona.jsp?error=permisos");
         }
 
     }
@@ -197,12 +204,9 @@ public class MascotasController extends HttpServlet {
         }
 
         request.setAttribute("ArrayPropietarios", ArrayPropietarios);
-        
-        
 
         Mascota mascota = (Mascota) sesion.get(Mascota.class, Integer.parseInt(request.getParameter("id")));
-        
-        
+
         request.setAttribute("IdPropietario", mascota.getPropietario().getIdPropietario());
 
         if (request.getMethod().equalsIgnoreCase("GET")) {
@@ -244,7 +248,7 @@ public class MascotasController extends HttpServlet {
             sesion.beginTransaction();
             sesion.saveOrUpdate(mascota);
             sesion.getTransaction().commit();
-            
+
             try {
                 response.sendRedirect("MascotasController?action=admin");
             } catch (IOException ex) {
