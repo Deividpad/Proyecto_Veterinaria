@@ -1,17 +1,9 @@
-<%
-    String user = (String) session.getAttribute("perfil");
-    if (user==null || user.equals("Auxiliar")) {
-        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
-        return;
-    }    
-%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
-    Document   : AdminPersonas
-    Created on : 20/11/2017, 04:06:52 AM
-    Author     : Erika N
+    Document   : AdminHospitalizacion
+    Created on : 30-nov-2017, 15:06:43
+    Author     : juli-
 --%>
-
 
 <jsp:include page="encabezado.jsp" />
 <jsp:include page="menu.jsp" />
@@ -20,7 +12,7 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Administrar Personas</h3>                
+                <h3 class="animated fadeInLeft">Administrar Hospitalizacion</h3>                
             </div>
         </div>
     </div>
@@ -28,48 +20,41 @@
     <div class="col-md-12 top-20 padding-0">
         <div class="col-md-12">
             <div class="panel">
-                <div id="colortable" class="panel-heading"><h3 id="tlttable">Personas</h3></div>
+                <div id="colortable" class="panel-heading"><h3 id="tlttable">Hospitalizacion</h3></div>
                 <div class="panel-body">
                     <div class="responsive-table">
                         <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Documento</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Telefono</th>                                        
-                                    <th>Correo</th>
-                                    <th>Perfil</th>
-                                    <th>Especialidad</th>
-                                    <th>Estado</th>
+
+                                    <th>Fecha Entrada</th>
+                                    <th>Mascota</th>
+                                    <th>Proposito</th>                                        
+                                    <th>Diagnostico</th>
+                                    <th>Observacion</th>
                                     <th>Acciones</th>
+
+
                                 </tr>
                             </thead>
                             <tbody>  
-                                <c:forEach var="person" items="${requestScope.ArrayPersonas}">              
-
+                                <c:forEach var="hospi" items="${requestScope.ArrayHospitalizacion}">
                                     <tr>
-                                        <td><c:out value="${person.documento}"/><!--</td>nombre clase-->
-                                        <td><c:out value="${person.nombres}"/></td>
-                                        <td><c:out value="${person.apellidos}"/></td>
-                                        <td><c:out value="${person.telefono}"/></td>
-                                        <td><c:out value="${person.correo}"/></td>
-                                        <td><c:out value="${person.perfil}"/></td>
-                                        <td><c:out value="${person.especialidad}"/></td>
-                                        <td><c:out value="${person.estado}"/></td>
-                                        <td>
-                                             
-                                        <button class=" btn btn-circle btn-mn btn-primary" type="button" autofocus  placheader="" onclick="location.href = 'PersonasController?action=update&id=${person.idVeterinario}'">
-                                            <span class="fa fa-edit"></span>
-                                        </button>
-                                            
-                                        <button class=" btn btn-circle btn-mn btn-danger"  onclick="location.href = 'PersonasController?action=eliminar&id=${person.idVeterinario}'">
-                                            <span class="fa fa-trash"></span>
-                                        </button>                                         
-                                        </td>
-                                    </tr>                                  
-
-                                </c:forEach>  
+                                        <td><c:out value="${hospi.citas.fechaEntrada}"/></td>
+                                        <td><c:out value="${hospi.mascota.nombre}"/></td>
+                                        <td><c:out value="${hospi.proposito}"/></td>
+                                        <td><c:out value="${hospi.diagnostico}"/></td>
+                                        <td><c:out value="${hospi.observaciones}"/></td>
+                                        <td style="text-align: center">  
+                                             <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default"  onclick="location.href = 'ObservacionesController?action=admin&idob=${hospi.idHospitalizacion}'">
+                                                    <div>
+                                                        <span style="color: red;">Ver Observaciones</span>
+                                                    </div>
+                                                </button> 
+                                               
+                                    </tr>
+                                </c:forEach>
+                                </td>
                             </tbody>
 
                         </table>
@@ -104,9 +89,9 @@
 <!-- custom -->
 <script src="asset/js/main.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#datatables-example').DataTable();
-    });
+                                                $(document).ready(function () {
+                                                    $('#datatables-example').DataTable();
+                                                });
 </script>
 <!-- end: Javascript -->
 <!-- Le javascript

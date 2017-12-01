@@ -62,7 +62,7 @@ public class PersonasController extends HttpServlet {
         que los select aparezcan selecionado segun el que viene de la base de datos y
         que tragia todos los datos correcamente
         Y verificar las validaciones javascript que algunos input faltan por validar
-        */
+         */
         long documento = Long.parseLong(request.getParameter("documento"));
         String nombres = request.getParameter("nombres");
         String apellidos = request.getParameter("apellidos");
@@ -93,16 +93,55 @@ public class PersonasController extends HttpServlet {
 //        perso.setFoto(foto);}
 
         Session sesion = HibernateUtil.getSessionFactory().openSession();
-        sesion.beginTransaction();
-        sesion.save(perso);
-        sesion.getTransaction().commit();
-        sesion.close();
+        Query qdoc = sesion.createQuery("FROM Persona WHERE documento =?");
+        String strLong = Long.toString(documento);
+        qdoc.setString(0, strLong);
+        ArrayList listaObjetos = (ArrayList) qdoc.list();
+        if (listaObjetos.size() >= 1) {
+//            out.print("Ya esta");
+            try {
+                response.sendRedirect("RegistrarPersona.jsp?error=true");
+            } catch (IOException ex) {
 
-        try {
-            response.sendRedirect("PersonasController?action=admin");
-        } catch (IOException ex) {
-            Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            Query qtel = sesion.createQuery("FROM Persona WHERE Telefono =?");
+            String strtel = Long.toString(telefono);
+            qtel.setString(0, strtel);
+            ArrayList listatel = (ArrayList) qtel.list();
+            if (listatel.size() >= 1) {
+                try {
+                    response.sendRedirect("RegistrarPersona.jsp?error=false");
+                } catch (IOException ex) {
+
+                }
+            } else {
+                Query qcor = sesion.createQuery("FROM Persona WHERE Correo =?");
+                qcor.setString(0, correo);
+                ArrayList listacorreo = (ArrayList) qcor.list();
+                if (listacorreo.size() >= 1) {
+//                    out.print("Correo ya existe");
+                    try {
+                        response.sendRedirect("RegistrarPersona.jsp?error=correo");
+                    } catch (IOException ex) {
+
+                    }
+                } else {
+                    sesion.beginTransaction();
+                    sesion.save(perso);
+                    sesion.getTransaction().commit();
+                    sesion.close();
+
+                    try {
+                        response.sendRedirect("PersonasController?action=admin");
+                    } catch (IOException ex) {
+                        Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
         }
+
+//        
     }
 
     private void Admin(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -142,7 +181,7 @@ public class PersonasController extends HttpServlet {
                 Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            
+
             perso.setDocumento(Long.parseLong(request.getParameter("documento")));
             perso.setNombres(request.getParameter("nombres"));
             perso.setApellidos(request.getParameter("apellidos"));
@@ -167,21 +206,39 @@ public class PersonasController extends HttpServlet {
             }
         }
 
-        
     }
 
-    private void Eliminar(HttpServletRequest request, HttpServletResponse response) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Persona emple = (Persona) sesion.get(Persona.class, Integer.parseInt(request.getParameter("id")));
-        sesion.beginTransaction();
-        sesion.delete(emple);
-        sesion.getTransaction().commit();
-        sesion.close();
+    private void Eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        String perfil = request.getSession().getAttribute("perfil").toString();
+        if (perfil.equals("Veterinario")) {
+            Session sesion = HibernateUtil.getSessionFactory().openSession();
+            Query qpro = sesion.createQuery("FROM Citas WHERE persona =? ");
+            qpro.setString(0, request.getParameter("id"));
+            ArrayList listaObjetos = (ArrayList) qpro.list();
+            if (listaObjetos.size() >= 1) {
+//                out.print("Si hay");
+                try {
+                    response.sendRedirect("PersonasController?action=admin&error=true");
+                } catch (IOException ex) {
+                }
 
-        try {
-            response.sendRedirect("PersonasController?action=admin");
-        } catch (IOException ex) {
-            Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+//                out.print("No hay");
+                Persona emple = (Persona) sesion.get(Persona.class, Integer.parseInt(request.getParameter("id")));
+                sesion.beginTransaction();
+                sesion.delete(emple);
+                sesion.getTransaction().commit();
+                sesion.close();
+                try {
+                    response.sendRedirect("PersonasController?action=admin&error=ok");
+                } catch (IOException ex) {
+                    Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+//  
+        } else {
+            response.sendRedirect("LoginPersona.jsp?error=permisos");
         }
     }
 

@@ -284,5 +284,44 @@
 
             });
         </script>
+        
+        
+                
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script>
+            /*
+             --------------------------------------------------------------------------------
+             | EJEMPLO Y SCRIPT ADAPTADO AL ESPA?OL POR http://blog.reaccionestudio.com/    |
+             --------------------------------------------------------------------------------
+             |	VIS?TANOS !!!                                                              |
+             --------------------------------------------------------------------------------
+             */
+            function error() {
+                alertify.error("Documento ya registrado");
+                return false;
+            }
+            function permisos() {
+                alertify.error("Telefono ya registrado");
+                return false;
+            }
+            function correo() {
+                alertify.error("Correo ya registrado");
+                return false;
+            }
+        </script>   
+        <%
+            String get = request.getParameter("error");
+            if (get != null && get.equals("true")) { %>
+        <script language='JavaScript' type='text/javascript'>
+            error();</script>
+            <% } else if(get != null && get.equals("false"))  { %>
+        <script language='JavaScript' type='text/javascript'>
+            permisos();</script>
+        <% } else if(get != null && get.equals("correo"))  { %>
+        <script language='JavaScript' type='text/javascript'>
+            correo();</script>
+        <% } %> 
     </body>
 </html>

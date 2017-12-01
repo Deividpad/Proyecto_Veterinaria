@@ -88,7 +88,6 @@ public class MedicamentosController extends HttpServlet {
         } catch (IOException ex) {
 
         }
-
     }
 
     public void admin(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -98,6 +97,7 @@ public class MedicamentosController extends HttpServlet {
         String idcita = request.getSession().getAttribute("idcita").toString();
 //        PrintWriter out = response.getWriter();   
         Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(idcita));
+        request.setAttribute("Citaestado", cita);
         if (cita.getEstado().equals("Programada") || cita.getEstado().equals("Atendida")) {
             Query q = sesion.createQuery("FROM Medicamentos WHERE citas.idCitasMedicas =?");
             q.setString(0, idcita);

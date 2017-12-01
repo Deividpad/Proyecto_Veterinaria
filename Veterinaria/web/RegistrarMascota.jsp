@@ -22,16 +22,16 @@
         </div>
     </div>
 
-
-    <div class="col-md-10">
+ 
+                    <form class="cmxform" id="signupForm" method="POST" action="MascotasController?action=create">
+                   
+    <div class="col-md-9">
         <div class="col-md-12 panel">
             <div class="col-md-12 panel-heading">
                 <h4>Ingrese los datos</h4>
             </div>
             <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                 <div class="col-md-12">
-                    
-                    <form class="cmxform" id="signupForm" method="POST" action="MascotasController?action=create">
                         <div class="col-md-6">
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <input type="text" class="form-text" id="nombre" name="nombre" required>
@@ -143,13 +143,7 @@
                                 <span class="bar"></span>
                                 <label>Medicamentos (No obligatorio)</label>
                             </div>
-                             <div class="form-group form-animate-text" style="margin-top:20px !important;"   <label>Foto 
-                               
-                                <input type="file" class="form-text" id="foto"  name="foto" required>
-                                <span class="bar"></span>
-                                <br>
-                               
-                            </div>
+                        
                              
                              </div>
                         
@@ -157,15 +151,66 @@
                             <input class="submit btn btn-primary" type="submit" value="Guardar" > &nbsp
                             <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'MascotasController?action=admin'">
                         </div>
-                    </form>
+                   
 
                 </div>
             </div>
         </div>
     </div>
+     <div class="col-lg-3"> <h1>Imagen</h1>
 
+            <div class="col-md-12">
+                <input type="file" class="form-text" id="foto" name="foto" required>
+
+            </div>
+            <div class="card-avatar">
+                <a href="#pablo">
+                    <div class="img" id="vista_previa"><label for="foto"></label>Vista previa</div>
+                </a>
+            </div>
+        </div>
+                         </form>
+    
+    
 </div>
+
+<form action="#" method="post" id="subearchivos" hidden>
+    <input type="submit" id="enviar" name="enviar" />
+    <input type="button" value="cancelar"  style="display: none;" onclick="cancela('subearchivos');" id="resetear" />
+</form>
+
 <!-- end: content -->
+
+<script>
+    document.getElementById('vista_previa').innerHTML = '<img src="images/avatar_circle_blue_512dp.png" alt="" width="250" />';
+    if (window.FileReader) {
+        function seleccionArchivo(evt) {
+            var files = evt.target.files;
+            var f = files[0];
+            var leerArchivo = new FileReader();
+            document.getElementById('resetear').style.display = 'block';
+            leerArchivo.onload = (function (elArchivo) {
+                return function (e) {
+                    document.getElementById('vista_previa').innerHTML = '<img src="' + e.target.result + '" alt="" width="250" />';
+                };
+            })(f);
+            leerArchivo.readAsDataURL(f);
+        }
+    } else {
+        document.getElementById('vista_previa').innerHTML = "El navegador no soporta vista previa";
+    }
+    document.getElementById('foto').addEventListener('change', seleccionArchivo, false);
+    function cancela(elForm) {
+        document.getElementById(elForm).reset();
+        if (window.FileReader) {
+            document.getElementById('vista_previa').innerHTML = "Vista Previa";
+        } else {
+            document.getElementById('vista_previa').innerHTML = "El navegador no soporta vista previa";
+        }
+        document.getElementById('resetear').style.display = 'none';
+    }
+</script>
+
 <script>
     function runScript(e) {
         var condicion;
@@ -333,5 +378,6 @@
     });
 </script>
 <!-- end: Javascript -->
+
 </body>
 </html>

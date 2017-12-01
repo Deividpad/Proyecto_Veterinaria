@@ -68,7 +68,8 @@ public class CitasController extends HttpServlet {
     }
 
     private void Registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
+//        try {
+            
             PrintWriter out = response.getWriter();
             Citas cita;
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -115,7 +116,6 @@ public class CitasController extends HttpServlet {
                         minentrada = "0" + minentrada;
                     }
                     String horabdentrada = hourentrada + ":" + minentrada;
-
                     //Validar hora de salida del formulario con hora de entra de BD
                     int hoursld = cita.getFechaEntrada().getHours();
                     int minsld = cita.getFechaEntrada().getMinutes();
@@ -142,6 +142,13 @@ public class CitasController extends HttpServlet {
                         session.beginTransaction();
                         session.save(cita);
                         session.getTransaction().commit();
+                        
+                        if(tipo.equals("Urgencia")){
+//                            Hospitalizacion = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
+                        }
+                        
+                        
+                        
                         session.close();
 //                    try {
 //                        response.sendRedirect("CitasController?action=admin");
@@ -173,9 +180,9 @@ public class CitasController extends HttpServlet {
 //            }
             }
 
-        } catch (Exception e) {
-            response.sendRedirect("LoginPersona.jsp?error=permisos");
-        }
+//        } catch (Exception e) {
+//            response.sendRedirect("LoginPersona.jsp?error=permisos");
+//        }
 
     }
 
@@ -185,174 +192,224 @@ public class CitasController extends HttpServlet {
          out.println("Entro al metodo");
             
          }*/
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        String idpersona = request.getSession().getAttribute("idpersona").toString();
-        Query qcitas = sesion.createQuery("FROM Citas WHERE persona =?");
-        qcitas.setString(0, idpersona);
+        try {
+            Session sesion = HibernateUtil.getSessionFactory().openSession();
+            String idpersona = request.getSession().getAttribute("idpersona").toString();
+            Query qcitas = sesion.createQuery("FROM Citas WHERE persona =?");
+            qcitas.setString(0, idpersona);
 //        qcitas.setString(0, request.getParameter("idpersona"));
-        //Query q = sesion.createQuery("FROM Odontologos WHERE especialidad = 'General'"); Con el WHERE para condición
-        ArrayList listaObjetos = (ArrayList) qcitas.list();
+            //Query q = sesion.createQuery("FROM Odontologos WHERE especialidad = 'General'"); Con el WHERE para condición
+            ArrayList listaObjetos = (ArrayList) qcitas.list();
 
-        ArrayList<Citas> Arraycitas = new ArrayList<>();
-        //PrintWriter out = response.getWriter();
-        for (Object Obj : listaObjetos) {
-            Citas cita = (Citas) Obj;
-            Arraycitas.add(cita);
+            ArrayList<Citas> Arraycitas = new ArrayList<>();
+            //PrintWriter out = response.getWriter();
+            for (Object Obj : listaObjetos) {
+                Citas cita = (Citas) Obj;
+                Arraycitas.add(cita);
 
-        }
-        request.setAttribute("ArrayCitas", Arraycitas);
-
-        // Array Mascotas
-        Query qmascotas = sesion.createQuery("FROM Mascota");
-        //Query q = sesion.createQuery("FROM Odontologos WHERE especialidad = 'General'"); Con el WHERE para condición
-        ArrayList listaMascotas = (ArrayList) qmascotas.list();
-
-        ArrayList<Mascota> ArrayMascotas = new ArrayList<>();
-        //PrintWriter out = response.getWriter();
-        for (Object Obj : listaMascotas) {
-            Mascota mascota = (Mascota) Obj;
-            ArrayMascotas.add(mascota);
-        }
-        request.setAttribute("ArrayMascotas", ArrayMascotas);
-        if (request.getParameter("param").equals("1")) {
-            try {
-                request.getRequestDispatcher("RegistrarCita.jsp").forward(request, response);//Redirecionar                    
-            } catch (ServletException ex) {
-                Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (request.getParameter("param").equals("2")) {
-            try {
-                request.getRequestDispatcher("AdminCitas.jsp").forward(request, response);//Redirecionar                    
-            } catch (ServletException ex) {
-                Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("ArrayCitas", Arraycitas);
+
+            // Array Mascotas
+            Query qmascotas = sesion.createQuery("FROM Mascota");
+            //Query q = sesion.createQuery("FROM Odontologos WHERE especialidad = 'General'"); Con el WHERE para condición
+            ArrayList listaMascotas = (ArrayList) qmascotas.list();
+
+            ArrayList<Mascota> ArrayMascotas = new ArrayList<>();
+            //PrintWriter out = response.getWriter();
+            for (Object Obj : listaMascotas) {
+                Mascota mascota = (Mascota) Obj;
+                ArrayMascotas.add(mascota);
             }
-        } else {
-            try {
-                request.getRequestDispatcher("AdminCitas.jsp").forward(request, response);//Redirecionar                    
-            } catch (ServletException ex) {
-                Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("ArrayMascotas", ArrayMascotas);
+            if (request.getParameter("param").equals("1")) {
+                try {
+                    request.getRequestDispatcher("RegistrarCita.jsp").forward(request, response);//Redirecionar                    
+                } catch (ServletException ex) {
+                    Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (request.getParameter("param").equals("2")) {
+                try {
+                    request.getRequestDispatcher("AdminCitas.jsp").forward(request, response);//Redirecionar                    
+                } catch (ServletException ex) {
+                    Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    request.getRequestDispatcher("AdminCitas.jsp").forward(request, response);//Redirecionar                    
+                } catch (ServletException ex) {
+                    Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+
+            sesion.close();
+        } catch (Exception e) {
+            response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
         }
 
-        sesion.close();
     }
 
     private void Actualizar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
-        PrintWriter out = response.getWriter();        
-        
-        Citas cita = (Citas) session.get(Citas.class, Integer.parseInt(request.getParameter("idcita")));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date fechaentrada = null;
-        Date fechasalida = null;
-        //Fecha Entrada
-        String fechaen = request.getParameter("fhentrada");
-        String tmentrada = request.getParameter("tmentrada");
-        String fhentrada = fechaen + " " + tmentrada;
+        PrintWriter out = response.getWriter();
 
-        //Fecha Salida
-        String fechasal = request.getParameter("fhsalida");
-        String tmsalida = request.getParameter("tmsalida");
-        String fhsalida = fechasal + " " + tmsalida;
-        try {
-            fechaentrada = formatter.parse(fhentrada);
-            fechasalida = formatter.parse(fhsalida);
-            //out.print("En el try" + fechaentrada);
+        if (request.getParameter("pro") != null) {
 
-        } catch (ParseException | HibernateException e) {
-            fechaentrada = null;
-            fechasalida = null;
-        }
-
-        Query q = session.createQuery("From Citas where Fecha_Entrada between ? and ? or Fecha_Salida between ? and ?");
-        q.setString(0, fhentrada);
-        q.setString(1, fhsalida);
-        q.setString(2, fhentrada);
-        q.setString(3, fhsalida);
-        ArrayList listaCitas = (ArrayList) q.list();
-        if (listaCitas.size() >= 1) {
-
-            for (Object pro : listaCitas) {
-                Citas cita2 = (Citas) pro;
-                //Valida hora de entrada del formulario con hora de salida de BD
-                int hourent = cita2.getFechaSalida().getHours();
-                int minent = cita2.getFechaSalida().getMinutes();
-                String hourentrada = Integer.toString(hourent);
-                String minentrada = Integer.toString(minent);
-                if (hourent < 10) {
-                    hourentrada = "0" + hourentrada;
+            if (request.getParameter("pro").equals("true")) {
+                String idcita = request.getSession().getAttribute("idcita").toString();
+                Citas cita = (Citas) session.get(Citas.class, Integer.parseInt(idcita));
+                cita.setProposito(request.getParameter("proposito"));
+                cita.setObservaciones(request.getParameter("observaciones"));
+                session.beginTransaction();
+                session.saveOrUpdate(cita);
+                session.getTransaction().commit();
+                session.close();
+                try {
+                    response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
+                } catch (IOException ex) {
                 }
-                if (minent < 10) {
-                    minentrada = "0" + minentrada;
-                }
-                String horabdentrada = hourentrada + ":" + minentrada;
 
-                //Validar hora de salida del formulario con hora de entra de BD
-                int hoursld = cita2.getFechaEntrada().getHours();
-                int minsld = cita2.getFechaEntrada().getMinutes();
-                String hoursalida = Integer.toString(hoursld);
-                String minsalida = Integer.toString(minsld);
-                if (hoursld < 10) {
-                    hoursalida = "0" + hoursalida;
-                }
-                if (minsld < 10) {
-                    minsalida = "0" + minsalida;
-                }
-                String horabdsalida = hoursalida + ":" + minsalida;
-//                HttpServletRequest request, HttpServletResponse responseout.print("Hora entrada BD: " + horabdsalida + " hora salida frm: " + tmsalida);
-                if (horabdentrada.equals(tmentrada) || horabdsalida.equals(tmsalida)) {
-                    out.print("");
-                    Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
-                    //Persona persona = (Persona) session.get(Persona.class, 1);
-                    String Proposito = "";
-                    String Observaciones = "";
-                    String tipo = request.getParameter("tipo");
-                    cita.setMascota(mascota);
-                    //cita.setPersona(persona);
-                    cita.setFechaEntrada(fechaentrada);
-                    cita.setFechaSalida(fechasalida);
-                    cita.setProposito(Proposito);
-                    cita.setTipo(tipo);
-//                    cita = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
-                    cita.setObservaciones(Observaciones);
+            } else if (request.getParameter("pro").equals("false")) {
+                Citas citaestado = (Citas) session.get(Citas.class, Integer.parseInt(request.getParameter("idcita2")));
+                if (request.getParameter("Estado").equals("Cancelada")) {
+                    citaestado.setEstado("Cancelada");
                     session.beginTransaction();
-                    session.saveOrUpdate(cita);
+                    session.saveOrUpdate(citaestado);
                     session.getTransaction().commit();
+
+                    try {
+                        response.sendRedirect("CitasController?action=admin&param=2");
+                    } catch (IOException ex) {
+                    }
                     session.close();
+                } else {
+                    citaestado.setEstado("Atendida");
+                    session.beginTransaction();
+                    session.saveOrUpdate(citaestado);
+                    session.getTransaction().commit();
+
+                    try {
+                        response.sendRedirect("CitasController?action=admin&param=2");
+                    } catch (IOException ex) {
+                    }
+                    session.close();
+                }
+            }
+        } else {
+            Citas cita = (Citas) session.get(Citas.class, Integer.parseInt(request.getParameter("idcita")));
+//            Citas cita = (Citas) session.get(Citas.class, Integer.parseInt(idcita));
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date fechaentrada = null;
+            Date fechasalida = null;
+            //Fecha Entrada
+            String fechaen = request.getParameter("fhentrada");
+            String tmentrada = request.getParameter("tmentrada");
+            String fhentrada = fechaen + " " + tmentrada;
+
+            //Fecha Salida
+            String fechasal = request.getParameter("fhsalida");
+            String tmsalida = request.getParameter("tmsalida");
+            String fhsalida = fechasal + " " + tmsalida;
+            try {
+                fechaentrada = formatter.parse(fhentrada);
+                fechasalida = formatter.parse(fhsalida);
+                //out.print("En el try" + fechaentrada);
+
+            } catch (ParseException | HibernateException e) {
+                fechaentrada = null;
+                fechasalida = null;
+            }
+
+            Query q = session.createQuery("From Citas where Fecha_Entrada between ? and ? or Fecha_Salida between ? and ?");
+            q.setString(0, fhentrada);
+            q.setString(1, fhsalida);
+            q.setString(2, fhentrada);
+            q.setString(3, fhsalida);
+            ArrayList listaCitas = (ArrayList) q.list();
+            if (listaCitas.size() >= 1) {
+
+                for (Object pro : listaCitas) {
+                    Citas cita2 = (Citas) pro;
+                    //Valida hora de entrada del formulario con hora de salida de BD
+                    int hourent = cita2.getFechaSalida().getHours();
+                    int minent = cita2.getFechaSalida().getMinutes();
+                    String hourentrada = Integer.toString(hourent);
+                    String minentrada = Integer.toString(minent);
+                    if (hourent < 10) {
+                        hourentrada = "0" + hourentrada;
+                    }
+                    if (minent < 10) {
+                        minentrada = "0" + minentrada;
+                    }
+                    String horabdentrada = hourentrada + ":" + minentrada;
+
+                    //Validar hora de salida del formulario con hora de entra de BD
+                    int hoursld = cita2.getFechaEntrada().getHours();
+                    int minsld = cita2.getFechaEntrada().getMinutes();
+                    String hoursalida = Integer.toString(hoursld);
+                    String minsalida = Integer.toString(minsld);
+                    if (hoursld < 10) {
+                        hoursalida = "0" + hoursalida;
+                    }
+                    if (minsld < 10) {
+                        minsalida = "0" + minsalida;
+                    }
+                    String horabdsalida = hoursalida + ":" + minsalida;
+//                HttpServletRequest request, HttpServletResponse responseout.print("Hora entrada BD: " + horabdsalida + " hora salida frm: " + tmsalida);
+                    if (horabdentrada.equals(tmentrada) || horabdsalida.equals(tmsalida)) {
+                        out.print("");
+                        Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
+                        //Persona persona = (Persona) session.get(Persona.class, 1);
+                        String Proposito = "";
+                        String Observaciones = "";
+                        String tipo = request.getParameter("tipo");
+                        cita.setMascota(mascota);
+                        //cita.setPersona(persona);
+                        cita.setFechaEntrada(fechaentrada);
+                        cita.setFechaSalida(fechasalida);
+                        cita.setProposito(Proposito);
+                        cita.setTipo(tipo);
+//                    cita = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
+                        cita.setObservaciones(Observaciones);
+                        session.beginTransaction();
+                        session.saveOrUpdate(cita);
+                        session.getTransaction().commit();
+                        session.close();
 //                    try {
 //                        response.sendRedirect("CitasController?action=admin");
 //                    } catch (IOException ex) {
 //                        Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
-                } else {
-                    out.print("!Cita interferida¡ Selecione otra hora o Verifique su calendario");
+                    } else {
+                        out.print("!Cita interferida¡ Selecione otra hora o Verifique su calendario");
+                    }
                 }
-            }
-        } else {
-            out.print("");
-            Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
+            } else {
+                out.print("");
+                Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
 //            Persona persona = (Persona) session.get(Persona.class, 1);
-            String Proposito = "";
-            String Observaciones = "";
-            String tipo = request.getParameter("tipo");
-            cita.setMascota(mascota);
+                String Proposito = "";
+                String Observaciones = "";
+                String tipo = request.getParameter("tipo");
+                cita.setMascota(mascota);
 //            cita.setPersona(persona);
-            cita.setFechaEntrada(fechaentrada);
-            cita.setFechaSalida(fechasalida);
-            cita.setProposito(Proposito);
-            cita.setTipo(tipo);
+                cita.setFechaEntrada(fechaentrada);
+                cita.setFechaSalida(fechasalida);
+                cita.setProposito(Proposito);
+                cita.setTipo(tipo);
 //                    cita = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
-            cita.setObservaciones(Observaciones);
-            session.beginTransaction();
-            session.saveOrUpdate(cita);
-            session.getTransaction().commit();
-            session.close();
+                cita.setObservaciones(Observaciones);
+                session.beginTransaction();
+                session.saveOrUpdate(cita);
+                session.getTransaction().commit();
+                session.close();
 //            try {
 //                response.sendRedirect("CitasController?action=admin");
 //            } catch (IOException ex) {
 //                Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
 //            }
+            }
         }
     }
 

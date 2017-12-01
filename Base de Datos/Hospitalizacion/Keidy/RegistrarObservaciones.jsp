@@ -1,11 +1,10 @@
-<%
-    String user = (String) session.getAttribute("perfil");
-    if (user==null || user.equals("Auxiliar")) {
-        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
-        return;
-    }    
-%>
-<%@page import="models.Citas"%>
+<%-- 
+    Document   : RegistrarObservaciones
+    Created on : 30-nov-2017, 22:51:30
+    Author     : juli-
+--%>
+
+
 <jsp:include page="encabezado.jsp" />
 <jsp:include page="menu.jsp" />
 <!-- start: content -->
@@ -13,10 +12,8 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Registrar Proposito</h3>
-                <p class="animated fadeInDown">
-                    <!--Form <span class="fa-angle-right fa"></span> Form Element-->
-                </p>
+                <h3 class="animated fadeInLeft">Registrar Observaciones</h3>
+                
             </div>
         </div>
     </div>
@@ -27,32 +24,23 @@
             <div class="col-md-12 panel-heading">
                 <h4>Ingrese los datos</h4>
             </div>
-            <% String idcita = request.getSession().getAttribute("idcita").toString(); %>        
             
             <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                 <div class="col-md-12">
-                    <form class="cmxform" id="signupForm" method="POST" action="CitasController?action=update&pro=true">
+                    <form class="cmxform" id="signupForm" method="POST" action="ObservacionesController?action=create">
                         <div class="col-md-6">
+                             <label>Observacion Diaria</label>
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">                                            
-                                <textarea name="proposito" id="proposito" rows="10" cols="60" placeholder="Proposito de la cita"></textarea>
+                                <textarea name="observacionDiaria" id="observacionDiaria" rows="10" cols="60" ></textarea>
                                 <span class="bar"></span>
-                                <label></label>
+                               
                             </div>
                             
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">                                            
-                                <textarea name="observaciones" id="observaciones" rows="10" cols="60" placeholder="Observaciones de la cita"></textarea>
-                                <span class="bar"></span>
-                                <label></label>
-                            </div>
-                        </div>  
-
-
                         <div class="col-md-12">
                             <input class="submit btn btn-primary" type="submit" value="Guardar" > &nbsp                            
-                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'MedicamentosController?action=admin&idcita=<%= idcita%>'">
+                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'ObservacionesController?action=admin&idob'">
                         </div>
                     </form>
 

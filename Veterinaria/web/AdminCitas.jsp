@@ -13,7 +13,7 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Administrar Clientes</h3>                
+                <h3 class="animated fadeInLeft">Administrar Citas</h3>                
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="col-md-12 top-20 padding-0">
         <div class="col-md-12">
             <div class="panel">
-                <div id="colortable" class="panel-heading"><h3 id="tlttable">Clientes</h3></div>
+                <div id="colortable" class="panel-heading"><h3 id="tlttable">Citas</h3></div>
                 <div class="panel-body">
                     <div class="responsive-table">
                         <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
@@ -46,27 +46,31 @@
                                         <td><c:out value="${cita.estado}"/></td>
                                         <td>
                                             <c:if test="${cita.estado == 'Programada'}">
-                                                <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default"  onclick="location.href = 'MedicamentosController?action=admin&idcita=${cita.idCitasMedicas}'">
-                                                    <div>
-                                                        <span style="color: red;">Ver Cita</span>
-                                                    </div>
-                                                </button> 
+
                                             </c:if>
+                                            <button type="button" class="btn ripple-infinite btn-round btn-3d btn-default"  onclick="location.href = 'MedicamentosController?action=admin&idcita=${cita.idCitasMedicas}'">
+                                                <div>
+                                                    <span style="color: red;">Ver Cita</span>
+                                                </div>
+                                            </button> 
                                             <div class="btn-group" role="group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Estado
                                                     <span class="fa fa-angle-down"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="CitasController?action=update&id=${cita.idCitasMedicas}&Estado=Cancelada">Cancelar Cita</a></li>
+                                                    <li><a href="CitasController?action=update&idcita2=${cita.idCitasMedicas}&pro=false&Estado=Cancelada">Cancelar Cita</a></li>
+                                                    <li><a href="CitasController?action=update&idcita2=${cita.idCitasMedicas}&pro=false&Estado=Atendida" title="Marcar como cita atendida">Atender Cita</a></li>
                                                 </ul>
+
+
                                             </div>
-                                            <button class=" btn btn-circle btn-mn btn-primary" title="Cancelar Cita" type="button" onclick="location.href = 'CitasController?action=update&id=}'">
-                                                <span class="fa fa-edit"></span>
-                                            </button>
-                                            <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'ProductosControllers?action=delete&id=${p.idProducto}'">
-                                                <span class="fa fa-trash"></span>
-                                            </button>                                            
+                                            <!--                                            <button class=" btn btn-circle btn-mn btn-primary" title="Cancelar Cita" type="button" onclick="location.href = 'CitasController?action=update&id=}'">
+                                                                                            <span class="fa fa-edit"></span>
+                                                                                        </button>-->
+                                            <!--                                            <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'ProductosControllers?action=delete&id=${p.idProducto}'">
+                                                                                            <span class="fa fa-trash"></span>
+                                                                                        </button>                                            -->
                                         </td>
                                     </tr> 
                                 </c:forEach>

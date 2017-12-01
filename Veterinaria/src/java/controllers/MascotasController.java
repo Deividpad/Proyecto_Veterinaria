@@ -166,26 +166,34 @@ public class MascotasController extends HttpServlet {
     }
 
     private void Eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            String perfil = request.getSession().getAttribute("perfil").toString();
-            if (perfil.equals("Auxliar")) {
-                Session sesion = HibernateUtil.getSessionFactory().openSession();
-                Mascota masco = (Mascota) sesion.get(Mascota.class, Integer.parseInt(request.getParameter("id")));
-
-                sesion.beginTransaction();
-                sesion.delete(masco);
-                sesion.getTransaction().commit();
-                sesion.close();
-
+        PrintWriter out = response.getWriter();
+        String perfil = request.getSession().getAttribute("perfil").toString();
+        if (perfil.equals("Auxiliar")) {
+            Session sesion = HibernateUtil.getSessionFactory().openSession();
+            Query qpro = sesion.createQuery("FROM Citas WHERE mascota =? ");
+            qpro.setString(0, request.getParameter("id"));
+            ArrayList listaObjetos = (ArrayList) qpro.list();
+            if (listaObjetos.size() >= 1) {
+//                out.print("Si hay");
                 try {
-                    response.sendRedirect("MascotasController?action=admin");
+                    response.sendRedirect("MascotasController?action=admin&error=true");
                 } catch (IOException ex) {
                     Logger.getLogger(MascotasController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                response.sendRedirect("LoginPersona.jsp?error=permisos");
+//                out.print("No hay");
+                Mascota masco = (Mascota) sesion.get(Mascota.class, Integer.parseInt(request.getParameter("id")));
+                sesion.beginTransaction();
+                sesion.delete(masco);
+                sesion.getTransaction().commit();
+                sesion.close();//
+                try {
+                    response.sendRedirect("MascotasController?action=admin&error=ok");
+                } catch (IOException ex) {
+                    Logger.getLogger(MascotasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } catch (Exception e) {
+        } else {
             response.sendRedirect("LoginPersona.jsp?error=permisos");
         }
 

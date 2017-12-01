@@ -95,8 +95,7 @@
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
 
                                 <select class="form-text" name="perfil" >
-                                    <option value="" selected="selected">Seleccione...</option>
-                                    <option value="Administrador">Administrador</option>
+                                    <option value="" selected="selected">Seleccione...</option>                                    
                                     <option value="Veterinario">Veterinario</option>
                                     <option value="Auxiliar">Auxiliar</option>
                                 </select>
@@ -105,7 +104,7 @@
                             </div>
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;" >
-                                <input type="text"  class="form-text" id="especialidad" name="especialidad" placeholder="Especialidad" onkeyup="return runScript(this.value)" >
+                                <input type="text"  class="form-text" id="especialidad" name="especialidad" placeholder="Especialidad"  >
                                 <span class="bar"></span>
                                 <!--                                <label>Especialidad</label>-->
                             </div>
@@ -116,11 +115,11 @@
                                 <label>Contraseña</label>
                             </div>
 
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+<!--                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <input type="password" class="form-text" id="confirmar_contrasena"  onkeyup="return runScript(this.value)"  required>
                                 <span class="bar"></span>
                                 <label>Confirmar Contraseña</label>
-                            </div>
+                            </div>-->
 
                             <div class="form-group form-animate-text" style="margin-top:40px !important;" >
                                 <!--<input type="" class="form-text" data-val-regex-pattern="^3[0-9]+$" onkeyup="return runScriptel(this.value)" id="telefono" name="telefono" required>-->
@@ -161,7 +160,7 @@
 
                         <div class="col-md-12" style="margin-top:30px" >
                             <input class="submit btn btn-primary" id="validate" type="submit" value="Guardar" > &nbsp
-                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'AdminCliente.jsp'"><br><br>
+                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'PersonasController?action=admin'"><br><br>
                         </div>
                     </div>
                 </div>
@@ -405,8 +404,45 @@
 
         });
 
-    });
+    });    
 </script>
 
+      
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script>
+            /*
+             --------------------------------------------------------------------------------
+             | EJEMPLO Y SCRIPT ADAPTADO AL ESPA?OL POR http://blog.reaccionestudio.com/    |
+             --------------------------------------------------------------------------------
+             |	VIS?TANOS !!!                                                              |
+             --------------------------------------------------------------------------------
+             */
+            function error() {
+                alertify.error("Documento ya registrado");
+                return false;
+            }
+            function permisos() {
+                alertify.error("Telefono ya registrado");
+                return false;
+            }
+            function correo() {
+                alertify.error("Correo ya registrado");
+                return false;
+            }
+        </script>   
+        <%
+            String get = request.getParameter("error");
+            if (get != null && get.equals("true")) { %>
+        <script language='JavaScript' type='text/javascript'>
+            error();</script>
+            <% } else if(get != null && get.equals("false"))  { %>
+        <script language='JavaScript' type='text/javascript'>
+            permisos();</script>
+        <% } else if(get != null && get.equals("correo"))  { %>
+        <script language='JavaScript' type='text/javascript'>
+            correo();</script>
+        <% } %> 
 </body>
 </html>

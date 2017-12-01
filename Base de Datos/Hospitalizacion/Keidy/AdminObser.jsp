@@ -1,4 +1,9 @@
-<%@page import="models.Citas"%>
+<%-- 
+    Document   : AdminObser
+    Created on : 30-nov-2017, 22:40:25
+    Author     : juli-
+--%>
+
 <%
     String user = (String) session.getAttribute("perfil");
     if (user == null || user.equals("Auxiliar")) {
@@ -14,63 +19,48 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Administrar Medicamentos</h3>                
+                <h3 class="animated fadeInLeft">Administrar</h3>                
             </div>
         </div>
-    </div>    
-    <% Citas citaestado = (Citas) request.getAttribute("Citaestado");%>
-    <% String idcita = request.getParameter("idcita").toString(); %>
+    </div>
+
     <div class="col-md-12 top-20 padding-0">
         <div class="col-md-12">
             <div class="panel">
-                <div id="colortable" class="panel-heading"><h3 id="tlttable">Medicamentos</h3>
-                    <% if(citaestado.getEstado().equals("Programada")){ %>
-                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'CitasProposito.jsp'">
-                        <span class="fa fa-bars"></span>Datos Cita
-                    </button>     
-                    
-                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'RegistrarMedicamentos.jsp'">
-                        <span class="fa fa-bars"></span>Agregar Medicamentos
-                    </button>  
-                    <% } %>
+                <div id="colortable" class="panel-heading"><h3 id="tlttable">Clientes</h3>
+
+
+                    <button type="button"  class="btn btn-primary btn-lg" onclick="location.href = 'RegistrarObservaciones.jsp'">
+                        <span class="fa fa-bars"></span>Agregar Observaciones
+                    </button>                                      
                 </div>
                 <div class="panel-body">
                     <div class="responsive-table">
                         <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Laboratorio</th>
-                                    <th>Lote</th>                                    
-                                    <th>Aciones</th>                                        
+                                    <th>Observacion Diaria</th>
+
                                 </tr>
                             </thead>
                             <tbody>                                
-
-                                <c:forEach var="medi" items="${requestScope.listaM}">                                        
+                                <c:forEach var="obser" items="${requestScope.listaO}">
                                     <tr>
-                                        <td><c:out value="${medi.nombre}"/></td>
-                                        <td><c:out value="${medi.laboratorio}"/></td>
-                                        <td><c:out value="${medi.lote}"/></td>
-                                        <td>                                            
-                                            <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'MedicamentosController?action=update&idmedi=${medi.idMedicamento}'">
-                                                <span class="fa fa-edit"></span>
-                                            </button>
-                                            <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'MedicamentosController?action=eliminar&idmedi=${medi.idMedicamento}'">
-                                                <span class="fa fa-trash"></span>
-                                            </button>                                            
-                                        </td>
-                                    </tr>                                  
+                                        <td><c:out value="${obser.observacionDiaria}"/></td>
+                                    </tr>
                                 </c:forEach>
+
+
+
                             </tbody>
                         </table>
                         <div style="text-align: right; color: white;">                          
-                            <button class="btn ripple btn-3d btn-primary" style="width: 8%;" onclick="location.href = 'CitasController?action=admin&param=2'">
+                            <button class="btn ripple btn-3d btn-primary" style="width: 8%;" onclick="location.href = 'HospitalizacionController?action=admin'">
                                 <div>
                                     <span class="icon-action-undo"></span>  Volver
                                 </div>
                             </button>   
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>

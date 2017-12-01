@@ -48,13 +48,8 @@ public class LoginController extends HttpServlet {
         session.invalidate();
         if (action.equalsIgnoreCase("intoerpsona")) {
             ingresarPersona(request, response);
-        } else if (action.equalsIgnoreCase("intopropietario")) {
-            ingresarPropietario(request, response);
-        }
-        else if (action.equalsIgnoreCase("exitpersona")) {
+        }else if (action.equalsIgnoreCase("exitpersona")) {
             exitPersona(request, response);
-        } else if (action.equalsIgnoreCase("exitemple")) {
-            exitEmpleados(request, response);
         }
     }
 
@@ -71,11 +66,16 @@ public class LoginController extends HttpServlet {
         if (listaObjetos.size() >= 1) {
 
             HttpSession session = request.getSession();
-            Persona persona = (Persona) listaObjetos.get(0);            
+            Persona persona = (Persona) listaObjetos.get(0);
             String idpersona = persona.getIdVeterinario().toString();
             session.setAttribute("idpersona", idpersona);
             session.setAttribute("perfil", persona.getPerfil());
-            response.sendRedirect("AdminClientes.jsp"); 
+            if (persona.getPerfil().equals("Veterinario")) {
+                response.sendRedirect("CitasController?action=admin&param=1");
+            } else {
+                response.sendRedirect("PropietarioController?action=admin");
+            }
+
 //            response.sendRedirect("AdminClientes.jsp?error=ok");//Se pierde la información          
             sesion.close();
         } else {
@@ -88,63 +88,62 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    private void ingresarPropietario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//    private void ingresarPropietario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        PrintWriter out = response.getWriter();
+//        Session sesion = HibernateUtil.getSessionFactory().openSession();
+//        Query q = sesion.createQuery("FROM Propietario WHERE correo =? AND contrasena =? ");
+//        q.setString(0, request.getParameter("correo"));
+////        String contraseña = (request.getParameter("contrasena"));
+//        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
+//
+//        q.setString(1, contrasenaencriptada);
+//        ArrayList listaObjetos = (ArrayList) q.list();
+//        //Verifica contraseña
+//        if (listaObjetos.size() >= 1) {
+//
+//            /*HttpSession session = request.getSession();
+//            Clientes cliente = (Clientes) listaObjetos.get(0);
+//            session.setAttribute("User", "Cliente");
+//            String idcliente = cliente.getIdCliente().toString();
+//            session.setAttribute("id", idcliente);
+//            session.setAttribute("razon_social", cliente.getRazonSocial());*/
+//            response.sendRedirect("AdminClientes.jsp?error=ok");//Se pierde la información          
+//            sesion.close();
+//        } else {
+//
+//            try {
+//                response.sendRedirect("LoginPropietario.jsp?error=true");//Se pierde la información
+//            } catch (IOException ex) {
+//                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//
+//    }
+
+    private void exitPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+//        HttpSession session = request.getSession();
+//        session.invalidate();
         PrintWriter out = response.getWriter();
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Query q = sesion.createQuery("FROM Propietario WHERE correo =? AND contrasena =? ");
-        q.setString(0, request.getParameter("correo"));
-//        String contraseña = (request.getParameter("contrasena"));
-        String contrasenaencriptada = DigestUtils.md5Hex(request.getParameter("contrasena"));
-        
-        q.setString(1, contrasenaencriptada);
-        ArrayList listaObjetos = (ArrayList) q.list();
-        //Verifica contraseña
-        if (listaObjetos.size() >= 1) {
-            
-            /*HttpSession session = request.getSession();
-            Clientes cliente = (Clientes) listaObjetos.get(0);
-            session.setAttribute("User", "Cliente");
-            String idcliente = cliente.getIdCliente().toString();
-            session.setAttribute("id", idcliente);
-            session.setAttribute("razon_social", cliente.getRazonSocial());*/
-            response.sendRedirect("AdminClientes.jsp?error=ok");//Se pierde la información          
-            sesion.close();
-        } else {
-
-            try {
-                response.sendRedirect("LoginPropietario.jsp?error=true");//Se pierde la información
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-    }
-
-    private void exitPersona(HttpServletRequest request, HttpServletResponse response) {
-
-        HttpSession session = request.getSession();
-        session.invalidate();
-        try {
-            response.sendRedirect("Inicio.jsp");//Se pierde la información
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        out.print("Estoy en exitpersona");
+            response.sendRedirect("RegistrarPersona.jsp?error=no");//Se pierde la información        
 
     }
-
-    private void exitEmpleados(HttpServletRequest request, HttpServletResponse response) {
-
-        HttpSession session = request.getSession();
-        session.invalidate();
-
-        try {
-            response.sendRedirect("LoginEmpleado.jsp");//Se pierde la información
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+//
+//    private void exitEmpleados(HttpServletRequest request, HttpServletResponse response) {
+//
+//        HttpSession session = request.getSession();
+//        session.invalidate();
+//
+//        try {
+//            response.sendRedirect("LoginEmpleado.jsp");//Se pierde la información
+//        } catch (IOException ex) {
+//            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *

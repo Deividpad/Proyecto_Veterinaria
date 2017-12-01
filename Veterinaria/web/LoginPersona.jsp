@@ -56,12 +56,12 @@
                             <input type="checkbox" class="icheck pull-left" name="checkbox1"/> Remember me
                         </label>
                         <input type="submit" class="btn col-md-12" value="SignIn"/>
-                        <input class="submit btn btn-danger" type="button" value="Inicio" onclick="location.href = 'Inicio.jsp'">
+<!--                        <input class="submit btn btn-danger" type="button" value="Inicio" onclick="location.href = 'Inicio.jsp'">-->
                     </div>
-                    <div class="text-center" style="padding:5px;">
+<!--                    <div class="text-center" style="padding:5px;">
                         <a href="forgotpass.html">Forgot Password </a>
                         <a href="reg.html">| Signup</a>
-                    </div>
+                    </div>-->
                 </div>
             </form>
         </div>
@@ -120,6 +120,9 @@
             <% }else if(get != null && get.equals("permisos"))  { %>
         <script language='JavaScript' type='text/javascript'>
             permisos();</script>
+        <% }else if(get != null && get.equals("no"))  { %>  
+        <script language='JavaScript' type='text/javascript'>
+            alert("Hola");</script>
         <% } %>
     </body>
 </html>

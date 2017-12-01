@@ -1,3 +1,10 @@
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null || user.equals("Auxiliar")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+        return;
+    }    
+%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Citas"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -79,7 +86,7 @@
                                                 <option value="Urgencia">Urgencia</option>                                                
                                             </select>
                                         </div>
-                                        <input type="text" id="idcita" name="idcita">
+                                        <input type="text" id="idcita" style="display: none;" name="idcita">
                                     </div>
                                     <div class="col-md-12" style="padding-top: 20px;">
                                         <input class="submit btn btn-success" id="myBtn1" type="submit" onclick="check()" value="Modificar" >
@@ -318,18 +325,18 @@
                                                     },
                                                     eventClick: function (calEvent, jsEvent, view) {
 
-                                                    alert('Event: ' + calEvent.title);
-                                                            alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                                                            alert('View: ' + view.name);
-                                                            // change the border color just for fun
-                                                            $(this).css('border-color', 'red');
+//                                                    alert('Event: ' + calEvent.title);
+//                                                            alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+//                                                            alert('View: ' + view.name);
+//                                                            // change the border color just for fun
+//                                                            $(this).css('border-color', 'red');
                                                     },
                                                     eventResize: function (event, delta, revertFunc) {
 
-                                                    alert(event.title + " end is now " + event.end.format());
-                                                            if (!confirm("is this okay?")) {
+//                                                    alert(event.title + " end is now " + event.end.format());
+//                                                            if (!confirm("is this okay?")) {
                                                     revertFunc();
-                                                    }
+//                                                    }
                                                     }
 
 
@@ -371,7 +378,7 @@
     });
     });
     $('#bttHello').click(function(){
-        alert("Le dio click al buton");
+//        alert("Le dio click al buton");
                      //var fullname = $('#fullname').val();
                      var id = document.getElementById('mascota').value;
                      var action = document.getElementById('at').value;
@@ -385,9 +392,9 @@
 //                            alert("Es nulo");
                             location.reload(true);
                         }else{
-                             alert("Llego con algo");
+//                             alert("Llego con algo");
                             $('#result1').html(result);
-                        alert(result);
+//                        alert(result);
                         }
                         
                     }                  
@@ -402,37 +409,35 @@
                     var onlyfhentrada = document.getElementById('fhentrada').value;                    
 //                    alert("La fecha de entrada: "+onlyfhentrada+);
                     if(Date.parse(onlyfhentrada) > new Date()){
-                        alert("La fecha es mayor valido sin hora");
+//                        alert("La fecha es mayor valido sin hora");
                         if (fhentrada < fhsalida) {
-                            alert("Se puede crear la cita ");
+//                            alert("Se puede crear la cita ");
                              var elem = document.getElementById('bttHello');
-                            elem.click();
-                            
+                            elem.click();                            
                         }else{
-                            alert("Verifique que la fecha de salida sea menor o igual que la entrada");
-                    
+                            alert("Verifique que la fecha de salida sea menor o igual que la entrada");                    
                         }
                         //Si no es mayor la fecha de entrada valido con hora
                     }else{
-                        alert("No es mayor valido con hora");
+//                        alert("No es mayor valido con hora");
                          //Validacion si la fecha es igual a hoy
                     if (fhentrada < fhsalida) {
-            alert("Si se pudo");
+//            alert("Si se pudo");
                     var f = document.getElementById('tmentrada').value;
                     var time = new Date();
                     var hora = time.getHours();
                     if(hora == 0){
                         hora = "0"+time.getHours();
-                        alert("La hora es igual a cero: "+hora);
+//                        alert("La hora es igual a cero: "+hora);
                     }
                     var minuto = time.getMinutes();
                     if(minuto < 10 ){
                         minuto = "0"+time.getMinutes();
                     }
                     var finaltime = hora + ":" + minuto;
-                    alert("Hora de entrada"+f + " Antes del if la hora actual: " + finaltime);
+//                    alert("Hora de entrada"+f + " Antes del if la hora actual: " + finaltime);
                     if (f > finaltime) {
-            alert("Cita creada con validacion en la hora");
+//            alert("Cita creada con validacion en la hora");
                 var elem = document.getElementById('bttHello');
                 elem.click();
               

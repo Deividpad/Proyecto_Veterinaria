@@ -1,4 +1,10 @@
-
+<%
+    String user = (String) session.getAttribute("perfil");
+    if (user==null || user.equals("Auxiliar")) {
+        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+        return;
+    }    
+%>
 <jsp:include page="encabezado.jsp" />
 <jsp:include page="menu.jsp" />
 <!-- start: content -->
@@ -6,9 +12,9 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Registrar Cliente</h3>
+                <h3 class="animated fadeInLeft">Registrar Medicamento</h3>
                 <p class="animated fadeInDown">
-                    Form <span class="fa-angle-right fa"></span> Form Element
+                    <!--Form <span class="fa-angle-right fa"></span> Form Element-->
                 </p>
             </div>
         </div>
@@ -39,7 +45,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text   " class="form-text" id="lote" name="lote" required>
+                                <input type="text"   class="form-text" id="lote" name="lote" required>
                                 <span class="bar"></span>
                                 <label>Lote</label>
                             </div>
@@ -63,16 +69,16 @@
 </div>
 <!-- end: content -->
 <script>
-    function runScript(e) {
-        var nit;
-        try {
-            nit = parseInt(e);
-
-        } catch (e) {
-            nit = 0;
-        }
-        document.getElementById("nit").value = nit;
-    }
+//    function runScript(e) {
+//        var nit;
+//        try {
+//            nit = parseInt(e);
+//
+//        } catch (e) {
+//            nit = 0;
+//        }
+//        document.getElementById("nit").value = nit;
+//    }
     function runScriptel(e) {
         var nit;
         try {
@@ -127,26 +133,20 @@
                 razonsocial: "required",
                 ciudad: "required",
                 direccion: "required",
-                nit: {
+                nombre: {
                     required: true,
-                    min: 1,
-                    minlength: 7,
-                    maxlength: 10
+                    minlength: 2,
+                    maxlength: 40
                 },
-                telefono: {
+                laboratorio: {
                     required: true,
-                    min: 1,
-                    minlength: 10,
-                    maxlength: 10
+                    minlength: 2,
+                    maxlength: 45
                 },
-                contrasena: {
+                lote: {
                     required: true,
-                    minlength: 5
-                },
-                confirmar_contrasena: {
-                    required: true,
-                    minlength: 5,
-                    equalTo: "#contrasena"
+                    minlength: 2,
+                    maxlength: 45
                 },
                 validate_agree: "required"
             },
@@ -154,27 +154,22 @@
                 razonsocial: "Por favor, introduzca Razon social",
                 ciudad: "Por favor, introduzca la ciudad",
                 direccion: "por favor, introduzca su direccion",
-                nit: {
-                    required: "Nit invalido",
-                    min: "Nit valido",
-                    minlength: "No valido",
-                    maxlength: "No valido"
+                nombre: {
+                    required: "Nombre invalido",
+                    minlength: "Por favor, digite al menos 2 caracteres.",
+                    maxlength: "Por favor, ingrese no más de 40 caracteres."
                 },
-                telefono: {
-                    required: "Proporcione un numero de telefono",
-                    min: "No valido",
-                    minlength: "su telefono debe tener almenos 10 caracteres",
-                    maxlength: "No valido"
+                laboratorio: {
+                     required: "Nombre invalido",
+                    minlength: "Por favor, digite al menos 2 caracteres.",
+                    maxlength: "Por favor, ingrese no más de 45 caracteres."
                 },
-                contrasena: {
-                    required: "Proporcione una contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres"
-                },
-                confirmar_contrasena: {
-                    required: "Proporcione una contraseña",
-                    minlength: "Su contraseña debe tener al menos 5 caracteres",
-                    equalTo: "Ingrese la misma contraseña que la anterior"
-                },
+                lote: {
+                    required: "Nombre invalido",
+                    minlength: "Por favor, digite al menos 2 caracteres.",
+                    maxlength: "Por favor, ingrese no más de 45 caracteres."
+                }
+               
             }
 
         });
