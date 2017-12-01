@@ -20,9 +20,10 @@
             <div class="col-md-12 panel-heading">
                 <h4>Ingrese los datos</h4>
             </div>
+            <% String idcita = request.getSession().getAttribute("idcita").toString(); %>
             <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                 <div class="col-md-12">
-                    <form class="cmxform" id="signupForm" method="POST" action="ClientesController?action=create">
+                    <form class="cmxform" id="signupForm" method="POST" action="CitasController?action=update=<%= idcita %>">
                         <div class="col-md-6">
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">                                            
                                 <textarea name="proposito" id="proposito" rows="10" cols="60" placeholder="Proposito de la cita"></textarea>
@@ -42,8 +43,7 @@
 
 
                         <div class="col-md-12">
-                            <input class="submit btn btn-primary" type="submit" value="Guardar" > &nbsp
-                            <% String idcita = request.getSession().getAttribute("idcita").toString(); %>
+                            <input class="submit btn btn-primary" type="submit" value="Guardar" > &nbsp                            
                             <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'MedicamentosController?action=admin&idcita=<%= idcita%>'">
                         </div>
                     </form>

@@ -228,7 +228,7 @@ public class CitasController extends HttpServlet {
             }
         } else {
             try {
-                request.getRequestDispatcher("RegistrarCita.jsp").forward(request, response);//Redirecionar                    
+                request.getRequestDispatcher("AdminCitas.jsp").forward(request, response);//Redirecionar                    
             } catch (ServletException ex) {
                 Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
             }

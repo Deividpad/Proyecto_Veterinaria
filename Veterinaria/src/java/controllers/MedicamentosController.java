@@ -96,33 +96,34 @@ public class MedicamentosController extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("idcita", request.getParameter("idcita"));
         String idcita = request.getSession().getAttribute("idcita").toString();
-        PrintWriter out = response.getWriter();
-        //out.print( "id cita: "+idcita);
+//        PrintWriter out = response.getWriter();   
+        Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(idcita));
+        if (cita.getEstado().equals("Programada") || cita.getEstado().equals("Atendida")) {
+            Query q = sesion.createQuery("FROM Medicamentos WHERE citas.idCitasMedicas =?");
+            q.setString(0, idcita);
+            ArrayList ListaMedicamentos = (ArrayList) q.list();
+            ArrayList<Medicamentos> me = new ArrayList<>();
+            for (Object med : ListaMedicamentos) {
+                Medicamentos medi = (Medicamentos) med;
+                me.add(medi);
+                request.setAttribute("listaM", me);
+            }
+            try {
+                request.getRequestDispatcher("AdminMedicamentos.jsp").forward(request, response);//envia informacion a admin jsp
+            } catch (ServletException ex) {
+                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        Query q = sesion.createQuery("FROM Medicamentos WHERE citas.idCitasMedicas =?");
-        q.setString(0, idcita);
-        ArrayList ListaMedicamentos = (ArrayList) q.list();
-        if (ListaMedicamentos.size() >= 1) {
-            out.print("Si es mayor");
         } else {
-            out.print("NO es mayor");
+            try {
+                response.sendRedirect("CitasController?action=admin&&param=2");
+            } catch (IOException ex) {
+
+            }
         }
 
-        ArrayList<Medicamentos> me = new ArrayList<>();
-
-        for (Object med : ListaMedicamentos) {
-
-            Medicamentos medi = (Medicamentos) med;
-            me.add(medi);
-            request.setAttribute("listaM", me);
-        }
-        try {
-            request.getRequestDispatcher("AdminMedicamentos.jsp").forward(request, response);//envia informacion a admin jsp
-        } catch (ServletException ex) {
-            Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
         sesion.close();
     }
 
