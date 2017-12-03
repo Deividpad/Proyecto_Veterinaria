@@ -91,40 +91,42 @@ public class MedicamentosController extends HttpServlet {
     }
 
     public void admin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        PrintWriter out = response.getWriter();
+        String id = request.getParameter("idcita");
+        out.print("Estoy el en admin de medicamentos " + id);
+//        Session sesion = HibernateUtil.getSessionFactory().openSession();
         HttpSession session = request.getSession();
-        session.setAttribute("idcita", request.getParameter("idcita"));
-        String idcita = request.getSession().getAttribute("idcita").toString();
+        session.setAttribute("delaz", id);
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
 //        PrintWriter out = response.getWriter();   
-        Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(idcita));
-        request.setAttribute("Citaestado", cita);
-        if (cita.getEstado().equals("Programada") || cita.getEstado().equals("Atendida")) {
-            Query q = sesion.createQuery("FROM Medicamentos WHERE citas.idCitasMedicas =?");
-            q.setString(0, idcita);
-            ArrayList ListaMedicamentos = (ArrayList) q.list();
-            ArrayList<Medicamentos> me = new ArrayList<>();
-            for (Object med : ListaMedicamentos) {
-                Medicamentos medi = (Medicamentos) med;
-                me.add(medi);
-                request.setAttribute("listaM", me);
-            }
-            try {
-                request.getRequestDispatcher("AdminMedicamentos.jsp").forward(request, response);//envia informacion a admin jsp
-            } catch (ServletException ex) {
-                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else {
-            try {
-                response.sendRedirect("CitasController?action=admin&&param=2");
-            } catch (IOException ex) {
-
-            }
+//        Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(id));
+        session.setAttribute("delaz", id);
+        Query q = sesion.createQuery("FROM Medicamentos WHERE citas.idCitasMedicas =?");
+        q.setString(0, id);
+        ArrayList ListaMedicamentos = (ArrayList) q.list();
+        ArrayList<Medicamentos> ArrayMedicamentos = new ArrayList<>();
+        for (Object med : ListaMedicamentos) {
+            Medicamentos medi = (Medicamentos) med;
+            ArrayMedicamentos.add(medi);            
         }
-
-        sesion.close();
+        session.setAttribute("ArrayMedicamentos", ArrayMedicamentos);
+//            try {
+//                request.getRequestDispatcher("AdminMedicamentos.jsp").forward(request, response);//envia informacion a admin jsp
+//            } catch (ServletException ex) {
+//                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IOException ex) {
+//                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+////
+//        } else {
+//            try {
+//                response.sendRedirect("CitasController?action=admin&&param=2");
+//            } catch (IOException ex) {
+//
+//            }
+//        }
+//
+//        sesion.close();
     }
 
     public void Select(HttpServletRequest request, HttpServletResponse response) throws ServletException {

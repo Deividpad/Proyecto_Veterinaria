@@ -1,7 +1,7 @@
 <%
     String user = (String) session.getAttribute("perfil");
-    if (user==null || user.equals("Veterinario")) {
-        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+    if (user==null) {
+        response.sendRedirect("LoginPersona.jsp?error=true");//Se pierde la información       
         return;
     }    
 %>
@@ -107,7 +107,7 @@
 
                                 <div class="col-md-12">
                                     <button class="submit btn btn-primary" type="submit">Registrar</button>
-                                    <button class="submit btn btn-danger" type="reset" onclick="javascript:history.go(-1)">Cancelar</button>
+                                    <button class="submit btn btn-danger" type="reset" onclick="location.href = 'PropietarioController?action=admin'">Cancelar</button>
                                 </div>
                             </form>
                         </div>

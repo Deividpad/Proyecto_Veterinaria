@@ -5,6 +5,7 @@
         return;
     }    
 %>
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Citas"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,23 +16,25 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Crear Cita</h3>                
-            </div>
+                <h3 class="animated fadeInLeft">Crear Cita</h3>
+            </div>         
+            
         </div>
     </div> 
     
      
-    <!-- Modal --><!-- Modal -->
+    <!-- Modal 1-->
     <div class="modal fade" id="mimodalejemplo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">        
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="col-md-10">
                     <div class="col-md-12 panel">
                         <div class="col-md-12 panel-heading">
-                            <input type="text" id="at" name="at" style="display: none;"><h4><input id="title" style="border: none; background-color: #fbf7f7" disabled="" type="text"></h4><span style="color:red;" id="result1"></span>
+                            <input type="text" id="at" name="at" style="display: none;"><h4><input id="title" style="border: none; background-color: #fbf7f7" disabled="" type="text"></h4><span style="color:red;" id="result1"></span>                            
                             <input type="button" style="display: none;" value="Hello" id="bttHello">        
                         </div>
-                        <div class="col-md-12 panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-12 panel-body" style="padding-bottom:30px;">                                                         
+                            
                             <div class="col-md-12">
                                 <!--action="CitasController?action=create" onsubmit="check(event, this)"-->
                                 <!--<form class="cmxform" id="signupForm" method="POST"  >-->
@@ -88,9 +91,10 @@
                                         </div>
                                         <input type="text" id="idcita" style="display: none;" name="idcita">
                                     </div>
-                                    <div class="col-md-12" style="padding-top: 20px;">
-                                        <input class="submit btn btn-success" id="myBtn1" type="submit" onclick="check()" value="Modificar" >
+                                    <div class="col-md-12" style="padding-top: 20px;">                                             
+                                        <input class="submit btn btn-primary" id="myBtn1" type="submit" onclick="check()"  value="Registrar" >
                                         <input type="submit" class="submit btn btn-danger" value="Volver" onclick="reset()" data-dismiss="modal">
+                                        <input type="submit" class="submit btn btn-success" id="dtlcitas"  data-dismiss="modal" >                                       
                                     </div>
 
                                 <!--</form>-->
@@ -100,9 +104,11 @@
                     </div>
                 </div>         
             </div>
-        </div>
+        </div>  
     </div>    
-
+    <!--Termina modal 1-->
+    
+     
     <div id='top'>
 
         <div class='left'>
@@ -249,9 +255,10 @@
                                                            Citas cita = (Citas) Obj;%>
                                                     {
                                                     id: '<%= cita.getIdCitasMedicas()%>',
-                                                            title: '<%= cita.getEstado() %>',
+                                                            title: '<%= cita.getMascota().getNombre() %>',
                                                             start: '<%= cita.getFechaEntrada()%>',
                                                             end: '<%= cita.getFechaSalida()%>',
+                                                            className: '<%= cita.getEstado() %>',
                                             <% if(cita.getEstado().equals("Programada")){ %>
                                                                 //Azul
                                                 backgroundColor: 'blue',
@@ -273,7 +280,7 @@
                                                                 
                                                     
                                                     eventDrop: function (event, delta, revertFunc) {
-                                                        var estado = event.title;
+                                                        var estado = event.className;
                                                         
                                                         if(estado == "Cancelada" || estado == "Atendida"){
                                                         alert("Cita ya no se puede modificar");    
@@ -297,6 +304,7 @@
                                                             document.getElementById('fhsalida').value = fechadrop;
                                                             document.getElementById('at').value = "update";
                                                             document.getElementById('title').value = "Editar Cita";
+                                                            $("#dtlcitas").hide();
                                                     }else{
 //                                                        alert("Fecha no valida "+event.start.format()+" Actual"     );
                                                         revertFunc();   
@@ -305,7 +313,9 @@
                                                     
                                                             
                                                     },
-                                                    dayClick: function (date, jsEvent, view) {                                                                 //alert(date.add(1, 'days'));
+                                                    dayClick: function (date, jsEvent, view) {
+                                                        //alert(date.add(1, 'days'));
+                                                        document.getElementById('result1').value = "";
                                                     if (date.add(1, 'days') <= new Date()) {
                                                     //alert("No se puede"+date.format());
                                                     } else {
@@ -318,13 +328,73 @@
                                                             document.getElementById('fhsalida').value = date.format();
                                                             document.getElementById('at').value = "create";
                                                             document.getElementById('title').value = "Crear Cita";
+                                                            $("#dtlcitas").hide();
                                                             //                                                                
                                                     }
                                                     //                                                                    // change the day's background color just for fun
                                                     //                                                                    $(this).css('background-color', 'red');
                                                     },
-                                                    eventClick: function (calEvent, jsEvent, view) {
-
+                                                    eventClick: function (calEvent, jsEvent, view) {                                                        
+                                                        //document.getElementById('result1').value = "";
+                                                        var elem = document.getElementById('buttonmodal');
+                                                        elem.click();
+//                                                      Fecha entrada    
+                                                        var date = new Date(calEvent.start.format());
+                                                        var yeare = date.getFullYear();
+                                                        var mese = date.getMonth()+1;
+                                                        var diae = date.getDate();
+                                                        var houre = date.getHours();
+                                                        var mine = date.getMinutes();//                                                        
+                                                        if(diae < 10){
+                                                            diae = "0"+diae;
+                                                        }
+                                                        if(houre < 10){
+                                                            houre = "0"+houre;
+                                                        }
+                                                        if(mine < 1 ){
+                                                            mine = "0"+mine;
+                                                        }
+                                                        
+                                                        var fechae = yeare+"-"+mese+"-"+diae;
+                                                        var timee = houre+":"+mine;
+                                                        document.getElementById('idcita').value = event.id;
+                                                        document.getElementById('fhentrada').value = fechae;
+                                                        document.getElementById('tmentrada').value = timee;
+                                                        
+                                                        
+//                                                        Fecha salida
+//                                                        alert("La fecha de salida: "+calEvent.end.format());
+                                                        var date2 = new Date(calEvent.end.format());
+                                                        var years = date2.getFullYear();
+                                                        var mess = date2.getMonth()+1;
+                                                        var dias = date2.getDate();
+                                                        var hours = date2.getHours();
+                                                        var mins = date2.getMinutes();//                                                        
+                                                        if(dias < 10){
+                                                            dias = "0"+dias;
+                                                        }
+                                                        if(hours < 10){
+                                                            hours = "0"+hours;
+                                                        }
+                                                        if(mins < 1 ){
+                                                            mins = "0"+mins;
+                                                        }
+                                                        
+                                                        var fechas = years+"-"+mess+"-"+dias;
+                                                        var times = hours+":"+mins;                                                                                                                
+                                                        document.getElementById('fhsalida').value = fechas;
+                                                        document.getElementById('tmsalida').value = times;
+                                                        document.getElementById('idcita').value = calEvent.id;
+                                                        if(calEvent.className == "Programada"){
+                                                        document.getElementById('at').value = "update";
+                                                        document.getElementById('title').value = "Editar Cita";
+                                                    }else{
+                                                        
+                                                        $("#myBtn1").attr('disabled',true);
+                                                        }
+                                                        document.getElementById('dtlcitas').value = "Atender Cita";
+                                                        $("#dtlcitas").show();                                                       
+                        
 //                                                    alert('Event: ' + calEvent.title);
 //                                                            alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 //                                                            alert('View: ' + view.name);
@@ -367,6 +437,7 @@
 });
 </script>
 -->
+
 <script>
 
             $(document).ready(function () {
@@ -377,12 +448,27 @@
 
     });
     });
+    
+    $('#dtlcitas').click(function(){
+        var id = document.getElementById('idcita').value;         
+//         alert(id);
+     $.ajax({
+         type:'POST',
+         data: {idcita: $('#idcita').val()},
+         url: 'MedicamentosController?action=admin',          
+         
+         success: function(result){
+             location.href ="DetallesCita.jsp";
+         }
+     })
+    });
+//    MedicamentosController?action=admin&idcita=
     $('#bttHello').click(function(){
 //        alert("Le dio click al buton");
                      //var fullname = $('#fullname').val();
                      var id = document.getElementById('mascota').value;
                      var action = document.getElementById('at').value;
-                     //alert("el action: "+id);
+//                     alert("el action: "+id);
                     $.ajax({
                     type:'POST',
                     data: {fhentrada: $('#fhentrada').val(),tmentrada: $('#tmentrada').val(),fhsalida: $('#fhsalida').val(),tmsalida: $('#tmsalida').val(),tipo: $('#tipo').val(),mascota: $('#mascota').val(),idcita: $('#idcita').val()},
@@ -412,7 +498,7 @@
 //                        alert("La fecha es mayor valido sin hora");
                         if (fhentrada < fhsalida) {
 //                            alert("Se puede crear la cita ");
-                             var elem = document.getElementById('bttHello');
+                            var elem = document.getElementById('bttHello');
                             elem.click();                            
                         }else{
                             alert("Verifique que la fecha de salida sea menor o igual que la entrada");                    

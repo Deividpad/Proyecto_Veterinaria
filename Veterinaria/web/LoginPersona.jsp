@@ -37,20 +37,20 @@
                 <div class="panel periodic-login">
                     <span class="atomic-number">28</span>
                     <div class="panel-body text-center">
-                        <h1 class="atomic-symbol">Mi</h1>
-                        <p class="atomic-mass">14.072110</p>
-                        <p class="element-name">Miminium</p>
+                        <h4>Iniciar Sesión</h4>
+                        <p class="atomic-mass"></p>
+                        <p class="element-name"></p>
 
                         <i class="icons icon-arrow-down"></i>
                         <div class="form-group form-animate-text" style="margin-top:40px !important;">
                             <input type="text" class="form-text" name="correo" required>
                             <span class="bar"></span>
-                            <label>Username</label>
+                            <label>Usuario</label>
                         </div>
                         <div class="form-group form-animate-text" style="margin-top:40px !important;">
                             <input type="password" class="form-text" name="contrasena" required>
                             <span class="bar"></span>
-                            <label>Password</label>
+                            <label>Contraseña</label>
                         </div>
                         <label class="pull-left">
                             <input type="checkbox" class="icheck pull-left" name="checkbox1"/> Remember me
