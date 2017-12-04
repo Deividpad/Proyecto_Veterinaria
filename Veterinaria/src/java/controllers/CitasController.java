@@ -68,9 +68,7 @@ public class CitasController extends HttpServlet {
          }*/
     }
 
-
     private void Registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
 
         PrintWriter out = response.getWriter();
         Citas cita;
@@ -148,7 +146,7 @@ public class CitasController extends HttpServlet {
                     if (tipo.equals("Urgencia")) {
 //                            Hospitalizacion = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
                     }
-                    
+
 //                    try {
 //                        response.sendRedirect("CitasController?action=admin");
 //                    } catch (IOException ex) {
@@ -178,9 +176,8 @@ public class CitasController extends HttpServlet {
 //                Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
 //            }
         }
-        
+
         session.close();
-        
 
     }
 
@@ -248,25 +245,34 @@ public class CitasController extends HttpServlet {
     }
 
     private void Actualizar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
+//        try {
         Session session = HibernateUtil.getSessionFactory().openSession();
         PrintWriter out = response.getWriter();
 
         if (request.getParameter("pro") != null) {
 
             if (request.getParameter("pro").equals("true")) {
-                String idcita = request.getSession().getAttribute("idcita").toString();
+                String idcita = request.getParameter("idcita");
                 Citas cita = (Citas) session.get(Citas.class, Integer.parseInt(idcita));
-                cita.setProposito(request.getParameter("proposito"));
-                cita.setObservaciones(request.getParameter("observaciones"));
+                if (request.getParameter("observaciones").equals("")) {
+//                    if (request.getParameter("proposito").equals("")) {
+                        cita.setProposito(request.getParameter("proposito"));
+                        out.print(cita.getProposito());
+//                    }
+                } else if (request.getParameter("proposito").equals("")) {
+//                    if (request.getParameter("observaciones").equals("")) {
+                        cita.setObservaciones(request.getParameter("observaciones"));
+                        out.print(cita.getObservaciones());
+//                    }
+                }
                 session.beginTransaction();
                 session.saveOrUpdate(cita);
                 session.getTransaction().commit();
                 session.close();
-                try {
-                    response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
-                } catch (IOException ex) {
-                }
+//                try {
+//                    response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
+//                } catch (IOException ex) {
+//                }
 
             } else if (request.getParameter("pro").equals("false")) {
                 Citas citaestado = (Citas) session.get(Citas.class, Integer.parseInt(request.getParameter("idcita2")));
@@ -409,10 +415,10 @@ public class CitasController extends HttpServlet {
 //            }
             }
         }
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.print("try");
-        }
+//        } catch (Exception e) {
+//            PrintWriter out = response.getWriter();
+//            out.print("try");
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

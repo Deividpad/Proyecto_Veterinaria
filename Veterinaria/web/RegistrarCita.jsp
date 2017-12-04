@@ -37,7 +37,7 @@
                             
                             <div class="col-md-12">
                                 <!--action="CitasController?action=create" onsubmit="check(event, this)"-->
-                                <!--<form class="cmxform" id="signupForm" method="POST"  >-->
+                                   <!--<form class="cmxform" id="signupForm" method="POST"  >-->
                                     <div class="col-md-6">                                                                                 
                                         
                                         <div class="form-group form-animate-text">

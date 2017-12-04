@@ -73,8 +73,12 @@ public class MedicamentosController extends HttpServlet {
         java.util.Date fecha = new java.util.Date();
         String persona = request.getSession().getAttribute("idpersona").toString();
         Persona per = (Persona) sesion.get(Persona.class, Integer.parseInt(persona));
-        String idcita = request.getSession().getAttribute("idcita").toString();
+        String idcita = request.getParameter("idcita");
         PrintWriter out = response.getWriter();
+//        out.print("nombre: "+nombre);
+//        out.print("laboratorio: "+laboratorio);
+//        out.print("lote: "+lote);
+//        out.print("idcita: "+idcita);
 //        out.print("Sesion idpersosa: "+persona+" id cita: "+idcita);
         Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(idcita));
         Medicamentos Medi = new Medicamentos(per, nombre, laboratorio, lote, fecha);
@@ -82,12 +86,24 @@ public class MedicamentosController extends HttpServlet {
         sesion.beginTransaction();
         sesion.save(Medi);
         sesion.getTransaction().commit();
-        sesion.close();
-        try {
-            response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
-        } catch (IOException ex) {
-
+        
+        Query q = sesion.createQuery("FROM Medicamentos WHERE citas.idCitasMedicas =?");
+        q.setString(0, idcita);
+        ArrayList ListaMedicamentos = (ArrayList) q.list();
+//        ArrayList medicamentos = (ArrayList) request.getSession().getAttribute("ArrayMedicamentos");
+        for (Object med : ListaMedicamentos) {
+            Medicamentos medi = (Medicamentos) med;
+            out.println("<tr>");
+            out.println("<td>"+medi.getNombre()+"</td>");
+            out.println("<td>"+medi.getLaboratorio()+"</td>");
+            out.println("<td>"+medi.getLote()+"</td>");
+            out.println("</tr>");
         }
+        sesion.close();
+//        try {
+//            response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
+//        } catch (IOException ex) {
+//        }
     }
 
     public void admin(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -107,7 +123,7 @@ public class MedicamentosController extends HttpServlet {
         ArrayList<Medicamentos> ArrayMedicamentos = new ArrayList<>();
         for (Object med : ListaMedicamentos) {
             Medicamentos medi = (Medicamentos) med;
-            ArrayMedicamentos.add(medi);            
+            ArrayMedicamentos.add(medi);
         }
         session.setAttribute("ArrayMedicamentos", ArrayMedicamentos);
 //            try {

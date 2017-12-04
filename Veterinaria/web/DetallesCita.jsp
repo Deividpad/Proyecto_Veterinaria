@@ -27,12 +27,13 @@
     <div class="col-md-5">
         <div class="panel">
             <div class="panel-body">
+                <!--div Proposito-->
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">Proposito</h4>
-                    </div>                    
-
-                    <div style="display: none" id="showpro">
+                    </div>                  
+                    <input type="text" id="idcita" name="idcita" style="display: none"  value="<%= id%>">
+                    <div id="showpro" style="display: none">
                         <ul  class="timeline" style="width: 200%; padding-top: 0px;">
                             <li>
                                 <div class=" info" style="padding-left: 47%; ">
@@ -42,52 +43,83 @@
                                                 <i class="glyphicon glyphicon-floppy-disk"></i> <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" role="menu">
-                                                <li onclick="Propositio(2);"><a href="#">Action</a></li>
-                                                <li><a href="#">Another action</a></li>
-                                                <li><a href="#">Something else here</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Separated link</a></li>
+                                                <li onclick="Proposito(2);"><a href="#">Editar</a></li>                                                
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="timeline-panel">
                                     <div class="timeline-heading">
-                                        <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                                        <h4 class="timeline-title">Datos cita (Proposito)</h4><span style="color: red" id="datospro">Sin datos</span>
                                     </div>
                                     <div class="timeline-body">
-                                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                                        <!--<p id="resultpro">Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>-->
+                                        <p id="resultpro"></p>
                                         <hr>                            
                                     </div>
                                 </div>
                             </li>
                         </ul>                        
                     </div>
-                    <div class="form-group form-animate-text" id="tareapro" style="margin-top:40px !important;">                                            
-                        <textarea name="observaciones" id="observaciones" rows="10" cols="60" placeholder="Observaciones de la cita"></textarea>
+                    <div class="form-group form-animate-text" id="tareapro" style="margin-top:40px !important;">                                                              
+                        <textarea name="textpro" id="textpro" style="display: none" ></textarea>
+                        <textarea name="proposito" id="proposito" style="resize: none;" required="required" rows="10" cols="60" placeholder="Proposito de la cita"></textarea>                        
                         <span class="bar"></span>
                         <label></label>
                         <div class="col-md-12">
-                            <button class="submit btn btn-primary" type="submit" onclick="Propositio(1)">Actualizar</button>
-                            <button class="submit btn btn-danger" type="reset" onclick="javascript:history.go(-1)">Cancelar</button>
+                            <button class="btn btn-round btn-primary" type="submit" onclick="Proposito(1)">Actualizar</button>
+                            <button class="btn btn-round btn-danger" type="reset" onclick="Proposito(5)">Cancelar</button>
                         </div>
                     </div>
                 </div>
+                <!--fin proposito-->
 
-                <div class="panel panel-success">
+                <!--Div Observaciones-->
+                <br><br><div class="panel panel-success">
                     <div class="panel-heading">
                         <h4 class="panel-title">Observaciones</h4>
+                    </div>                                      
+                    <div style="display: none" id="showobv">
+                        <ul  class="timeline" style="width: 200%; padding-top: 0px;">
+                            <li>
+                                <div class=" info" style="padding-left: 47%; ">
+                                    <div class="timeline-badge">                                
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-circle btn-gradient btn-primary" data-toggle="dropdown">
+                                                <i class="glyphicon glyphicon-floppy-disk"></i> <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li onclick="Proposito(4);"><a href="#">Editar</a></li>                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Datos cita(Observaciones)</h4><span style="color: red" id="datosobv">Sin datos</span>
+                                    </div>
+                                    <div class="timeline-body">                                        
+                                        <p id="resultobv"></p>
+                                        <!--<p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>-->
+                                        <hr>                            
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>                        
                     </div>
-                    <div class="panel-body" >
-                        <div class="form-group form-animate-text" style="margin-top:40px !important;">                                            
-                            <textarea name="observaciones" id="observaciones" rows="10" cols="60" placeholder="Observaciones de la cita"></textarea>
-                            <span class="bar"></span>
-                            <label></label>
+                    <div class="form-group form-animate-text" id="tareaobv" style="margin-top:40px !important;">                                            
+                       <textarea name="textobv" id="textobv" style="display: none" ></textarea>
+                        <textarea name="observaciones" style="resize: none;" id="observaciones" required="required" rows="10" cols="60" placeholder="Observaciones de la cita"></textarea>
+                        <span class="bar"></span>
+                        <label></label>
+                        <div class="col-md-12">
+                            <button class=" btn btn-round btn-primary" type="submit" onclick="Proposito(3)">Actualizar</button>
+                            <button class=" btn btn-round btn-danger" type="reset" onclick="Proposito(6)">Cancelar</button>
                         </div>
-                        <%--<%= cita.getObservaciones() %>--%>
-                        <!--Some default Some default panel content here. Nulla vitae elit libero, a pharetra augue here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.-->
                     </div>
                 </div>
+                <!--Fin Observaciones-->
+
             </div>
         </div>
     </div>
@@ -99,7 +131,45 @@
                 <h4>Medicamentos</h4>
             </div>
             <div class="panel-body">
-                <p>Some default Some default Some default panel content here. Nulla vitae elit libero, a pharetra augue here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                 <div class="col-md-12">
+        <div class="col-md-12 panel">
+            <div class="col-md-12 panel-heading">
+                <h4>Ingrese los datos</h4>
+            </div>
+            <div class="col-md-12 panel-body" style="padding-bottom:30px;">
+                <div class="col-md-12">
+                    <!--<form class="cmxform" id="signupForm" method="POST" action="ClientesController?action=create">-->
+                        <div class="col-md-6">
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="nombre" name="nombre" required>
+                                <span class="bar"></span>
+                                <label>Nombre</label>
+                            </div>
+
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="text" class="form-text" id="laboratorio" name="laboratorio" required>
+                                <span class="bar"></span>
+                                <label>Laboratorio</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                                <input type="number" class="form-text" id="lote" name="lote" required>
+                                <span class="bar"></span>
+                                <label>Lote</label>
+                            </div>
+                        </div>                        
+                        <div class="col-md-12">
+                            <input class="submit btn btn-primary" type="submit" id="btnmedi" onclick="Medicamentos()" value="Guardar" > &nbsp
+                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'ClientesController?action=admin'">
+                        </div>
+                    <!--</form>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+                <!--<p>Some default Some default Some default panel content here. Nulla vitae elit libero, a pharetra augue here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
             </div>
 
             <!-- Table -->
@@ -112,26 +182,8 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>   
-                    <% ArrayList medicamentos = (ArrayList) session.getAttribute("ArrayMedicamentos");
-                        for (Object med : medicamentos) {
-                            Medicamentos medi = (Medicamentos) med;%>
-                    <tr style="color: red;">
-                        <td><%= medi.getNombre()%></td>
-                        <td><%= medi.getLaboratorio()%></td>
-                        <td><%= medi.getLote()%></td>
-                        <td>
-                            <button class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'MedicamentosController?action=update&idmedi=${medi.idMedicamento}'">
-                                <span class="fa fa-edit"></span>
-                            </button>
-                            <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'MedicamentosController?action=eliminar&idmedi=${medi.idMedicamento}'">
-                                <span class="fa fa-trash"></span>
-                            </button> 
-                        </td>
-                    </tr>                                  
-                    <% }%> 
-
-
+                <tbody id="lsmedi">   
+                   
                 </tbody>
             </table>                    
         </div>
@@ -160,97 +212,84 @@
 
 <!-- custom -->
 <script src="asset/js/main.js"></script>
-<script type="text/javascript">
-                                $(document).ready(function () {
+<script>  
 
-                                    $("#signupForm").validate({
-                                        errorElement: "em",
-                                        errorPlacement: function (error, element) {
-                                            $(element.parent("div").addClass("form-animate-error"));
-                                            error.appendTo(element.parent("div"));
-                                        },
-                                        success: function (label) {
-                                            $(label.parent("div").removeClass("form-animate-error"));
-                                        },
-                                        rules: {
-                                            razonsocial: "required",
-                                            ciudad: "required",
-                                            direccion: "required",
-                                            nit: {
-                                                required: true,
-                                                min: 1,
-                                                minlength: 7,
-                                                maxlength: 10
-                                            },
-                                            telefono: {
-                                                required: true,
-                                                min: 1,
-                                                minlength: 10,
-                                                maxlength: 10
-                                            },
-                                            contrasena: {
-                                                required: true,
-                                                minlength: 5
-                                            },
-                                            confirmar_contrasena: {
-                                                required: true,
-                                                minlength: 5,
-                                                equalTo: "#contrasena"
-                                            },
-                                            validate_agree: "required"
-                                        },
-                                        messages: {
-                                            razonsocial: "Por favor, introduzca Razon social",
-                                            ciudad: "Por favor, introduzca la ciudad",
-                                            direccion: "por favor, introduzca su direccion",
-                                            nit: {
-                                                required: "Nit invalido",
-                                                min: "Nit valido",
-                                                minlength: "No valido",
-                                                maxlength: "No valido"
-                                            },
-                                            telefono: {
-                                                required: "Proporcione un numero de telefono",
-                                                min: "No valido",
-                                                minlength: "su telefono debe tener almenos 10 caracteres",
-                                                maxlength: "No valido"
-                                            },
-                                            contrasena: {
-                                                required: "Proporcione una contraseña",
-                                                minlength: "Su contraseña debe tener al menos 5 caracteres"
-                                            },
-                                            confirmar_contrasena: {
-                                                required: "Proporcione una contraseña",
-                                                minlength: "Su contraseña debe tener al menos 5 caracteres",
-                                                equalTo: "Ingrese la misma contraseña que la anterior"
-                                            }
-                                        }
-
-                                    });
-
-
-                                });
-</script>
-<script>
-
-    $(document).ready(function () {
-        $(".select2-A").select2({
-            placeholder: "Select a state",
-            allowClear: true
-        });
-    });
-
-    function Propositio(int) {        
-//        alert("seguro "+int);
-        if (int === 1) {
-            $("#showpro").show();
-            $("#tareapro").hide();
-        }else{
-            $("#showpro").hide();
-            $("#tareapro").show();
+    function Proposito(int) {
+        if(int === 1){
+            document.getElementById('observaciones').value = "";
+        }else if(int === 3){
+            document.getElementById('proposito').value = "";
         }
+        if(int === 1 && document.getElementById('proposito').value === ""){
+            alert("Por favor digite el campo Proposito de la cita");
+        }else{
+            if(int === 3 &&  document.getElementById('observaciones').value === ""){
+                alert("Por favor digite el campo Observaciones de la cita");
+            }else{
+            $.ajax({
+            type: 'POST',
+            data: {idcita: $('#idcita').val(), proposito: $('#proposito').val(), observaciones: $('#observaciones').val()},
+            url: 'CitasController?action=update&pro=true',
+            success: function (result) {                
+                if (int === 1) {
+//                    alert("1");
+                    $("#showpro").toggle("slow");
+                    $("#tareapro").hide();
+                    document.getElementById('textpro').value = result;
+                    $('#resultpro').html(result);
+                    if(document.getElementById('textpro').value === ""){
+                        $("#datospro").show();
+                    }else{
+                        $("#datospro").hide();
+                    }
+                } else if (int === 2) {
+//                    alert("2");
+                    $("#showpro").hide();//           
+                    $("#tareapro").toggle("slow");
+                    var edit = document.getElementById('textpro').value;
+                    document.getElementById('proposito').value = edit;
+                    $('#resultpro').html(result);
+                } else if (int === 3) {
+//                    alert("3");
+                    $("#showobv").toggle("slow");
+                    $("#tareaobv").hide();
+                    document.getElementById('textobv').value = result;
+                    $('#resultobv').html(result);
+                    if(document.getElementById('textobv').value === ""){
+                        $("#datosobv").show();
+                    }else{
+                        $("#datosobv").hide();
+                    }
+                } else if (int === 4) {
+//                    alert("4");
+                    $("#showobv").hide();//           
+                    $("#tareaobv").toggle("slow");
+                    var edit = document.getElementById('textobv').value;
+                    document.getElementById('observaciones').value = edit;
+                }else if(int === 5){
+                    $("#showpro").toggle("slow");
+                    $("#tareapro").hide();
+                }else if(int === 6){
+                    $("#showobv").toggle("slow");
+                    $("#tareaobv").hide();
+                }
 
+            }
+        });
+            }
+        } 
     }
+    
+    function Medicamentos(){
+           $.ajax({
+            type: 'POST',
+            data: {idcita: $('#idcita').val(), nombre: $('#nombre').val(), laboratorio: $('#laboratorio').val(), lote:$('#lote').val()},
+            url: 'MedicamentosController?action=create',
+            success: function (result) {       
+                $('#lsmedi').html(result);
+            }
+        });
+    }    
 
 </script>
 <!-- end: Javascript -->
