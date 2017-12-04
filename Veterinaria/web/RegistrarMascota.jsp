@@ -14,9 +14,9 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Registrar Mascota</h3>
+                <center><h3 class="animated fadeInLeft">Registrar Mascota</h3></center>
                 <p class="animated fadeInDown">
-                    Form <span class="fa-angle-right fa"></span> Form Element
+                    
                 </p>
             </div>
         </div>
@@ -50,7 +50,7 @@
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <input type="number" class="form-text" data-val-regex-pattern="^3[0-9]+$"  onkeyup="return runScript(this.value)" id="condicion" name="condicion" required>
                                 <span class="bar"></span>
-                                <label>Condicion Corporal</label>
+                                <label>Condición Corporal</label>
                             </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -94,27 +94,25 @@
                                     <option value="Macho">Macho</option>
                                 </select>
                                 <span class="bar" ></span>
-                                <label>Genero</label> 
+                                <label>Género</label> 
                             </div>
                             
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                 <input type="text" class="form-text" id="alimentacion"  name="alimentacion" required>
                                 <span class="bar"></span>
-                                <label>Alimentacion</label>
+                                <label>Alimentación</label>
                             </div>
                             
                            
-                            
-                            <div class="form-group form-animate-text" style="margin-top:40px !important;" class="bar" required >
-                                <select  name="propietario" class="form-text"id="propietario" >
-                                    <option value="" selected="selected">Seleccione...</option>
-                                    <c:forEach var="pro" items="${requestScope.ListarPropietario}">
-                                        <option value="${pro.idPropietario}">${pro.nombres}</option>
-                                    </c:forEach>
-                                </select>
-                                <span class="bar"></span>
-                                <label>Propietario</label> 
-                            </div>
+                            <div class="col-sm-12 padding-0">                                                                                      
+                                            <span class="bar"></span>
+                                            <label>Propietario</label><br>
+                                            <select class="select2-A" style="width: 100%;" name="propietario" id="propietario">        
+                                           
+                                                    <option value="Activa">Activa</option>
+                                                    <option value="Inactiva">Inactiva</option>
+                                            </select>                       
+                                        </div><br><br><br>
                             
                             
                             
@@ -376,6 +374,19 @@
 
 
     });
+</script>
+
+<script>
+    
+     $(document).ready(function () {
+    $(".select2-A").select2({
+    placeholder: "Select a state",
+            allowClear: true,
+            dropdownParent: $("#mimodalejemplo")
+
+    });
+    });
+    
 </script>
 <!-- end: Javascript -->
 

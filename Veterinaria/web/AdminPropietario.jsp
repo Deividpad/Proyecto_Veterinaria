@@ -20,7 +20,7 @@
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Administrar Propietarios</h3>                
+                <center><h3 class="animated fadeInLeft">Administrar Propietarios</h3></center>                
             </div>
         </div>
     </div>
@@ -37,10 +37,10 @@
                                     <th>Documento</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
-                                    <th>Genero</th>
-                                    <th>Telefono</th>                                        
+                                    <th>Género</th>
+                                    <th>Teléfono</th>                                        
                                     <th>Correo</th>  
-                                    <th>Direccion</th>
+                                    <th>Dirección</th>
                                     <th>Ciudad</th>                                    
                                     <th>Estado</th>
                                     <% if (session.getAttribute("perfil").equals("Veterinario")) { %>

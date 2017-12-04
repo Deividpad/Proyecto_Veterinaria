@@ -31,11 +31,11 @@
                                     <th>Nombre</th>
                                     <th>Foto</th>
                                     <th>Peso</th>
-                                    <th>Condicion Corporal</th>
+                                    <th>Condición Corporal</th>
                                     <th>Color</th>
                                     <th>Especie</th>
                                     <th>Raza</th>                                        
-                                    <th>Genero</th>                                        
+                                    <th>Género</th>                                        
                                     <th>Fecha Nacimiento</th>                        
                                     <th>Propietario</th>                                  
                                     <th>Estado</th>    
