@@ -476,7 +476,9 @@
                     success: function(result){
                         if(result == ("")){
 //                            alert("Es nulo");
-                            location.reload(true);
+                            //location.reload(true);
+                        }if(result=="urgencia"){
+                            location.href ="DetallesCita.jsp";
                         }else{
 //                             alert("Llego con algo");
                             $('#result1').html(result);
