@@ -60,8 +60,15 @@ public class MedicamentosController extends HttpServlet {
                 break;
             case "eliminar":
                 Eliminar(request, response);
+            case "ultimo":
+                Ultimo(request, response);
                 break;
         }
+    }
+
+    private void Ultimo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        out.print("Ultimo" );
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -80,13 +87,13 @@ public class MedicamentosController extends HttpServlet {
 //        out.print("lote: "+lote);
 //        out.print("idcita: "+idcita);
 //        out.print("Sesion idpersosa: "+persona+" id cita: "+idcita);
-        Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(idcita));
-        Medicamentos Medi = new Medicamentos(per, nombre, laboratorio, lote, fecha);
-        Medi.setCitas(cita);
-        sesion.beginTransaction();
-        sesion.save(Medi);
-        sesion.getTransaction().commit();
-        
+//        Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(idcita));
+//        Medicamentos Medi = new Medicamentos(per, nombre, laboratorio, lote, fecha);
+//        Medi.setCitas(cita);
+//        sesion.beginTransaction();
+//        sesion.save(Medi);
+//        sesion.getTransaction().commit();
+
         Query q = sesion.createQuery("FROM Medicamentos WHERE citas.idCitasMedicas =?");
         q.setString(0, idcita);
         ArrayList ListaMedicamentos = (ArrayList) q.list();
@@ -94,9 +101,16 @@ public class MedicamentosController extends HttpServlet {
         for (Object med : ListaMedicamentos) {
             Medicamentos medi = (Medicamentos) med;
             out.println("<tr>");
-            out.println("<td>"+medi.getNombre()+"</td>");
-            out.println("<td>"+medi.getLaboratorio()+"</td>");
-            out.println("<td>"+medi.getLote()+"</td>");
+            out.println("<td>" + medi.getNombre() + "</td>");
+            out.println("<td>" + medi.getLaboratorio() + "</td>");
+            out.println("<td>" + medi.getLote() + "</td>");
+            out.println("<td>");
+            out.println("<button class=\" btn btn-circle btn-mn btn-danger\"><span class=\"fa fa-trash\"></span></button>");
+//            out.println("<button class=\" btn btn-circle btn-mn btn-primary\" type=\"button\" onclick=\"Tre(\""+medi.getNombre()+")\">");
+            out.println("<button class=\" btn btn-circle btn-mn btn-primary\" type=\"button\" onclick=\"Medicamentos(" + medi.getIdMedicamento() + ",'" + medi.getNombre() + "','" + medi.getLaboratorio() + "','" + medi.getLote() + "')\">");
+            out.println("<span class=\"fa fa-edit\"></span>");
+            out.println("</button");
+            out.println("</td>");
             out.println("</tr>");
         }
         sesion.close();
@@ -185,36 +199,37 @@ public class MedicamentosController extends HttpServlet {
         }
     }
 
-    public void actualizar(HttpServletRequest request, HttpServletResponse response) {
+    public void actualizar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Medicamentos medicamento = (Medicamentos) sesion.get(Medicamentos.class, Integer.parseInt(request.getParameter("idmedi")));
-
-        if (request.getMethod().equalsIgnoreCase("GET")) {
-            request.setAttribute("Medicamento", medicamento);
-            try {
-                request.getRequestDispatcher("EditarMedicamento.jsp").forward(request, response);
-            } catch (ServletException ex) {
-                Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-
-            java.util.Date fecha = new java.util.Date();
-            medicamento.setNombre(request.getParameter("nombre"));
-            medicamento.setLaboratorio(request.getParameter("laboratorio"));
-            medicamento.setLote(request.getParameter("lote"));
-            medicamento.setFecha(fecha);
-            sesion.beginTransaction();
-            sesion.saveOrUpdate(medicamento);
-            sesion.getTransaction().commit();
-            String idcita = request.getSession().getAttribute("idcita").toString();
-            try {
-                response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
-            } catch (IOException ex) {
-                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        PrintWriter out = response.getWriter();
+        out.print("Estoy en el metodo update");
+//        if (request.getMethod().equalsIgnoreCase("GET")) {
+//            request.setAttribute("Medicamento", medicamento);
+//            try {
+//                request.getRequestDispatcher("EditarMedicamento.jsp").forward(request, response);
+//            } catch (ServletException ex) {
+//                Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IOException ex) {
+//                Logger.getLogger(PersonasController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+//
+//            java.util.Date fecha = new java.util.Date();
+//            medicamento.setNombre(request.getParameter("nombre"));
+//            medicamento.setLaboratorio(request.getParameter("laboratorio"));
+//            medicamento.setLote(request.getParameter("lote"));
+//            medicamento.setFecha(fecha);
+//            sesion.beginTransaction();
+//            sesion.saveOrUpdate(medicamento);
+//            sesion.getTransaction().commit();
+//            String idcita = request.getSession().getAttribute("idcita").toString();
+//            try {
+//                response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);
+//            } catch (IOException ex) {
+//                Logger.getLogger(MedicamentosController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         sesion.close();
     }
 

@@ -7,24 +7,24 @@
 
 <jsp:include page="encabezado.jsp" />
 <jsp:include page="menu.jsp" />
+   
 <!-- start: content -->
 <div id="content">
     <div class="panel box-shadow-none content-header">
         <div class="panel-body">
             <div class="col-md-12">
-                <h3 class="animated fadeInLeft">Detalles Cita </h3>
-                <p class="animated fadeInDown">
-                    Form <span class="fa-angle-right fa"></span> Form Element
+   <% Session sesion = HibernateUtil.getSessionFactory().openSession();
+        String id = (String) session.getAttribute("delaz").toString();
+        Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(id));        
+    %>
+    <h3 class="animated fadeInLeft">Detalles Cita Mascota: <span style="color: red"><%= cita.getMascota().getNombre() %></span></h3><input type="button" value="Ultimo id" onclick="location.href = 'MedicamentosController?action=ultimo'">
+                <p class="animated fadeInDown" style="color: #00BCD4">
+                    Propietario <span class="fa-angle-right fa"></span> <%= cita.getMascota().getPropietario().getNombres() %>
                 </p>
             </div>
         </div>
     </div>
-    <% Session sesion = HibernateUtil.getSessionFactory().openSession();
-        String id = (String) session.getAttribute("delaz").toString();
-        Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(id));
-        sesion.close();
-    %>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="panel">
             <div class="panel-body">
                 <!--div Proposito-->
@@ -61,9 +61,9 @@
                             </li>
                         </ul>                        
                     </div>
-                    <div class="form-group form-animate-text" id="tareapro" style="margin-top:40px !important;">                                                              
+                    <div class="form-group form-animate-text" id="tareapro" style="margin-top:40px !important; ">                                                              
                         <textarea name="textpro" id="textpro" style="display: none" ></textarea>
-                        <textarea name="proposito" id="proposito" style="resize: none;" required="required" rows="10" cols="60" placeholder="Proposito de la cita"></textarea>                        
+                        <textarea name="proposito" id="proposito" style="resize: none; width: 100%;" required="required" rows="4" placeholder="Proposito de la cita"></textarea>                        
                         <span class="bar"></span>
                         <label></label>
                         <div class="col-md-12">
@@ -109,7 +109,7 @@
                     </div>
                     <div class="form-group form-animate-text" id="tareaobv" style="margin-top:40px !important;">                                            
                        <textarea name="textobv" id="textobv" style="display: none" ></textarea>
-                        <textarea name="observaciones" style="resize: none;" id="observaciones" required="required" rows="10" cols="60" placeholder="Observaciones de la cita"></textarea>
+                        <textarea name="observaciones" style="resize: none; width: 100%;" id="observaciones" required="required"  rows="4" placeholder="Observaciones de la cita"></textarea>
                         <span class="bar"></span>
                         <label></label>
                         <div class="col-md-12">
@@ -124,7 +124,7 @@
         </div>
     </div>
 
-    <div class="col-md-7">
+    <div class="col-md-6">
         <div class="panel panel-default">
             <!-- Default Some default Some default panel content here. Nulla vitae elit libero, a pharetra augue here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.s -->
             <div class="panel-heading">
@@ -154,13 +154,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="number" class="form-text" id="lote" name="lote" required>
+                                <input type="text" class="form-text" id="lote" name="lote" required>
                                 <span class="bar"></span>
                                 <label>Lote</label>
                             </div>
                         </div>                        
                         <div class="col-md-12">
-                            <input class="submit btn btn-primary" type="submit" id="btnmedi" onclick="Medicamentos()" value="Guardar" > &nbsp
+                            <input class="submit btn btn-primary" type="submit" id="btnmedi" onclick="Medicamentos(id,$nombre='',$labo='',$lote='')" value="Guardar" > &nbsp
                             <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'ClientesController?action=admin'">
                         </div>
                     <!--</form>-->
@@ -280,18 +280,34 @@
         } 
     }
     
-    function Medicamentos(){
-           $.ajax({
+    function Medicamentos(id,nombre,labo,lote){
+        var action = "";
+        if(nombre === "" && labo === "" && lote === ""){
+             action = "create";
+             $.ajax({
             type: 'POST',
             data: {idcita: $('#idcita').val(), nombre: $('#nombre').val(), laboratorio: $('#laboratorio').val(), lote:$('#lote').val()},
-            url: 'MedicamentosController?action=create',
+            url: 'MedicamentosController?action='+action,
             success: function (result) {       
                 $('#lsmedi').html(result);
             }
         });
-    }    
+        }else{
+             action = "update";
+             alert("El id del medi: "+id);
+             document.getElementById('nombre').value = nombre;
+             document.getElementById('laboratorio').value = labo;
+             document.getElementById('lote').value = lote;
+        }            
+//        alert("Este es el nombre "+nombre);
+           
+    }
+    function Tre(nombre,labo,lote){
+//        alert("Clicio servlet: "+nombre+" Y este es el laboratorio: "+labo+" Y este el el lote: "+lote);
+    }
 
 </script>
 <!-- end: Javascript -->
+<% sesion.close(); %>
 </body>
 </html>

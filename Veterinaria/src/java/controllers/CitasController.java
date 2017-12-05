@@ -144,7 +144,10 @@ public class CitasController extends HttpServlet {
                     session.getTransaction().commit();
 
                     if (tipo.equals("Urgencia")) {
-//                            Hospitalizacion = new Citas(mascota, persona, fechaentrada, fechasalida, Proposito, tipo, "Programada");
+                        //sesion los datos de la cita creada
+                        HttpSession sesion = request.getSession();
+                        sesion.setAttribute("delaz",cita.getIdCitasMedicas());
+                        out.print("urgencia");
                     }
 
 //                    try {
@@ -169,6 +172,13 @@ public class CitasController extends HttpServlet {
             session.beginTransaction();
             session.save(cita);
             session.getTransaction().commit();
+            
+            if (tipo.equals("Urgencia")) {
+                //sesion los datos de la cita creada
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("delaz",cita.getIdCitasMedicas());
+                out.print("urgencia");
+            }
 //               
 //            try {
 //                response.sendRedirect("CitasController?action=admin");
