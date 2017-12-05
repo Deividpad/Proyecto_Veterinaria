@@ -20,7 +20,7 @@
             <div class="panel box-shadow-none content-header">
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <h3 class="animated fadeInLeft">Registrar Propietario</h3>
+                        <center><h3 class="animated fadeInLeft">Registrar Propietario</h3></center>
 
                     </div>
                 </div>
@@ -57,13 +57,13 @@
                                             <option value="Masculino">Masculino</option>
                                         </select>
                                          <span class="bar" ></span>
-                                         <label>Genero</label>
+                                         <label>Género</label>
                                     </div>
                                   
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                         <input type="number" class="form-text"  id="telefono" onkeyup="return runScriptt(this.value)" name="telefono" required>
                                         <span class="bar"></span>
-                                        <label>Telefono</label>
+                                        <label>Teléfono</label>
                                     </div>
                                 </div>
 
@@ -77,7 +77,7 @@
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                         <input type="text" class="form-text" id="direccion" name="direccion" required>
                                         <span class="bar"></span>
-                                        <label>Direccion</label>
+                                        <label>Dirección</label>
                                     </div>
 
                                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -100,7 +100,7 @@
                                             <option value="Inactivo">Inactivo</option>
                                         </select>
                                          <span class="bar" ></span>
-                                         <label>Estados</label>
+                                         <label>Estado</label>
                                     </div>
 
                                 </div>

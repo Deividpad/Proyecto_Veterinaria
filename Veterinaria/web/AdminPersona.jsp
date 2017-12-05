@@ -37,7 +37,7 @@
                                     <th>Documento</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
-                                    <th>Telefono</th>                                        
+                                    <th>Teléfono</th>                                        
                                     <th>Correo</th>
                                     <th>Perfil</th>
                                     <th>Especialidad</th>
