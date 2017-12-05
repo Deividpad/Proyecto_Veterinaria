@@ -21,7 +21,12 @@
             </div>
         </div>
     </div>
-
+<select class="select2-A">
+                          <optgroup label="Alaskan/Hawaiian Time Zone">
+                            <option value="AK">Alaska</option>
+                            <option value="HI">Hawaii</option>
+                          </optgroup>                          
+                        </select>
  
                     <form class="cmxform" id="signupForm" method="POST" action="MascotasController?action=create">
                    
@@ -108,9 +113,10 @@
                                             <span class="bar"></span>
                                             <label>Propietario</label><br>
                                             <select class="select2-A" style="width: 100%;" name="propietario" id="propietario">        
-                                           
-                                                    <option value="Activa">Activa</option>
-                                                    <option value="Inactiva">Inactiva</option>
+                                                    <c:forEach var="pro" items="${requestScope.ListarPropietario}">
+                                                        <option value="${pro.idPropietario}">${pro.nombres}</option>
+                                                    </c:forEach>
+                                                      
                                             </select>                       
                                         </div><br><br><br>
                             
@@ -379,11 +385,10 @@
 <script>
     
      $(document).ready(function () {
+         alert();
     $(".select2-A").select2({
-    placeholder: "Select a state",
-            allowClear: true,
-            dropdownParent: $("#mimodalejemplo")
-
+      placeholder: "Select a state",
+      allowClear: true
     });
     });
     
