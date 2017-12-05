@@ -17,7 +17,7 @@
         String id = (String) session.getAttribute("delaz").toString();
         Citas cita = (Citas) sesion.get(Citas.class, Integer.parseInt(id));        
     %>
-    <h3 class="animated fadeInLeft">Detalles Cita Mascota: <span style="color: red"><%= cita.getMascota().getNombre() %></span></h3><input type="button" value="Ultimo id" onclick="location.href = 'MedicamentosController?action=ultimo'">
+    <h3 class="animated fadeInLeft">Detalles Cita Mascota: <span style="color: red"><%= cita.getMascota().getNombre() %></span></h3><input type="button" value="<%= id %>" onclick="location.href = 'MedicamentosController?action=ultimo'">
                 <p class="animated fadeInDown" style="color: #00BCD4">
                     Propietario <span class="fa-angle-right fa"></span> <%= cita.getMascota().getPropietario().getNombres() %>
                 </p>
@@ -32,7 +32,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">Proposito</h4>
                     </div>                  
-                    <input type="text" id="idcita" name="idcita" style="display: none"  value="<%= id%>">
+                    <input type="text" id="idcita" name="idcita" style="display: "  value="<%= id%>">
                     <div id="showpro" style="display: none">
                         <ul  class="timeline" style="width: 200%; padding-top: 0px;">
                             <li>
@@ -128,10 +128,10 @@
         <div class="panel panel-default">
             <!-- Default Some default Some default panel content here. Nulla vitae elit libero, a pharetra augue here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.s -->
             <div class="panel-heading">
-                <h4>Medicamentos</h4>
+                <h4>Medicamentos</h4><button class="submit btn btn-primary" type="submit" id="btnagrmedi" onclick="Showformedi()" value="Guardar" >Agregar<span class="icons icon-plus"></span></button> &nbsp
             </div>
             <div class="panel-body">
-                 <div class="col-md-12">
+                <div class="col-md-12" id="frmmedi" style="display: none">
         <div class="col-md-12 panel">
             <div class="col-md-12 panel-heading">
                 <h4>Ingrese los datos</h4>
@@ -140,8 +140,9 @@
                 <div class="col-md-12">
                     <!--<form class="cmxform" id="signupForm" method="POST" action="ClientesController?action=create">-->
                         <div class="col-md-6">
+                            <input type="text" style="display: none" id="idmedi">
                             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                                <input type="text" class="form-text" id="nombre" name="nombre" required>
+                                <input type="text" maxlength="30" class="form-text" id="nombre" name="nombre" required>
                                 <span class="bar"></span>
                                 <label>Nombre</label>
                             </div>
@@ -160,17 +161,17 @@
                             </div>
                         </div>                        
                         <div class="col-md-12">
-                            <input class="submit btn btn-primary" type="submit" id="btnmedi" onclick="Medicamentos(id,$nombre='',$labo='',$lote='')" value="Guardar" > &nbsp
-                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="location.href = 'ClientesController?action=admin'">
+                            <input class="submit btn btn-primary" type="submit" id="btnmedi" onclick="Medicamentos()" value="Guardar" > &nbsp
+                            <input class="submit btn btn-primary" type="submit" id="btnmediedi" onclick="Medicamentosedi(2)" value="Editar" > &nbsp
+                            <input class="submit btn btn-danger" type="button" value="Cancelar" onclick="Showformedi()">
                         </div>
                     <!--</form>-->
 
                 </div>
             </div>
         </div>
-    </div>
-                <!--<p>Some default Some default Some default panel content here. Nulla vitae elit libero, a pharetra augue here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
-            </div>
+    </div>                
+</div>
 
             <!-- Table -->
             <table class="table">
@@ -179,6 +180,7 @@
                         <th>Nombre</th>
                         <th>Laboratorio</th>
                         <th>Lote</th>
+                        <th>Fecha de Aplicacion</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -213,7 +215,16 @@
 <!-- custom -->
 <script src="asset/js/main.js"></script>
 <script>  
-
+     $(document).ready(function () {
+    $.ajax({
+            type: 'POST',
+            data: {idcita: $('#idcita').val()},
+            url: 'MedicamentosController?action=admin',
+            success: function (result) {                
+                $('#lsmedi').html(result);
+            }
+        });
+    });
     function Proposito(int) {
         if(int === 1){
             document.getElementById('observaciones').value = "";
@@ -232,7 +243,7 @@
             url: 'CitasController?action=update&pro=true',
             success: function (result) {                
                 if (int === 1) {
-//                    alert("1");
+//                    Update en Citas proposito
                     $("#showpro").toggle("slow");
                     $("#tareapro").hide();
                     document.getElementById('textpro').value = result;
@@ -243,14 +254,14 @@
                         $("#datospro").hide();
                     }
                 } else if (int === 2) {
-//                    alert("2");
+//                    Muestra texttarea para editar
                     $("#showpro").hide();//           
                     $("#tareapro").toggle("slow");
                     var edit = document.getElementById('textpro').value;
                     document.getElementById('proposito').value = edit;
                     $('#resultpro').html(result);
                 } else if (int === 3) {
-//                    alert("3");
+//                    Update en observaciones
                     $("#showobv").toggle("slow");
                     $("#tareaobv").hide();
                     document.getElementById('textobv').value = result;
@@ -261,15 +272,17 @@
                         $("#datosobv").hide();
                     }
                 } else if (int === 4) {
-//                    alert("4");
+//                    Muestra textarea para editar observaciones
                     $("#showobv").hide();//           
                     $("#tareaobv").toggle("slow");
                     var edit = document.getElementById('textobv').value;
                     document.getElementById('observaciones').value = edit;
                 }else if(int === 5){
+//                    Boton cancelar Propostio
                     $("#showpro").toggle("slow");
                     $("#tareapro").hide();
                 }else if(int === 6){
+//                    Boton cancelar Observaciones
                     $("#showobv").toggle("slow");
                     $("#tareaobv").hide();
                 }
@@ -280,30 +293,89 @@
         } 
     }
     
-    function Medicamentos(id,nombre,labo,lote){
-        var action = "";
-        if(nombre === "" && labo === "" && lote === ""){
-             action = "create";
-             $.ajax({
+    function Medicamentos(){
+        var nombre = $('#nombre').val();
+        var labo = $('#laboratorio').val();
+        var lote = $('#lote').val();
+//        Validar el formulario de medicamentos
+        if(nombre === "" || labo === "" || lote === ""){
+        alert("Por favor verifique que todos los campos esten completos");                         
+        }else{    
+//            Insertar y ocluta el formulario
+           $.ajax({
             type: 'POST',
             data: {idcita: $('#idcita').val(), nombre: $('#nombre').val(), laboratorio: $('#laboratorio').val(), lote:$('#lote').val()},
-            url: 'MedicamentosController?action='+action,
+            url: 'MedicamentosController?action=create',
             success: function (result) {       
                 $('#lsmedi').html(result);
+             document.getElementById('idmedi').value = "";
+             document.getElementById('nombre').value = "";
+             document.getElementById('laboratorio').value = "";
+             document.getElementById('lote').value = "";
+             $("#frmmedi").slideUp();
             }
-        });
-        }else{
-             action = "update";
-             alert("El id del medi: "+id);
+        });            
+        }            
+      
+           
+    }
+    function Medicamentosedi(opc,id,nombre,labo,lote){    
+//        Opcion para cargar los input con los datos
+        if(opc === 1){
+             document.getElementById('idmedi').value = id;
              document.getElementById('nombre').value = nombre;
              document.getElementById('laboratorio').value = labo;
              document.getElementById('lote').value = lote;
-        }            
-//        alert("Este es el nombre "+nombre);
-           
+             $("#frmmedi").toggle("slow");
+             $("#btnmedi").hide();
+             $("#btnmediedi").show();
+//             Opción para envar a editar
+        }else if(opc === 2){
+        var nombre = $('#nombre').val();
+        var labo = $('#laboratorio').val();
+        var lote = $('#lote').val();
+//        Validar el formulario de medicamentos
+        if(nombre === "" || labo === "" || lote === ""){
+        alert("Por favor verifique que todos los campos esten completos");                         
+        }else{    
+            $.ajax({
+            type: 'POST',
+            data: {idmedi: $('#idmedi').val(), nombre: $('#nombre').val(), laboratorio: $('#laboratorio').val(), lote:$('#lote').val(), idcita:$('#idcita').val()},
+            url: 'MedicamentosController?action=update',
+            success: function (result) {       
+                $('#lsmedi').html(result);
+             document.getElementById('idmedi').value = "";
+             document.getElementById('nombre').value = "";
+             document.getElementById('laboratorio').value = "";
+             document.getElementById('lote').value = "";
+             $("#frmmedi").slideUp();
+            }
+        });
+        }
+            
+        }
+        
+          
     }
-    function Tre(nombre,labo,lote){
-//        alert("Clicio servlet: "+nombre+" Y este es el laboratorio: "+labo+" Y este el el lote: "+lote);
+    function Showformedi(){
+        $("#frmmedi").toggle("slow");
+        $("#btnmediedi").hide();
+        $("#btnmedi").show();
+        document.getElementById('idmedi').value = "";
+        document.getElementById('nombre').value = "";
+        document.getElementById('laboratorio').value = "";
+        document.getElementById('lote').value = "";
+    }
+    function Eliminarmedi(id){
+        $.ajax({
+            type: 'POST',
+            data: {idmedi: id, idcita:$('#idcita').val()},
+            url: 'MedicamentosController?action=eliminar',
+            success: function (result) {                       
+                $('#lsmedi').html(result);
+                $('#lsmedi').slideDown()
+            }
+        });
     }
 
 </script>

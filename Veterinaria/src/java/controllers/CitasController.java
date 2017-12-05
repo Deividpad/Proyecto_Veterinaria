@@ -142,7 +142,6 @@ public class CitasController extends HttpServlet {
                     session.beginTransaction();
                     session.save(cita);
                     session.getTransaction().commit();
-
                     if (tipo.equals("Urgencia")) {
                         //sesion los datos de la cita creada
                         HttpSession sesion = request.getSession();
@@ -171,8 +170,7 @@ public class CitasController extends HttpServlet {
             cita.setObservaciones(Observaciones);
             session.beginTransaction();
             session.save(cita);
-            session.getTransaction().commit();
-            
+            session.getTransaction().commit();            
             if (tipo.equals("Urgencia")) {
                 //sesion los datos de la cita creada
                 HttpSession sesion = request.getSession();
