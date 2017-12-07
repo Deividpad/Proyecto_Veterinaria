@@ -95,6 +95,9 @@
                                         <input class="submit btn btn-primary" id="myBtn1" type="submit" onclick="check()"  value="Registrar" >
                                         <input type="submit" class="submit btn btn-danger" value="Volver" onclick="reset()" data-dismiss="modal">
                                         <input type="submit" class="submit btn btn-success" id="dtlcitas"  data-dismiss="modal" >                                       
+                                        <button class=" btn btn-circle btn-mn btn-danger" value="primary" id="btnclcita" title="Cancelar Cita">
+                                            <span class="fa fa-clock-o"></span>
+                                        </button>                                        
                                     </div>
 
                                 <!--</form>-->
@@ -153,9 +156,9 @@
                     <option value='blitzer'>Blitzer</option>
                     <option value='cupertino' >Cupertino</option>
                     <option value='dark-hive'>Dark Hive</option>
-                    <option value='dot-luv' selected>Dot Luv</option>
+                    <option value='dot-luv'>Dot Luv</option>
                     <option value='eggplant'>Eggplant</option>
-                    <option value='excite-bike'>Excite Bike</option>
+                    <option value='excite-bike' selected>Excite Bike</option>
                     <option value='flick'>Flick</option>
                     <option value='hot-sneaks'>Hot Sneaks</option>
                     <option value='humanity'>Humanity</option>
@@ -329,6 +332,7 @@
                                                             document.getElementById('at').value = "create";
                                                             document.getElementById('title').value = "Crear Cita";
                                                             $("#dtlcitas").hide();
+                                                            $("#btnclcita").hide();
                                                             //                                                                
                                                     }
                                                     //                                                                    // change the day's background color just for fun
@@ -388,12 +392,20 @@
                                                         if(calEvent.className == "Programada"){
                                                         document.getElementById('at').value = "update";
                                                         document.getElementById('title').value = "Editar Cita";
-                                                    }else{
-                                                        
-                                                        $("#myBtn1").attr('disabled',true);
-                                                        }
                                                         document.getElementById('dtlcitas').value = "Atender Cita";
+                                                        $("#dtlcitas").show();
+                                                        $("#btnclcita").show();
+                                                    }else if(calEvent.className == "Atendida"){
+//                                                        alert("Es programada");
+                                                        $("#myBtn1").attr('disabled',true);
+                                                        document.getElementById('dtlcitas').value = "Ver datos Cita";
                                                         $("#dtlcitas").show();                                                       
+                                                        $("#btnclcita").hide();
+                                                        }else{
+                                                            $("#myBtn1").attr('disabled',true);
+                                                            $("#dtlcitas").hide();                                                       
+                                                        }
+                                                        
                         
 //                                                    alert('Event: ' + calEvent.title);
 //                                                            alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -449,6 +461,21 @@
     });
     });
     
+    $('#btnclcita').click(function(){
+//        alert();
+        var id = document.getElementById('idcita').value;         
+
+     $.ajax({
+         type:'POST',
+         data: {idcita: $('#idcita').val()},
+         url: 'CitasController?action=update&idcita2='+id+'&pro=false&Estado=Cancelada',          
+         
+         success: function(result){
+             location.reload(true);
+         }
+     })
+    });
+    
     $('#dtlcitas').click(function(){
         var id = document.getElementById('idcita').value;         
 //         alert(id);
@@ -462,6 +489,10 @@
          }
      })
     });
+    
+    
+    
+    
 //    MedicamentosController?action=admin&idcita=
     $('#bttHello').click(function(){
 //        alert("Le dio click al buton");
@@ -476,7 +507,7 @@
                     success: function(result){
                         if(result == ("")){
 //                            alert("Es nulo");
-                            //location.reload(true);
+                            location.reload(true);
                         }if(result=="urgencia"){
                             location.href ="DetallesCita.jsp";
                         }else{

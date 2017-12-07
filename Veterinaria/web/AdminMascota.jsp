@@ -1,9 +1,9 @@
 <%
     String user = (String) session.getAttribute("perfil");
-    if (user==null) {
+    if (user == null) {
         response.sendRedirect("LoginPersona.jsp?error=true");//Se pierde la información       
         return;
-    }    
+    }
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="encabezado.jsp" />
@@ -14,7 +14,7 @@
         <div class="panel-body">
             <div class="col-md-12">
                 <h3 class="animated fadeInLeft">Administrar Mascotas</h3>                
-                              
+
             </div>
         </div>
     </div>
@@ -28,22 +28,16 @@
                         <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Foto</th>
+                                    <th>Nombre</th>                                    
                                     <th>Peso</th>
                                     <th>Condición Corporal</th>
                                     <th>Color</th>
                                     <th>Especie</th>
                                     <th>Raza</th>                                        
-                                    <th>Género</th>                                        
-                                    <th>Fecha Nacimiento</th>                        
+                                    <th>Género</th>                                                                            
                                     <th>Propietario</th>                                  
-                                    <th>Estado</th>    
-                                    <% if (session.getAttribute("perfil").equals("Veterinario")) { %>
-                                    <% }else { %>
-                                    <th>Acciones</th>                                     
-                                    <% } %>
-                                                                          
+                                    <th>Estado</th>                                    
+                                    <th>Acciones</th>                                                                                                                                               
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,29 +45,28 @@
 
                                     <tr>
 
-                                        <td><c:out value="${Mascota.nombre}"/></td>
-                                        <td><c:out value="${Mascota.foto}"/></td>
+                                        <td><c:out value="${Mascota.nombre}"/></td>                                        
                                         <td><c:out value="${Mascota.peso}"/></td>
                                         <td><c:out value="${Mascota.condicionCorporal}"/></td>
                                         <td><c:out value="${Mascota.color}"/></td>
                                         <td><c:out value="${Mascota.especie}"/></td>
                                         <td><c:out value="${Mascota.raza}"/></td>
-                                        <td><c:out value="${Mascota.genero}"/></td>
-                                        <td><c:out value="${Mascota.fechaNacimiento}"/></td>
+                                        <td><c:out value="${Mascota.genero}"/></td>                                        
                                         <td><c:out value="${Mascota.propietario.nombres}"/></td>
-                                        <td><c:out value="${Mascota.estado}"/></td>
-                                        <% if (session.getAttribute("perfil").equals("Veterinario")) { %>
-                                        <% }else { %>
-                                        <td>
-                                             
+                                        <td><c:out value="${Mascota.estado}"/></td>                                        
+                                        <td>                                             
                                             <button title="Editar" class=" btn btn-circle btn-mn btn-primary" type="button" onclick="location.href = 'MascotasController?action=update&id=${Mascota.idMascotas}'">
                                                 <span class="fa fa-edit"></span>
                                             </button>
                                             <button class=" btn btn-circle btn-mn btn-danger" onclick="location.href = 'MascotasController?action=eliminar&id=${Mascota.idMascotas}'">
                                                 <span class="fa fa-trash"></span>
                                             </button>                                            
-                                        </td>
-                                        <% } %>
+                                            <button class="btn ripple btn-3d btn-primary" style="width: 50%;" onclick="location.href = 'CitasController?action=adminh&idmas=${Mascota.idMascotas}'">
+                                                <div>
+                                                    <span class="icon-arrow-right"></span>H.Clinico
+                                                </div>
+                                            </button>                                         
+                                        </td>                                        
                                     </tr>                                  
                                 </c:forEach>
                             </tbody>
@@ -109,9 +102,9 @@
 <!-- custom -->
 <script src="asset/js/main.js"></script>
 <script type="text/javascript">
-                                            $(document).ready(function () {
-                                                $('#datatables-example').DataTable();
-                                            });
+                                                $(document).ready(function () {
+                                                    $('#datatables-example').DataTable();
+                                                });
 </script>
 <!-- end: Javascript -->
 <!-- Le javascript

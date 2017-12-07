@@ -106,6 +106,7 @@ public class MedicamentosController extends HttpServlet {
             out.println("<td>" + medi.getLaboratorio() + "</td>");
             out.println("<td>" + medi.getLote() + "</td>");
             out.println("<td>" + medi.getFecha() + "</td>");
+            if(cita.getEstado().equals("Programada")){
             out.println("<td>");
             out.println("<button class=\" btn btn-circle btn-mn btn-primary\" type=\"button\" onclick=\"Medicamentosedi("+1+"," + medi.getIdMedicamento() + ",'" + medi.getNombre() + "','" + medi.getLaboratorio() + "','" + medi.getLote() + "')\">");
             out.println("<span class=\"fa fa-edit\"></span>");
@@ -115,9 +116,23 @@ public class MedicamentosController extends HttpServlet {
             out.println("<span class=\"fa fa-trash\"></span>"); 
             out.println("</button>");
             out.println("</td>");
+            }
             out.println("</tr>");
         }
 
+        Query qh = sesion.createQuery("FROM Hospitalizacion WHERE citas.idCitasMedicas =?");
+        qh.setString(0, request.getParameter("idcita"));
+        ArrayList ListaHos = (ArrayList) qh.list();
+        HttpSession seshos = request.getSession();
+        if (ListaHos.size() >= 1) {
+            for (Object objhos : ListaHos) {
+                Hospitalizacion hospitalizacion = (Hospitalizacion) objhos;                
+                seshos.setAttribute("idhospi", hospitalizacion.getIdHospitalizacion());
+            }
+
+        } else {            
+            seshos.setAttribute("idhospi", "nohave");
+        }
         sesion.close();
     }
 
@@ -143,13 +158,13 @@ public class MedicamentosController extends HttpServlet {
 
     private void Eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //        PrintWriter out = response.getWriter();
-        
+
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Medicamentos medicamento = (Medicamentos) sesion.get(Medicamentos.class, Integer.parseInt(request.getParameter("idmedi")));
         sesion.beginTransaction();
         sesion.delete(medicamento);
         sesion.getTransaction().commit();
-        sesion.close();    
+        sesion.close();
         String idcita = request.getParameter("idcita");
         try {
             response.sendRedirect("MedicamentosController?action=admin&idcita=" + idcita);

@@ -1,7 +1,7 @@
 <%
     String user = (String) session.getAttribute("perfil");
-    if (user==null || user.equals("Veterinario")) {
-        response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
+    if (user==null) {
+        response.sendRedirect("LoginPersona.jsp?error=true");//Se pierde la información       
         return;
     }    
 %>

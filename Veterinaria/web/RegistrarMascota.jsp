@@ -21,12 +21,6 @@
             </div>
         </div>
     </div>
-<select class="select2-A">
-                          <optgroup label="Alaskan/Hawaiian Time Zone">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                          </optgroup>                          
-                        </select>
  
                     <form class="cmxform" id="signupForm" method="POST" action="MascotasController?action=create">
                    
@@ -385,7 +379,7 @@
 <script>
     
      $(document).ready(function () {
-         alert();
+//         alert();
     $(".select2-A").select2({
       placeholder: "Select a state",
       allowClear: true

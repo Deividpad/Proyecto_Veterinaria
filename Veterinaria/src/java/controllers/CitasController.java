@@ -60,6 +60,8 @@ public class CitasController extends HttpServlet {
             Registrar(request, response);
         } else if (action.equalsIgnoreCase("update")) {
             Actualizar(request, response);
+        } else if (action.equalsIgnoreCase("adminh")) {
+            Adminh(request, response);
         }
         /*else if (action.equalsIgnoreCase("update")) {
          Actualizar(request, response);
@@ -133,7 +135,7 @@ public class CitasController extends HttpServlet {
                     out.print("");
                     Mascota mascota = (Mascota) session.get(Mascota.class, Integer.parseInt(request.getParameter("mascota")));
                     String idpersona = request.getSession().getAttribute("idpersona").toString();
-                    Persona persona = (Persona) session.get(Persona.class, idpersona);
+                    Persona persona = (Persona) session.get(Persona.class, Integer.parseInt(idpersona));
                     String Proposito = "";
                     String Observaciones = "";
                     String tipo = request.getParameter("tipo");
@@ -145,7 +147,7 @@ public class CitasController extends HttpServlet {
                     if (tipo.equals("Urgencia")) {
                         //sesion los datos de la cita creada
                         HttpSession sesion = request.getSession();
-                        sesion.setAttribute("delaz",cita.getIdCitasMedicas());
+                        sesion.setAttribute("delaz", cita.getIdCitasMedicas());
                         out.print("urgencia");
                     }
 
@@ -170,11 +172,11 @@ public class CitasController extends HttpServlet {
             cita.setObservaciones(Observaciones);
             session.beginTransaction();
             session.save(cita);
-            session.getTransaction().commit();            
+            session.getTransaction().commit();
             if (tipo.equals("Urgencia")) {
                 //sesion los datos de la cita creada
                 HttpSession sesion = request.getSession();
-                sesion.setAttribute("delaz",cita.getIdCitasMedicas());
+                sesion.setAttribute("delaz", cita.getIdCitasMedicas());
                 out.print("urgencia");
             }
 //               
@@ -187,6 +189,29 @@ public class CitasController extends HttpServlet {
 
         session.close();
 
+    }
+
+    private void Adminh(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        String idmascota = request.getParameter("idmas");
+        Query qcitas = sesion.createQuery("FROM Citas WHERE mascota =?");
+        qcitas.setString(0, idmascota);
+        ArrayList listaObjetos = (ArrayList) qcitas.list();
+        ArrayList<Citas> Arraycitas = new ArrayList<>();
+        PrintWriter out = response.getWriter();
+        out.println("Metodo");
+        for (Object Obj : listaObjetos) {
+            Citas cita = (Citas) Obj;
+            Arraycitas.add(cita);
+
+        }
+        request.setAttribute("ArrayCitas", Arraycitas);
+        try {
+            request.getRequestDispatcher("HistorialClinico.jsp").forward(request, response);//Redirecionar                    
+        } catch (ServletException ex) {
+            Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sesion.close();
     }
 
     private void Admin(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -225,21 +250,22 @@ public class CitasController extends HttpServlet {
                 ArrayMascotas.add(mascota);
             }
             request.setAttribute("ArrayMascotas", ArrayMascotas);
+
             if (request.getParameter("param").equals("1")) {
-                try {
-                    request.getRequestDispatcher("RegistrarCita.jsp").forward(request, response);//Redirecionar                    
-                } catch (ServletException ex) {
-                    Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+                String perfil = request.getSession().getAttribute("perfil").toString();
+                if (perfil.equals("Veterinario")) {
+                    try {
+                        request.getRequestDispatcher("RegistrarCita.jsp").forward(request, response);//Redirecionar                    
+                    } catch (ServletException ex) {
+                        Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    response.sendRedirect("LoginPersona.jsp?error=permisos");//Se pierde la información       
                 }
-            } else if (request.getParameter("param").equals("2")) {
-                try {
-                    request.getRequestDispatcher("AdminCitas.jsp").forward(request, response);//Redirecionar                    
-                } catch (ServletException ex) {
-                    Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
             } else {
                 try {
-                    request.getRequestDispatcher("AdminCitas.jsp").forward(request, response);//Redirecionar                    
+                    request.getRequestDispatcher("RegistrarCita.jsp").forward(request, response);//Redirecionar                    
                 } catch (ServletException ex) {
                     Logger.getLogger(CitasController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -264,13 +290,13 @@ public class CitasController extends HttpServlet {
                 Citas cita = (Citas) session.get(Citas.class, Integer.parseInt(idcita));
                 if (request.getParameter("observaciones").equals("")) {
 //                    if (request.getParameter("proposito").equals("")) {
-                        cita.setProposito(request.getParameter("proposito"));
-                        out.print(cita.getProposito());
+                    cita.setProposito(request.getParameter("proposito"));
+                    out.print(cita.getProposito());
 //                    }
                 } else if (request.getParameter("proposito").equals("")) {
 //                    if (request.getParameter("observaciones").equals("")) {
-                        cita.setObservaciones(request.getParameter("observaciones"));
-                        out.print(cita.getObservaciones());
+                    cita.setObservaciones(request.getParameter("observaciones"));
+                    out.print(cita.getObservaciones());
 //                    }
                 }
                 session.beginTransaction();
@@ -300,9 +326,8 @@ public class CitasController extends HttpServlet {
                     session.beginTransaction();
                     session.saveOrUpdate(citaestado);
                     session.getTransaction().commit();
-
                     try {
-                        response.sendRedirect("CitasController?action=admin&param=2");
+                        response.sendRedirect("HospitalizacionController?action=update");
                     } catch (IOException ex) {
                     }
                     session.close();

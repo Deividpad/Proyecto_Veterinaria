@@ -7,7 +7,8 @@
                 <h1 class="animated fadeInLeft">21:00</h1>
                 <p class="animated fadeInRight">Sat,October 1st 2029</p>
             </li>         
-           
+            <% String user = (String) session.getAttribute("perfil");
+                if (user.equals("Veterinario")) {%>
             <li class="ripple">
                 <a class="tree-toggle nav-header">
                     <span class="fa fa-user"></span> Propietario
@@ -50,10 +51,42 @@
                     <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                    <li><a href=""><span class="fa fa-toggle-off"></span>Logout</a></li>
-                    <li><a href="">Logout</a></li>                    
+                    <li><a href="LoginController?action=exitpersona"><span class="fa fa-toggle-off"></span>Logout</a></li>
+                    <li><a href="LoginController?action=exitpersona">Logout</a></li>                    
                 </ul>
-            </li>            
+            </li>
+            <%} else {%>
+            <li class="ripple">
+                <a class="tree-toggle nav-header">
+                    <span class="fa fa-user"></span> Propietario
+                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                </a>
+                <ul class="nav nav-list tree">
+                    <li><a href="RegistrarPropietario.jsp"><span class="icons icon-plus"></span>Registrar Propietario</a></li>
+                    <li><a href="PropietarioController?action=admin"><span class="icons icon-note"></span> Administrar</a></li>
+                </ul>
+            </li>
+            <li class="active ripple">
+                <a class="tree-toggle nav-header"><span class="fa fa-paw"></span> Mascota 
+                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                </a>
+                <ul class="nav nav-list tree">
+                    <li><a href="MascotasController?action=select"><span class="icons icon-plus"></span>Registrar Mascota</a></li>
+                    <li><a href="MascotasController?action=admin"><span class="icons icon-note"></span>Administrar</a></li>
+                </ul>
+            </li>
+            <li class="active ripple">
+                <a class="tree-toggle nav-header"><span class="fa fa-power-off"></span> Exit 
+                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                </a>
+                <ul class="nav nav-list tree">
+                    <li><a href="LoginController?action=exitpersona"><span class="fa fa-toggle-off"></span>Logout</a></li>
+                    <li><a href="LoginController?action=exitpersona">Logout</a></li>                    
+                </ul>
+            </li>
+            <% }%>
+
+
         </ul>
     </div>
 </div>

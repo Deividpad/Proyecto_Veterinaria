@@ -168,7 +168,7 @@ public class MascotasController extends HttpServlet {
     private void Eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
         String perfil = request.getSession().getAttribute("perfil").toString();
-        if (perfil.equals("Auxiliar")) {
+        if (perfil !=null) {
             Session sesion = HibernateUtil.getSessionFactory().openSession();
             Query qpro = sesion.createQuery("FROM Citas WHERE mascota =? ");
             qpro.setString(0, request.getParameter("id"));
